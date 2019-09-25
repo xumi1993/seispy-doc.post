@@ -1,7 +1,7 @@
-baseURL = "/"
+baseURL = "www.example.com"
 languageCode = "en-us"
-title = "Seispy Documentation"
-themesDir = "themes"
+title = "Hugo Whisper Theme"
+themesDir = "../.."
 theme = "hugo-whisper-theme"
 
 pygmentsCodeFences = true
@@ -18,28 +18,23 @@ summaryLength = 30
     weight = 1
 
 [[menu.main]]
-    name = "Source Code"
-    url = "https://github.com/xumi1993/seispy"
-    weight = 2
-
-[[menu.main]]
     name = "Docs"
     url = "/docs/"
-    weight = 3
+    weight = 2
 
 [params]
   google_analytics_id=""
   homepage_button_link = '/docs'
   homepage_button_text = 'Read The Docs'
-  homepage_intro = 'Seispy is Python module for processing seismological data and calculating Receiver Functions. The advanced functions can be used to improve the Obspy.'
-  homepage_image = '/images/seispy_shortcut.png'
+  homepage_intro = 'Whisper is a documentation theme built with Hugo. The design and functionality is intentionally minimal.'
+  homepage_image = '/images/terminal.gif'
 
   ## You can enable to add anchor links to header elements
   # enable_anchor_link = true
 
   [params.homepage_meta_tags]
     meta_description = "Hugo Whisper is a documentation theme built with Hugo."
-    meta_og_title = "Seispy Documentation"
+    meta_og_title = "Hugo Whisper Theme"
     meta_og_type = "website"
     meta_og_url = "https://hugo-whisper.netlify.com"
     meta_og_image = "https://raw.githubusercontent.com/JugglerX/hugo-whisper-theme/master/images/tn.png"
@@ -49,5 +44,5 @@ summaryLength = 30
     meta_twitter_creator = "@zerostaticio"
 
   [params.logo]
-      mobile = "/images/seispy.png"
-      standard  = "/images/seispy.png"
+      mobile = "/images/logo-mobile.svg"
+      standard  = "/images/logo.svg"
