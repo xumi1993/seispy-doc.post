@@ -12,4 +12,4 @@ then
 fi
 git add .
 git commit -m `date +"%Y.%m.%dT%H:%M%S"`
-git push --force origin HEAD:master
+git push --force origin HEAD:gh-pages
