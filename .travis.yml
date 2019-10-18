@@ -1,0 +1,20 @@
+dist: xenial
+language: python
+python: 3.6
+
+before_install:
+  - git clone --branch=master https://github.com/xumi1993/seispy-doc.git ./public
+
+install:
+  - curl -L https://raw.githubusercontent.com/seisman/install/master/install-hugo.sh | bash
+  - pip install pygments
+
+script:
+  - ./hugo --baseUrl="https://xumijian.me/seispy"
+
+deploy:
+  - provider: script
+    script: ./deploy.sh
+    skip_cleanup: true
+    on:
+      branch: master
