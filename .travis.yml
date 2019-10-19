@@ -10,7 +10,7 @@ install:
   - pip install pygments
 
 script:
-  - ./hugo --baseUrl="https://xumijian.me/seispy"
+  - ./hugo --baseUrl="https://seispy.xumijian.me"
 
 deploy:
   - provider: script
