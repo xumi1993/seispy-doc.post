@@ -52,11 +52,6 @@ st.plot()
 
 
 
-
-![png](/files/output_5_2.png)
-
-
-
 ### 4. Calculate the epicenter distance and back-azimuth
 To trim the waveform or rotate the components, you can use the `seispy.distaz` to calculate the epicenter distance and back-azimuth.
 
