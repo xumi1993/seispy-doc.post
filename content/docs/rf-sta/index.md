@@ -27,19 +27,87 @@ event_data/
 ```
 
 
-## 2. Init a project instance
+## 2. Calculate PRFs using a simple command
+
+### 2.1 Prepare a configure file 
+We should perpare a configure file as following including all parameters that will be set during the calculation. The format is following Python module of `configparser`
+```Python
+[path]
+datapath = Data/Path/to/station_name
+rfpath = Result/Path/to/station_name
+imagepath = Path/to/images
+catalogpath = Path/to/catalog
+
+[search_eq]
+date_begin = 20110701
+date_end = 20111101
+catalog_server = IRIS
+magmin = 5.5
+magmax = 10
+dismin = 30
+dismax = 90
+
+[match_eq]
+dateformat = %Y.%j.%H.%M.%S
+ref_comp = .1.
+suffix = SAC
+tolerance = 60
+offset =
+
+[snr]
+noisegate = 5
+noiselen = 50
+
+[filter]
+freqmin = 0.05
+freqmax = 2
+
+[trim]
+time_before = 10
+time_after = 120
+
+[deconv]
+gauss = 2
+itmax= 400
+minderr = 0.001
+
+[save]
+target_dt = 0.01
+only_r = no
+criterion = crust
+```
+
+## 2.2 Run in command line
+We have provided the command `prf`. The usage is shown as:
+```
+usage: prf [-h] [-l] cfg_file
+
+Calculating RFs for single station
+
+positional arguments:
+  cfg_file    Path to RF configure file
+
+optional arguments:
+  -h, --help  show this help message and exit
+  -l          use local catalog. Default is false
+```
+- `cfg_file`: configure file shown above.
+- `-l` if the argument was specfied, a local file of catalog would be used in searching earthquakes.
+
+## 3. Initalize a project instance
+**To further understand the procedure of the command `prf`, we recommend calculateing PRFs with writing a Python script as following steps.**
 
 First, let’s init a `rf`instance. In this instance, we can set parameters, match earthquakes from catalog and calculate PRFs.
 
 ```Python
-from seispy.rf import rf
+from seispy.rf import RF
 from os.path import join
 from obspy import UTCDateTime
 
-pjt = rf()
+pjt = RF()
 ```
 
-## 3. Set parameters
+## 4. Set parameters
 
 Most of parameters are saved in `pjt.para`. Let’s show all default parameters
 ```Python
@@ -83,54 +151,23 @@ pjt.para.offset = 0
 pjt.para.tolerance = 60
 ```
 
-or in a configure file
-```
-[path]
-datapath = Data/Path/to/station_name
-rfpath = Result/Path/to/station_name
-imagepath = Path/to/images
-catalogpath =
-
-[para]
-date_begin = 20180701
-date_end = 20190701
-
-magmin = 5.5
-magmax = 10
-dismin = 30
-dismax = 90
-dateformat = %Y.%j.%H.%M.%S
-ref_comp = .1.
-suffix = sac
-tolerance = 60
-offset = 0
-noisegate = 5
-gauss = 0.6
-freqmin = 0.05
-freqmax = 2
-target_dt = 0.01
-time_before = 10
-time_after = 120
-only_r = yes
-```
-
-When you want to init the instance using this configure file, please add the path to `rf()`
+or in a configure file as above. When you want to initialize an instance using this configure file, please add the path to `RF()` as:
 
 ```Python
-pjt = rf(cfg_file='path/to/config')
+pjt = RF(cfg_file='path/to/config')
 ```
 
-## 4. Search earthquakes from catalog
+## 5. Search earthquakes from catalog
 
 We use the same process as the [SplitRFLab](https://git.nju.edu.cn/xumi1993/SplitRFLab). To match the data records and events, we should search earthquakes with some criteria (period, epicental distance and maganitude).
 
-### 4.1 Load station infomation
+### 5.1 Load station infomation
 
 the The station latitude and longitude are absolutely necessary when we are used to search earthquakes. the function will read stla and stlo of SAC header from files in pjt.para.datapath.
 ```Python
 pjt.load_stainfo()
 ```
-### 4.2 Search earthquakes
+### 5.2 Search earthquakes
 
 the function provide two method to search earthquakes. use
 ```Python
@@ -143,7 +180,7 @@ In addition, the function allow to perpare earthquakes from a CMT catalog file (
 pjt.search_eq(local=True)
 ```
 
-## 5. Associate SAC files with events
+## 6. Associate SAC files with events
 
 This is a important step, which allow to link SAC files and earthquakes in catalog. The `pjt.para.dateformat`, that is a format string as in [`time.strftime`](https://docs.python.org/3/library/time.html#time.strftime), including datetime infomation will allow to match events in catalog. For example, assuming the filename is `2018.229.15.35.02.1.sac`. the `pjt.para.dateformat` should be `%Y.%j.%H.%M.%S`.
 
@@ -156,14 +193,31 @@ the `pjt.para.offset` and `p`jt.para.tolerance` are used to match the origin tim
 - The “Tolerance” value in seconds will define the time window within which the program will try to associate a seismic file to an event file, by using either its name or the information contained in the header. It is up to the user to find the best compromise: a value too small will let orphans and a value too large will bring confusion since several files could be associated to a seismic event. ![](/images/offset.png)
 
 
-afert assuming these parameters are right, just use:
+After setting up these parameters, use following command to match data records to the catalog:
 ```Python
 pjt.match_eq()
 ```
 
-## 6. Pretreatment
+## 7. Pretreatment
 
 The process of pretreatment include retrend, bandpass filter, calculating arrival time, reject bad record with low SNR, trim records and rotate components from NE to RT.
+
+### 7.1 Filter
+We will aply a bandpass filter on seismic records. Two corners shoud be specfied.
+- `para.freqmin`: Pass band low corner frequency.
+- `para.freqmax`: Pass band high corner frequency.
+
+### 7.2 Signal-noise-ratios
+Bad records will be rejected in this step. We will reject records with SNR < `para.noisegate`. The SNR was calculated as:
+
+$$
+SNR = 10log_{10}\left(\frac{A_S}{A_N}\right)
+$$
+where $A_N$ and $A_N$ are root mean squares (RMS) of the waveform in
+a `para.noisrlen` time-window before and after theoretical P arrival times, respectively.
+
+### 7.3 Trim
+The waveforms will be cut in this step before `para.time_before` and after `para.time_after` theoretical P arrival times, respectively.
 
 ```Python
 pjt.detrend()
@@ -175,16 +229,20 @@ pjt.rotate()
 ```
 
 
-## 7. Calulating PRFs
+## 8. Calulating PRFs
 
-Set the maximum number of iterations itmax and the minimum misfit minderr to calculate PRFs using iterative time-domain deconvolution method.
+We need parameters of `pjt.para.gauss`, `pjt.para.itmax` and `pjt.para.minderr` to calculate PRFs using iterative time-domain deconvolution method
+
+- `pjt.para.gauss`: Gauss factor. Default is 2.0
+- `pjt.para.itmax`: The maximum number of iterations. Default is 400
+- `pjt.para.minderr`: The minimum misfit. Default is 0.001
 
 ```Python
-pjt.deconv(itmax=400, minderr=0.001)
+pjt.deconv()
 ``` 
 
 
-## 8. Save PRFs
+## 9. Save PRFs
 
 Save the PRFs to pjt.para.rfpath with some criteria. Two kind of criteria allow to set (i.e., crust or mtz). if the parameter set as None, all of PRFs will be saved.
 
@@ -197,8 +255,6 @@ Save the PRFs to pjt.para.rfpath with some criteria. Two kind of criteria allow 
 - The max peak should appare berween -5s and 5s
 
 - the maximum amplitudes of PRFs in a 30–120 s window after the direct P are smaller than 30% of the maximum amplitudes of the direct P phases.
-
-
 
 ```Python
 pjt.saverf(criterion='crust')
