@@ -51,3 +51,13 @@ summaryLength = 30
   [params.logo]
       mobile = "/images/seispy.png"
       standard  = "/images/seispy.png"
+
+   [params.valine]
+    enable = true
+    appId = 'pDTTIwKxG0jJoQFkUaQ1Jeqo-gzGzoHsz'
+    appKey = 'LjDsQoPgO74ji2IoczXTiRM5'
+    notify = true  # mail notifier , https://github.com/xCss/Valine/wiki
+    verify = true # Verification code
+    avatar = 'mm' 
+    placeholder = 'Say something...'
+    visitor = false
