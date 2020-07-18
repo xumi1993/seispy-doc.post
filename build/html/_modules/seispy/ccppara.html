@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>seispy.ccppara &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/seispy.png"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'latest',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> seispy
+          
+
+          
+            
+            <img src="../../_static/seispy_100.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>seispy.ccppara</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for seispy.ccppara</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">expanduser</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">exists</span>
+<span class="kn">import</span> <span class="nn">configparser</span>
+
+
+<div class="viewcode-block" id="CCPPara"><a class="viewcode-back" href="../../seispy.html#seispy.ccppara.CCPPara">[docs]</a><span class="k">class</span> <span class="nc">CCPPara</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rfpath</span> <span class="o">=</span> <span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rayp_lib</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depthdat</span> <span class="o">=</span> <span class="s1">&#39;RFdepth.mat&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stackfile</span> <span class="o">=</span> <span class="s1">&#39;ccp.dat&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stalist</span> <span class="o">=</span> <span class="s1">&#39;sta.lst&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">velmod</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack_sta_list</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domperiod</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="s1">&#39;circle&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slid_val</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bin_radius</span> <span class="o">=</span> <span class="mi">50</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depth_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dep_val</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack_val</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bin_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bin_radius</span>
+
+    <span class="nd">@bin_radius</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">bin_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">or</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Error type of bin_radius&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_bin_radius</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span>
+
+    <span class="nd">@shape</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;ccppara.shape must be str type&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="s1">&#39;rect&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;ccppara.shape must be in </span><span class="se">\&#39;</span><span class="s1">circle</span><span class="se">\&#39;</span><span class="s1"> or </span><span class="se">\&#39;</span><span class="s1">rect</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ccppara"><a class="viewcode-back" href="../../seispy.html#seispy.ccppara.ccppara">[docs]</a><span class="k">def</span> <span class="nf">ccppara</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">):</span>
+    <span class="n">cpara</span> <span class="o">=</span> <span class="n">CCPPara</span><span class="p">()</span>
+    <span class="n">cf</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;Cannot open configure file </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">cfg_file</span><span class="p">)</span>
+    <span class="c1"># para for FileIO section</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">rfpath</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FileIO&#39;</span><span class="p">,</span> <span class="s1">&#39;rfpath&#39;</span><span class="p">)</span>
+    <span class="n">rayp_lib</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FileIO&#39;</span><span class="p">,</span> <span class="s1">&#39;rayp_lib&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rayp_lib</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="n">cpara</span><span class="o">.</span><span class="n">rayp_lib</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cpara</span><span class="o">.</span><span class="n">rayp_lib</span> <span class="o">=</span> <span class="n">rayp_lib</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">depthdat</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FileIO&#39;</span><span class="p">,</span> <span class="s1">&#39;depthdat&#39;</span><span class="p">)</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">stackfile</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FileIO&#39;</span><span class="p">,</span> <span class="s1">&#39;stackfile&#39;</span><span class="p">)</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">stalist</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FileIO&#39;</span><span class="p">,</span> <span class="s1">&#39;stalist&#39;</span><span class="p">)</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">stack_sta_list</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FileIO&#39;</span><span class="p">,</span> <span class="s1">&#39;stack_sta_list&#39;</span><span class="p">)</span>
+    <span class="n">velmod</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FileIO&#39;</span><span class="p">,</span> <span class="s1">&#39;velmod&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">velmod</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="n">cpara</span><span class="o">.</span><span class="n">velmod</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;iasp91.vel&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">velmod</span><span class="p">):</span>
+        <span class="n">cpara</span><span class="o">.</span><span class="n">velmod</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.vel&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">velmod</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cpara</span><span class="o">.</span><span class="n">velmod</span> <span class="o">=</span> <span class="n">velmod</span>
+    <span class="c1"># para for bin section</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;shape&#39;</span><span class="p">)</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">domperiod</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;domperiod&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cpara</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">cpara</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cpara</span><span class="o">.</span><span class="n">bin_radius</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;bin_radius&#39;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">cpara</span><span class="o">.</span><span class="n">bin_radius</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">slid_val</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;slid_val&#39;</span><span class="p">)</span>
+    <span class="c1"># para for line section</span>
+    <span class="n">lat1</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;profile_lat1&#39;</span><span class="p">)</span>
+    <span class="n">lon1</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;profile_lon1&#39;</span><span class="p">)</span>
+    <span class="n">lat2</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;profile_lat2&#39;</span><span class="p">)</span>
+    <span class="n">lon2</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s1">&#39;profile_lon2&#39;</span><span class="p">)</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">])</span>
+    <span class="c1"># para for depth section</span>
+    <span class="n">dep_end</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;dep_end&#39;</span><span class="p">)</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">dep_val</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;dep_val&#39;</span><span class="p">)</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">depth_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dep_end</span><span class="p">,</span> <span class="n">cpara</span><span class="o">.</span><span class="n">dep_val</span><span class="p">),</span> <span class="n">dep_end</span><span class="p">)</span>
+
+    <span class="n">stack_start</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;stack&#39;</span><span class="p">,</span> <span class="s1">&#39;stack_start&#39;</span><span class="p">)</span>
+    <span class="n">stack_end</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;stack&#39;</span><span class="p">,</span> <span class="s1">&#39;stack_end&#39;</span><span class="p">)</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">stack_val</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getfloat</span><span class="p">(</span><span class="s1">&#39;stack&#39;</span><span class="p">,</span> <span class="s1">&#39;stack_val&#39;</span><span class="p">)</span>
+    <span class="n">cpara</span><span class="o">.</span><span class="n">stack_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">stack_start</span><span class="p">,</span> <span class="n">stack_end</span><span class="p">,</span> <span class="n">cpara</span><span class="o">.</span><span class="n">stack_val</span><span class="p">),</span> <span class="n">stack_end</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cpara</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mijian Xu
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

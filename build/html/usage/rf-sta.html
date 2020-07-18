@@ -1,0 +1,524 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Calculate PRFs for a station &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/seispy.png"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'latest',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="title: “Stack PRFs by Common Conversion points (CCP) method” date: 2019-10-18T21:18:45+08:00 draft: false weight: 100" href="ccp.html" />
+    <link rel="prev" title="Calculate a P-wave Receiver Function (PRF)" href="calrf.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> seispy
+          
+
+          
+            
+            <img src="../_static/seispy_100.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="quickstart.html">Quick start</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="calrf.html">Calculate a P-wave Receiver Function (PRF)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Calculate PRFs for a station</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#perpare-seismic-records-order-by-stations">1. Perpare seismic records order by stations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculate-prfs-using-a-simple-command">2. Calculate PRFs using a simple command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prepare-a-configure-file">2.1 Prepare a configure file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#run-in-command-line">2.2 Run in command line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initalize-a-project-instance">3. Initalize a project instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-parameters">4. Set parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#search-earthquakes-from-catalog">5. Search earthquakes from catalog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#load-station-infomation">5.1 Load station infomation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#search-earthquakes">5.2 Search earthquakes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#associate-sac-files-with-events">6. Associate SAC files with events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pretreatment">7. Pretreatment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#filter">7.1 Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#signal-noise-ratios">7.2 Signal-noise-ratios</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trim">7.3 Trim</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#calulating-prfs">8. Calulating PRFs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-prfs">9. Save PRFs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#crust"><code class="docutils literal notranslate"><span class="pre">crust</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mtz"><code class="docutils literal notranslate"><span class="pre">mtz</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ccp.html">title: “Stack PRFs by Common Conversion points (CCP) method”
+date: 2019-10-18T21:18:45+08:00
+draft: false
+weight: 100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ccp.html#preparation">Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ccp.html#convert-time-to-depth">Convert time to depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ccp.html#ccp-stack-prfs-along-a-profile">CCP Stack PRFs along a profile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="quickstart.html">Quick start</a> &raquo;</li>
+        
+      <li>Calculate PRFs for a station</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/rf-sta.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <hr class="docutils" />
+<div class="section" id="calculate-prfs-for-a-station">
+<h1>Calculate PRFs for a station<a class="headerlink" href="#calculate-prfs-for-a-station" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="perpare-seismic-records-order-by-stations">
+<h2>1. Perpare seismic records order by stations<a class="headerlink" href="#perpare-seismic-records-order-by-stations" title="Permalink to this headline">¶</a></h2>
+<p>Seismic data should be trimed according earthquakes, including direct P arrival. Meanwhile, the data should be order by stations instead of events. For example, YN001 and YN002 are stations the SAC files are data of events recorded by these stations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>event_data/
+├── YN001
+│   ├── 2018.229.15.35.02.1.sac
+│   ├── 2018.229.15.35.02.2.sac
+│   ├── 2018.229.15.35.02.3.sac
+│   ├── 2018.229.22.06.55.1.sac
+│   ├── 2018.229.22.06.55.2.sac
+│   │......
+├── YN002
+│   ├── 2018.229.15.35.02.1.sac
+│   ├── 2018.229.15.35.02.2.sac
+│   ├── 2018.229.15.35.02.3.sac
+│   ├── 2018.229.22.06.55.1.sac
+│   ├── 2018.229.22.06.55.2.sac
+│   │......
+</pre></div>
+</div>
+</div>
+<div class="section" id="calculate-prfs-using-a-simple-command">
+<h2>2. Calculate PRFs using a simple command<a class="headerlink" href="#calculate-prfs-using-a-simple-command" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prepare-a-configure-file">
+<h3>2.1 Prepare a configure file<a class="headerlink" href="#prepare-a-configure-file" title="Permalink to this headline">¶</a></h3>
+<p>We should perpare a configure file as following including all parameters that will be set during the calculation. The format is following Python module of <code class="docutils literal notranslate"><span class="pre">configparser</span></code></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">path</span><span class="p">]</span>
+<span class="n">datapath</span> <span class="o">=</span> <span class="n">Data</span><span class="o">/</span><span class="n">Path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">station_name</span>
+<span class="n">rfpath</span> <span class="o">=</span> <span class="n">Result</span><span class="o">/</span><span class="n">Path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">station_name</span>
+<span class="n">imagepath</span> <span class="o">=</span> <span class="n">Path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">images</span>
+<span class="n">catalogpath</span> <span class="o">=</span> <span class="n">Path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">catalog</span>
+
+<span class="p">[</span><span class="n">search_eq</span><span class="p">]</span>
+<span class="n">date_begin</span> <span class="o">=</span> <span class="mi">20110701</span>
+<span class="n">date_end</span> <span class="o">=</span> <span class="mi">20111101</span>
+<span class="n">catalog_server</span> <span class="o">=</span> <span class="n">IRIS</span>
+<span class="n">magmin</span> <span class="o">=</span> <span class="mf">5.5</span>
+<span class="n">magmax</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">dismin</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">dismax</span> <span class="o">=</span> <span class="mi">90</span>
+
+<span class="p">[</span><span class="n">match_eq</span><span class="p">]</span>
+<span class="n">dateformat</span> <span class="o">=</span> <span class="o">%</span><span class="n">Y</span><span class="o">.%</span><span class="n">j</span><span class="o">.%</span><span class="n">H</span><span class="o">.%</span><span class="n">M</span><span class="o">.%</span><span class="n">S</span>
+<span class="n">ref_comp</span> <span class="o">=</span> <span class="o">.</span><span class="mf">1.</span>
+<span class="n">suffix</span> <span class="o">=</span> <span class="n">SAC</span>
+<span class="n">tolerance</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">offset</span> <span class="o">=</span>
+
+<span class="p">[</span><span class="n">snr</span><span class="p">]</span>
+<span class="n">noisegate</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">noiselen</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="p">[</span><span class="nb">filter</span><span class="p">]</span>
+<span class="n">freqmin</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">freqmax</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="p">[</span><span class="n">trim</span><span class="p">]</span>
+<span class="n">time_before</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">time_after</span> <span class="o">=</span> <span class="mi">120</span>
+
+<span class="p">[</span><span class="n">deconv</span><span class="p">]</span>
+<span class="n">gauss</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">itmax</span><span class="o">=</span> <span class="mi">400</span>
+<span class="n">minderr</span> <span class="o">=</span> <span class="mf">0.001</span>
+
+<span class="p">[</span><span class="n">save</span><span class="p">]</span>
+<span class="n">target_dt</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">only_r</span> <span class="o">=</span> <span class="n">no</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">crust</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="run-in-command-line">
+<h2>2.2 Run in command line<a class="headerlink" href="#run-in-command-line" title="Permalink to this headline">¶</a></h2>
+<p>We have provided the command <code class="docutils literal notranslate"><span class="pre">prf</span></code>. The usage is shown as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">prf</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">l</span><span class="p">]</span> <span class="n">cfg_file</span>
+
+<span class="n">Calculating</span> <span class="n">RFs</span> <span class="k">for</span> <span class="n">single</span> <span class="n">station</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">cfg_file</span>    <span class="n">Path</span> <span class="n">to</span> <span class="n">RF</span> <span class="n">configure</span> <span class="n">file</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>  <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">l</span>          <span class="n">use</span> <span class="n">local</span> <span class="n">catalog</span><span class="o">.</span> <span class="n">Default</span> <span class="ow">is</span> <span class="n">false</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">cfg_file</span></code>: configure file shown above.</li>
+<li><code class="docutils literal notranslate"><span class="pre">-l</span></code> if the argument was specfied, a local file of catalog would be used in searching earthquakes.</li>
+</ul>
+</div>
+<div class="section" id="initalize-a-project-instance">
+<h2>3. Initalize a project instance<a class="headerlink" href="#initalize-a-project-instance" title="Permalink to this headline">¶</a></h2>
+<p><strong>To further understand the procedure of the command <code class="docutils literal notranslate"><span class="pre">prf</span></code>, we recommend calculateing PRFs with writing a Python script as following steps.</strong></p>
+<p>First, let’s init a <code class="docutils literal notranslate"><span class="pre">rf</span></code>instance. In this instance, we can set parameters, match earthquakes from catalog and calculate PRFs.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">seispy.rf</span> <span class="kn">import</span> <span class="n">RF</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="kn">import</span> <span class="n">UTCDateTime</span>
+
+<span class="n">pjt</span> <span class="o">=</span> <span class="n">RF</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-parameters">
+<h2>4. Set parameters<a class="headerlink" href="#set-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Most of parameters are saved in <code class="docutils literal notranslate"><span class="pre">pjt.para</span></code>. Let’s show all default parameters</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pjt</span><span class="o">.</span><span class="n">para</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;_datapath&#39;</span><span class="p">:</span> <span class="s1">&#39;/Users/xumj&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;_rfpath&#39;</span><span class="p">:</span> <span class="s1">&#39;/Users/xumj&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;_imagepath&#39;</span><span class="p">:</span> <span class="s1">&#39;/Users/xumj&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;_catalogpath&#39;</span><span class="p">:</span> <span class="s1">&#39;/Users/xumj/.pyenv/versions/anaconda3-5.3.1/lib/python3.7/site-packages/seispy-1.1.8-py3.7.egg/seispy/data/EventCMT.dat&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;offset&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+ <span class="s1">&#39;tolerance&#39;</span><span class="p">:</span> <span class="mi">210</span><span class="p">,</span>
+ <span class="s1">&#39;dateformat&#39;</span><span class="p">:</span> <span class="s1">&#39;%Y.%j.%H.%M.%S&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;date_begin&#39;</span><span class="p">:</span> <span class="mi">1976</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000000</span><span class="n">Z</span><span class="p">,</span>
+ <span class="s1">&#39;date_end&#39;</span><span class="p">:</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">11</span><span class="n">T14</span><span class="p">:</span><span class="mi">04</span><span class="p">:</span><span class="mf">15.365860</span><span class="n">Z</span><span class="p">,</span>
+ <span class="s1">&#39;magmin&#39;</span><span class="p">:</span> <span class="mf">5.5</span><span class="p">,</span>
+ <span class="s1">&#39;magmax&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+ <span class="s1">&#39;dismin&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+ <span class="s1">&#39;dismax&#39;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
+ <span class="s1">&#39;ref_comp&#39;</span><span class="p">:</span> <span class="s1">&#39;BHZ&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;SAC&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;noisegate&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+ <span class="s1">&#39;gauss&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+ <span class="s1">&#39;target_dt&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+ <span class="s1">&#39;phase&#39;</span><span class="p">:</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;time_before&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+ <span class="s1">&#39;time_after&#39;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+ <span class="s1">&#39;only_r&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Thus, we can set them in our scripts</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pjt</span><span class="o">.</span><span class="n">para</span><span class="o">.</span><span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;Data/Path/to/station_name&#39;</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">para</span><span class="o">.</span><span class="n">rfpath</span> <span class="o">=</span> <span class="s1">&#39;Result/Path/to/station_name&#39;</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">para</span><span class="o">.</span><span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;sac&#39;</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">para</span><span class="o">.</span><span class="n">ref_comp</span> <span class="o">=</span> <span class="s2">&quot;.1.&quot;</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">date_begin</span> <span class="o">=</span> <span class="n">UTCDataTime</span><span class="p">(</span><span class="s1">&#39;20180701&#39;</span><span class="p">)</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">date_end</span> <span class="o">=</span> <span class="n">UTCDataTime</span><span class="p">(</span><span class="s1">&#39;20190701&#39;</span><span class="p">)</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">para</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">para</span><span class="o">.</span><span class="n">tolerance</span> <span class="o">=</span> <span class="mi">60</span>
+</pre></div>
+</div>
+<p>or in a configure file as above. When you want to initialize an instance using this configure file, please add the path to <code class="docutils literal notranslate"><span class="pre">RF()</span></code> as:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pjt</span> <span class="o">=</span> <span class="n">RF</span><span class="p">(</span><span class="n">cfg_file</span><span class="o">=</span><span class="s1">&#39;path/to/config&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="search-earthquakes-from-catalog">
+<h2>5. Search earthquakes from catalog<a class="headerlink" href="#search-earthquakes-from-catalog" title="Permalink to this headline">¶</a></h2>
+<p>We use the same process as the <a class="reference external" href="https://git.nju.edu.cn/xumi1993/SplitRFLab">SplitRFLab</a>. To match the data records and events, we should search earthquakes with some criteria (period, epicental distance and maganitude).</p>
+<div class="section" id="load-station-infomation">
+<h3>5.1 Load station infomation<a class="headerlink" href="#load-station-infomation" title="Permalink to this headline">¶</a></h3>
+<p>the The station latitude and longitude are absolutely necessary when we are used to search earthquakes. the function will read stla and stlo of SAC header from files in pjt.para.datapath.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pjt</span><span class="o">.</span><span class="n">load_stainfo</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="search-earthquakes">
+<h3>5.2 Search earthquakes<a class="headerlink" href="#search-earthquakes" title="Permalink to this headline">¶</a></h3>
+<p>the function provide two method to search earthquakes. use</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pjt</span><span class="o">.</span><span class="n">search_eq</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>to search earthquakes in IRIS Web service with the CMT catalog.</p>
+<p>In addition, the function allow to perpare earthquakes from a CMT catalog file (saved to seispy/seispy/data/EventCMT.dat). Use command updatecatalog to update the catalog file.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pjt</span><span class="o">.</span><span class="n">search_eq</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="associate-sac-files-with-events">
+<h2>6. Associate SAC files with events<a class="headerlink" href="#associate-sac-files-with-events" title="Permalink to this headline">¶</a></h2>
+<p>This is a important step, which allow to link SAC files and earthquakes in catalog. The <code class="docutils literal notranslate"><span class="pre">pjt.para.dateformat</span></code>, that is a format string as in <a class="reference external" href="https://docs.python.org/3/library/time.html#time.strftime"><code class="docutils literal notranslate"><span class="pre">time.strftime</span></code></a>, including datetime infomation will allow to match events in catalog. For example, assuming the filename is <code class="docutils literal notranslate"><span class="pre">2018.229.15.35.02.1.sac</span></code>. the <code class="docutils literal notranslate"><span class="pre">pjt.para.dateformat</span></code> should be <code class="docutils literal notranslate"><span class="pre">%Y.%j.%H.%M.%S</span></code>.</p>
+<p>A reference sac file will read to Associate with events. Thus, file-search-string will help to find real SAC files in data path. In this program file-search-string composed of <code class="docutils literal notranslate"><span class="pre">pjt.para.ref_comp</span></code> and <code class="docutils literal notranslate"><span class="pre">pjt.para.suffix</span></code>. The presence of <code class="docutils literal notranslate"><span class="pre">*pjt.para.ref_comp*pjt.para.suffix</span></code>, such as <code class="docutils literal notranslate"><span class="pre">*.1.*sac</span></code> in this example, for SAC files will be found.</p>
+<p>the <code class="docutils literal notranslate"><span class="pre">pjt.para.offset</span></code> and <code class="docutils literal notranslate"><span class="pre">p</span></code>jt.para.tolerance` are used to match the origin time from catalog. The definition are the same as those in <a class="reference external" href="https://git.nju.edu.cn/xumi1993/SplitRFLab">SplitRFLab</a>.</p>
+<ul class="simple">
+<li>The “offset” is the time duration between the event time and the starting time of your seismograms. Ideally, this offset should be identical to the “request start time” defined in the previous window but the data management center may have sent you data beginning later than requested. The offset value represents this difference.</li>
+<li>The “Tolerance” value in seconds will define the time window within which the program will try to associate a seismic file to an event file, by using either its name or the information contained in the header. It is up to the user to find the best compromise: a value too small will let orphans and a value too large will bring confusion since several files could be associated to a seismic event. <img alt="../_images/offset.png" src="../_images/offset.png" /></li>
+</ul>
+<p>After setting up these parameters, use following command to match data records to the catalog:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pjt</span><span class="o">.</span><span class="n">match_eq</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pretreatment">
+<h2>7. Pretreatment<a class="headerlink" href="#pretreatment" title="Permalink to this headline">¶</a></h2>
+<p>The process of pretreatment include retrend, bandpass filter, calculating arrival time, reject bad record with low SNR, trim records and rotate components from NE to RT.</p>
+<div class="section" id="filter">
+<h3>7.1 Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h3>
+<p>We will aply a bandpass filter on seismic records. Two corners shoud be specfied.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">para.freqmin</span></code>: Pass band low corner frequency.</li>
+<li><code class="docutils literal notranslate"><span class="pre">para.freqmax</span></code>: Pass band high corner frequency.</li>
+</ul>
+</div>
+<div class="section" id="signal-noise-ratios">
+<h3>7.2 Signal-noise-ratios<a class="headerlink" href="#signal-noise-ratios" title="Permalink to this headline">¶</a></h3>
+<p>Bad records will be rejected in this step. We will reject records with SNR &lt; <code class="docutils literal notranslate"><span class="pre">para.noisegate</span></code>. The SNR was calculated as:</p>
+<p>$$
+SNR = 10log_{10}\left(\frac{A_S}{A_N}\right)
+$$
+where $A_N$ and $A_N$ are root mean squares (RMS) of the waveform in
+a <code class="docutils literal notranslate"><span class="pre">para.noisrlen</span></code> time-window before and after theoretical P arrival times, respectively.</p>
+</div>
+<div class="section" id="trim">
+<h3>7.3 Trim<a class="headerlink" href="#trim" title="Permalink to this headline">¶</a></h3>
+<p>The waveforms will be cut in this step before <code class="docutils literal notranslate"><span class="pre">para.time_before</span></code> and after <code class="docutils literal notranslate"><span class="pre">para.time_after</span></code> theoretical P arrival times, respectively.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pjt</span><span class="o">.</span><span class="n">detrend</span><span class="p">()</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">filter</span><span class="p">()</span> <span class="c1"># default using &#39;para.freqmin&#39; and &#39;para.freqmax&#39;</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">cal_phase</span><span class="p">()</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">drop_eq_snr</span><span class="p">()</span> <span class="c1"># The threshold used as &#39;para.noisegate&#39;</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span> <span class="c1"># from &#39;para.time_before&#39; before P to &#39;para.time_after&#39; after P</span>
+<span class="n">pjt</span><span class="o">.</span><span class="n">rotate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="calulating-prfs">
+<h2>8. Calulating PRFs<a class="headerlink" href="#calulating-prfs" title="Permalink to this headline">¶</a></h2>
+<p>We need parameters of <code class="docutils literal notranslate"><span class="pre">pjt.para.gauss</span></code>, <code class="docutils literal notranslate"><span class="pre">pjt.para.itmax</span></code> and <code class="docutils literal notranslate"><span class="pre">pjt.para.minderr</span></code> to calculate PRFs using iterative time-domain deconvolution method</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">pjt.para.gauss</span></code>: Gauss factor. Default is 2.0</li>
+<li><code class="docutils literal notranslate"><span class="pre">pjt.para.itmax</span></code>: The maximum number of iterations. Default is 400</li>
+<li><code class="docutils literal notranslate"><span class="pre">pjt.para.minderr</span></code>: The minimum misfit. Default is 0.001</li>
+</ul>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pjt</span><span class="o">.</span><span class="n">deconv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="save-prfs">
+<h2>9. Save PRFs<a class="headerlink" href="#save-prfs" title="Permalink to this headline">¶</a></h2>
+<p>Save the PRFs to pjt.para.rfpath with some criteria. Two kind of criteria allow to set (i.e., crust or mtz). if the parameter set as None, all of PRFs will be saved.</p>
+<div class="section" id="crust">
+<h3><code class="docutils literal notranslate"><span class="pre">crust</span></code><a class="headerlink" href="#crust" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>The max peak should appare berween -2s and 2s</li>
+</ul>
+</div>
+<div class="section" id="mtz">
+<h3><code class="docutils literal notranslate"><span class="pre">mtz</span></code><a class="headerlink" href="#mtz" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>The max peak should appare berween -5s and 5s</li>
+<li>the maximum amplitudes of PRFs in a 30–120 s window after the direct P are smaller than 30% of the maximum amplitudes of the direct P phases.</li>
+</ul>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pjt</span><span class="o">.</span><span class="n">saverf</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;crust&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ccp.html" class="btn btn-neutral float-right" title="title: “Stack PRFs by Common Conversion points (CCP) method” date: 2019-10-18T21:18:45+08:00 draft: false weight: 100" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="calrf.html" class="btn btn-neutral float-left" title="Calculate a P-wave Receiver Function (PRF)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mijian Xu
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

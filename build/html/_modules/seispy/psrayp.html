@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>seispy.psrayp &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/seispy.png"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'latest',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> seispy
+          
+
+          
+            
+            <img src="../../_static/seispy_100.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>seispy.psrayp</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for seispy.psrayp</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interpn</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<div class="viewcode-block" id="PsRayp"><a class="viewcode-back" href="../../seispy.html#seispy.psrayp.PsRayp">[docs]</a><span class="k">class</span> <span class="nc">PsRayp</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dis</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">laymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">laymax</span><span class="o">=</span><span class="mi">800</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dis</span> <span class="o">=</span> <span class="n">dis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dep</span> <span class="o">=</span> <span class="n">dep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">laymin</span><span class="p">,</span> <span class="n">laymax</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">real_layers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_layers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">real_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rayp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">dis</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">dep</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)))</span>
+
+<div class="viewcode-block" id="PsRayp.make_phase_list"><a class="viewcode-back" href="../../seispy.html#seispy.psrayp.PsRayp.make_phase_list">[docs]</a>    <span class="k">def</span> <span class="nf">make_phase_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">real_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">&gt;=</span> <span class="mi">11</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">&lt;</span> <span class="mi">11</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">real_idx</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Max layer must greater than 8 km&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">real_layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">real_idx</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fake_idx</span><span class="p">]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/tmp/tmp_phlst.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">real_layers</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;P</span><span class="si">{}</span><span class="s1">s</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lay</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="PsRayp.taup_rayp"><a class="viewcode-back" href="../../seispy.html#seispy.psrayp.PsRayp.taup_rayp">[docs]</a>    <span class="k">def</span> <span class="nf">taup_rayp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">this_dis</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">this_dep</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">taup</span><span class="o">=</span><span class="s1">&#39;taup_time&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param taup: Path to taup_time</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/tmp/tmp_phlst.txt&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;Please excute </span><span class="se">\&#39;</span><span class="s1">make_phase_list</span><span class="se">\&#39;</span><span class="s1"> first&#39;</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> -h </span><span class="si">{}</span><span class="s1"> -pf </span><span class="si">{}</span><span class="s1"> -deg </span><span class="si">{}</span><span class="s1"> --rayp&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">taup</span><span class="p">,</span> <span class="n">this_dep</span><span class="p">,</span> <span class="s1">&#39;/tmp/tmp_phlst.txt&#39;</span><span class="p">,</span> <span class="n">this_dis</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+        <span class="c1"># s.communicate(cmd.encode())</span>
+        <span class="n">rayp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="n">out_rayp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_idx</span><span class="p">:</span>
+            <span class="n">out_rayp</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">lay</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">lay</span><span class="p">]</span>
+            <span class="n">out_rayp</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">lay</span><span class="p">]</span> <span class="o">=</span> <span class="n">rayp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">real_idx</span><span class="p">:</span>
+            <span class="n">out_rayp</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">lay</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">lay</span><span class="p">]</span>
+            <span class="n">out_rayp</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">lay</span><span class="p">]</span> <span class="o">=</span> <span class="n">rayp</span><span class="p">[</span><span class="n">lay</span><span class="o">-</span><span class="mi">11</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">out_rayp</span></div>
+
+<div class="viewcode-block" id="PsRayp.get_rayp"><a class="viewcode-back" href="../../seispy.html#seispy.psrayp.PsRayp.get_rayp">[docs]</a>    <span class="k">def</span> <span class="nf">get_rayp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dis</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rayp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">taup_rayp</span><span class="p">(</span><span class="n">this_dis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dis</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">this_dep</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">[</span><span class="n">j</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="PsRayp.save"><a class="viewcode-back" href="../../seispy.html#seispy.psrayp.PsRayp.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;Ps_rayp&#39;</span><span class="p">):</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dis</span><span class="p">,</span> <span class="n">dep</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dep</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span> <span class="n">rayp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rayp</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="gen_rayp_lib"><a class="viewcode-back" href="../../seispy.html#seispy.psrayp.gen_rayp_lib">[docs]</a><span class="k">def</span> <span class="nf">gen_rayp_lib</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Gen a ray parameter lib for Pds phases&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Distance range as </span><span class="se">\&#39;</span><span class="s1">min_dis/max_dis/interval</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;dis_str&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Event depth range as </span><span class="se">\&#39;</span><span class="s1">min_dep/max_dep/interval</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;dep_str&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;layers range as </span><span class="se">\&#39;</span><span class="s1">min_layer/man_layer</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;lay_str&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;0/800&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Out path to Pds ray parameter lib&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;./Ps_rayp&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;out_path&#39;</span><span class="p">)</span>
+
+    <span class="n">arg</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">dis_lst</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span> <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">arg</span><span class="o">.</span><span class="n">dis_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)]</span>
+    <span class="n">dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">dis_lst</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dis_lst</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dis_lst</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">dep_lst</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span> <span class="k">for</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">arg</span><span class="o">.</span><span class="n">dep_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)]</span>
+    <span class="n">dep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">dep_lst</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dep_lst</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dep_lst</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">laymin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">lay_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">laymax</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">lay_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">pr</span> <span class="o">=</span> <span class="n">PsRayp</span><span class="p">(</span><span class="n">dis</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">laymin</span><span class="o">=</span><span class="n">laymin</span><span class="p">,</span> <span class="n">laymax</span><span class="o">=</span><span class="n">laymax</span><span class="p">)</span>
+    <span class="n">pr</span><span class="o">.</span><span class="n">make_phase_list</span><span class="p">()</span>
+    <span class="n">pr</span><span class="o">.</span><span class="n">get_rayp</span><span class="p">()</span>
+    <span class="n">pr</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">out_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_psrayp"><a class="viewcode-back" href="../../seispy.html#seispy.psrayp.get_psrayp">[docs]</a><span class="k">def</span> <span class="nf">get_psrayp</span><span class="p">(</span><span class="n">rayp_lib</span><span class="p">,</span> <span class="n">dis</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">layers</span><span class="p">):</span>
+    <span class="c1"># x_layers = np.zeros([len(layers), 3])</span>
+    <span class="c1"># for i in range(len(layers)):</span>
+    <span class="c1">#     x_layers[i] = np.array([dis, dep, layers[i]])</span>
+    <span class="n">x_layers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">dis</span><span class="p">,</span> <span class="n">dep</span><span class="p">,</span> <span class="n">lay</span><span class="p">]</span><span class="k">for</span> <span class="n">lay</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">interpn</span><span class="p">((</span><span class="n">rayp_lib</span><span class="p">[</span><span class="s1">&#39;dis&#39;</span><span class="p">],</span> <span class="n">rayp_lib</span><span class="p">[</span><span class="s1">&#39;dep&#39;</span><span class="p">],</span> <span class="n">rayp_lib</span><span class="p">[</span><span class="s1">&#39;layers&#39;</span><span class="p">]),</span> <span class="n">rayp_lib</span><span class="p">[</span><span class="s1">&#39;rayp&#39;</span><span class="p">],</span> <span class="n">x_layers</span><span class="p">,</span>
+                   <span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+    <span class="n">dep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+    <span class="n">rayp_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/xumj/Researches/Ps_rayp.npz&#39;</span>
+    <span class="n">rayp_lib</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">rayp_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">get_psrayp</span><span class="p">(</span><span class="n">rayp_lib</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)))</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mijian Xu
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>seispy.distaz &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/seispy.png"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'latest',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> seispy
+          
+
+          
+            
+            <img src="../../_static/seispy_100.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>seispy.distaz</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for seispy.distaz</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="sind"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.sind">[docs]</a><span class="k">def</span> <span class="nf">sind</span><span class="p">(</span><span class="n">deg</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">deg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cosd"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.cosd">[docs]</a><span class="k">def</span> <span class="nf">cosd</span><span class="p">(</span><span class="n">deg</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">deg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tand"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.tand">[docs]</a><span class="k">def</span> <span class="nf">tand</span><span class="p">(</span><span class="n">deg</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">deg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cotd"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.cotd">[docs]</a><span class="k">def</span> <span class="nf">cotd</span><span class="p">(</span><span class="n">deg</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">deg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="asind"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.asind">[docs]</a><span class="k">def</span> <span class="nf">asind</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="acosd"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.acosd">[docs]</a><span class="k">def</span> <span class="nf">acosd</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="atand"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.atand">[docs]</a><span class="k">def</span> <span class="nf">atand</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="km2deg"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.km2deg">[docs]</a><span class="k">def</span> <span class="nf">km2deg</span><span class="p">(</span><span class="n">kilometers</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">kilometers</span> <span class="o">/</span> <span class="mf">111.19</span></div>
+
+
+<div class="viewcode-block" id="deg2km"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.deg2km">[docs]</a><span class="k">def</span> <span class="nf">deg2km</span><span class="p">(</span><span class="n">degree</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">degree</span> <span class="o">*</span> <span class="mf">111.19</span></div>
+
+
+<div class="viewcode-block" id="distaz"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.distaz">[docs]</a><span class="k">class</span> <span class="nc">distaz</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    c Subroutine to calculate the Great Circle Arc distance</span>
+<span class="sd">    c    between two sets of geographic coordinates</span>
+<span class="sd">    c</span>
+<span class="sd">    c Equations take from Bullen, pages 154, 155</span>
+<span class="sd">    c</span>
+<span class="sd">    c T. Owens, September 19, 1991</span>
+<span class="sd">    c           Sept. 25 -- fixed az and baz calculations</span>
+<span class="sd">    c</span>
+<span class="sd">    P. Crotwell, Setember 27, 1995</span>
+<span class="sd">    Converted to c to fix annoying problem of fortran giving wrong</span>
+<span class="sd">    answers if the input doesn&#39;t contain a decimal point.</span>
+<span class="sd">    </span>
+<span class="sd">    H. P. Crotwell, September 18, 1997</span>
+<span class="sd">    Java version for direct use in java programs.</span>
+<span class="sd">    *</span>
+<span class="sd">    * C. Groves, May 4, 2004</span>
+<span class="sd">    * Added enough convenience constructors to choke a horse and made public double</span>
+<span class="sd">    * values use accessors so we can use this class as an immutable</span>
+
+<span class="sd">    H.P. Crotwell, May 31, 2006</span>
+<span class="sd">    Port to python, thus adding to the great list of languages to which</span>
+<span class="sd">    distaz has been ported from the origin fortran: C, Tcl, Java and now python</span>
+<span class="sd">    and I vaguely remember a perl port. Long live distaz! </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">):</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">stalat</span> <span class="o">=</span> <span class="n">lat1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stalon</span> <span class="o">=</span> <span class="n">lon1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evtlat</span> <span class="o">=</span> <span class="n">lat2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evtlon</span> <span class="o">=</span> <span class="n">lon2</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        if (lat1 == lat2) and (lon1 == lon2):</span>
+<span class="sd">            self.delta = 0.0</span>
+<span class="sd">            self.az = 0.0</span>
+<span class="sd">            self.baz = 0.0</span>
+<span class="sd">            return</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">rad</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">360.0</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        c</span>
+<span class="sd">        c scolat and ecolat are the geocentric colatitudes</span>
+<span class="sd">        c as defined by Richter (pg. 318)</span>
+<span class="sd">        c</span>
+<span class="sd">        c Earth Flattening of 1/298.257 take from Bott (pg. 3)</span>
+<span class="sd">        c</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sph</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">298.257</span>
+
+        <span class="n">scolat</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">((</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">sph</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">sph</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">lat1</span> <span class="o">*</span> <span class="n">rad</span><span class="p">))</span>
+        <span class="n">ecolat</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">((</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">sph</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">sph</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">lat2</span> <span class="o">*</span> <span class="n">rad</span><span class="p">))</span>
+        <span class="n">slon</span> <span class="o">=</span> <span class="n">lon1</span> <span class="o">*</span> <span class="n">rad</span>
+        <span class="n">elon</span> <span class="o">=</span> <span class="n">lon2</span> <span class="o">*</span> <span class="n">rad</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	c</span>
+<span class="sd">	c  a - e are as defined by Bullen (pg. 154, Sec 10.2)</span>
+<span class="sd">	c     These are defined for the pt. 1</span>
+<span class="sd">	c</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">scolat</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">slon</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">scolat</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">slon</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">scolat</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">slon</span><span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">slon</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="o">-</span><span class="n">c</span> <span class="o">*</span> <span class="n">e</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">d</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">scolat</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	c</span>
+<span class="sd">	c  aa - ee are the same as a - e, except for pt. 2</span>
+<span class="sd">	c</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">aa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ecolat</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">elon</span><span class="p">)</span>
+        <span class="n">bb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ecolat</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">elon</span><span class="p">)</span>
+        <span class="n">cc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ecolat</span><span class="p">)</span>
+        <span class="n">dd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">elon</span><span class="p">)</span>
+        <span class="n">ee</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">elon</span><span class="p">)</span>
+        <span class="n">gg</span> <span class="o">=</span> <span class="o">-</span><span class="n">cc</span> <span class="o">*</span> <span class="n">ee</span>
+        <span class="n">hh</span> <span class="o">=</span> <span class="n">cc</span> <span class="o">*</span> <span class="n">dd</span>
+        <span class="n">kk</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">ecolat</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	c</span>
+<span class="sd">	c  Bullen, Sec 10.2, eqn. 4</span>
+<span class="sd">	c</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">delrad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">aa</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">bb</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">cc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delrad</span> <span class="o">/</span> <span class="n">rad</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	c</span>
+<span class="sd">	c  Bullen, Sec 10.2, eqn 7 / eqn 8</span>
+<span class="sd">	c</span>
+<span class="sd">	c    pt. 1 is unprimed, so this is technically the baz</span>
+<span class="sd">	c</span>
+<span class="sd">	c  Calculate baz this way to avoid quadrant problems</span>
+<span class="sd">	c</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rhs1</span> <span class="o">=</span> <span class="p">(</span><span class="n">aa</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">aa</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">bb</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">bb</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="n">cc</span> <span class="o">*</span> <span class="n">cc</span> <span class="o">-</span> <span class="mf">2.</span>
+        <span class="n">rhs2</span> <span class="o">=</span> <span class="p">(</span><span class="n">aa</span> <span class="o">-</span> <span class="n">g</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">aa</span> <span class="o">-</span> <span class="n">g</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">bb</span> <span class="o">-</span> <span class="n">h</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">bb</span> <span class="o">-</span> <span class="n">h</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">cc</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">cc</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span> <span class="o">-</span> <span class="mf">2.</span>
+        <span class="n">dbaz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">rhs1</span><span class="p">,</span> <span class="n">rhs2</span><span class="p">)</span>
+
+        <span class="n">dbaz_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dbaz</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dbaz_idx</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dbaz</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="n">dbaz</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dbaz</span><span class="p">[</span><span class="n">dbaz_idx</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">baz</span> <span class="o">=</span> <span class="n">dbaz</span> <span class="o">/</span> <span class="n">rad</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	c</span>
+<span class="sd">	c  Bullen, Sec 10.2, eqn 7 / eqn 8</span>
+<span class="sd">	c</span>
+<span class="sd">	c    pt. 2 is unprimed, so this is technically the az</span>
+<span class="sd">	c</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+        <span class="n">rhs1</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">dd</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">dd</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">ee</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">ee</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">c</span> <span class="o">-</span> <span class="mf">2.</span>
+        <span class="n">rhs2</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">gg</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">gg</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">hh</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">hh</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="n">kk</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="n">kk</span><span class="p">)</span> <span class="o">-</span> <span class="mf">2.</span>
+        <span class="n">daz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">rhs1</span><span class="p">,</span> <span class="n">rhs2</span><span class="p">)</span>
+
+        <span class="n">daz_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">daz</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">daz_idx</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">daz</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="n">daz</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">daz</span><span class="p">[</span><span class="n">daz_idx</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">az</span> <span class="o">=</span> <span class="n">daz</span> <span class="o">/</span> <span class="n">rad</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	c</span>
+<span class="sd">	c   Make sure 0.0 is always 0.0, not 360.</span>
+<span class="sd">	c</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">baz</span> <span class="o">-</span> <span class="mf">360.</span><span class="p">)</span> <span class="o">&lt;</span> <span class="o">.</span><span class="mi">00001</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">baz</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">baz</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">baz</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">baz</span><span class="p">)</span> <span class="o">&lt;</span> <span class="o">.</span><span class="mi">00001</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">baz</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">baz</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">baz</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">az</span> <span class="o">-</span> <span class="mf">360.</span><span class="p">)</span> <span class="o">&lt;</span> <span class="o">.</span><span class="mi">00001</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">az</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">az</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">az</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">az</span><span class="p">)</span> <span class="o">&lt;</span> <span class="o">.</span><span class="mi">00001</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">az</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">az</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">az</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        
+        <span class="n">la_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lat1</span> <span class="o">==</span> <span class="n">lat2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">lo_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lon1</span> <span class="o">==</span> <span class="n">lon2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">la_idx</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">la_idx</span> <span class="o">==</span> <span class="n">lo_idx</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">delta</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">az</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">az</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">az</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">baz</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">baz</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">baz</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+
+<div class="viewcode-block" id="distaz.getDelta"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.distaz.getDelta">[docs]</a>    <span class="k">def</span> <span class="nf">getDelta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta</span></div>
+
+<div class="viewcode-block" id="distaz.getAz"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.distaz.getAz">[docs]</a>    <span class="k">def</span> <span class="nf">getAz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">az</span></div>
+
+<div class="viewcode-block" id="distaz.getBaz"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.distaz.getBaz">[docs]</a>    <span class="k">def</span> <span class="nf">getBaz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">baz</span></div>
+
+<div class="viewcode-block" id="distaz.degreesToKilometers"><a class="viewcode-back" href="../../seispy.html#seispy.distaz.distaz.degreesToKilometers">[docs]</a>    <span class="k">def</span> <span class="nf">degreesToKilometers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta</span> <span class="o">*</span> <span class="mf">111.19</span></div></div>
+
+<span class="c1"># distaz = DistAz(0, 0, 1,1)</span>
+<span class="c1"># print &quot;%f  %f  %f&quot; % (distaz.getDelta(), distaz.getAz(), distaz.getBaz())</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">ela</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">elo</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">sla</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">slo</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">da</span> <span class="o">=</span> <span class="n">distaz</span><span class="p">(</span><span class="n">ela</span><span class="p">,</span> <span class="n">elo</span><span class="p">,</span> <span class="n">sla</span><span class="p">,</span> <span class="n">slo</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">baz</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mijian Xu
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>seispy.rf2depth_makedata &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/seispy.png"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'latest',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> seispy
+          
+
+          
+            
+            <img src="../../_static/seispy_100.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>seispy.rf2depth_makedata</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for seispy.rf2depth_makedata</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">seispy.rfcorrect</span> <span class="kn">import</span> <span class="n">SACStation</span><span class="p">,</span> <span class="n">psrf2depth</span><span class="p">,</span> <span class="n">Mod3DPerturbation</span><span class="p">,</span> <span class="n">psrf_1D_raytracing</span><span class="p">,</span>\
+    <span class="n">psrf_3D_migration</span><span class="p">,</span> <span class="n">time2depth</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">seispy.ccppara</span> <span class="kn">import</span> <span class="n">ccppara</span>
+<span class="kn">from</span> <span class="nn">seispy.setuplog</span> <span class="kn">import</span> <span class="n">setuplog</span>
+<span class="kn">from</span> <span class="nn">seispy.geo</span> <span class="kn">import</span> <span class="n">latlon_from</span><span class="p">,</span> <span class="n">deg2km</span><span class="p">,</span> <span class="n">rad2deg</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">savemat</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<div class="viewcode-block" id="Station"><a class="viewcode-back" href="../../seispy.html#seispy.rf2depth_makedata.Station">[docs]</a><span class="k">class</span> <span class="nc">Station</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sta_lst</span><span class="p">):</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;evla&#39;</span><span class="p">,</span> <span class="s1">&#39;evlo&#39;</span><span class="p">),</span> <span class="s1">&#39;formats&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;U20&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">)}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stla</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stlo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">sta_lst</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1">#self.station = [sta.decode() for sta in self.station]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sta_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stla</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="init_mat"><a class="viewcode-back" href="../../seispy.html#seispy.rf2depth_makedata.init_mat">[docs]</a><span class="k">def</span> <span class="nf">init_mat</span><span class="p">(</span><span class="n">sta_num</span><span class="p">):</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;Station&#39;</span><span class="p">,</span> <span class="s1">&#39;stalat&#39;</span><span class="p">,</span> <span class="s1">&#39;stalon&#39;</span><span class="p">,</span> <span class="s1">&#39;Depthrange&#39;</span><span class="p">,</span> <span class="s1">&#39;events&#39;</span><span class="p">,</span> <span class="s1">&#39;bazi&#39;</span><span class="p">,</span> <span class="s1">&#39;rayp&#39;</span><span class="p">,</span> <span class="s1">&#39;phases&#39;</span><span class="p">,</span> <span class="s1">&#39;moveout_correct&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;Piercelat&#39;</span><span class="p">,</span> <span class="s1">&#39;Piercelon&#39;</span><span class="p">,</span> <span class="s1">&#39;StopIndex&#39;</span><span class="p">),</span>
+             <span class="s1">&#39;formats&#39;</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">([</span><span class="s1">&#39;O&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">12</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">sta_num</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_convert_str_mat</span><span class="p">(</span><span class="n">instr</span><span class="p">):</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">instr</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">instr</span><span class="p">)):</span>
+        <span class="n">mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">instr</span><span class="p">[</span><span class="n">i</span><span class="p">]]),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mat</span>
+
+
+<div class="viewcode-block" id="makedata"><a class="viewcode-back" href="../../seispy.html#seispy.rf2depth_makedata.makedata">[docs]</a><span class="k">def</span> <span class="nf">makedata</span><span class="p">(</span><span class="n">cpara</span><span class="p">,</span> <span class="n">velmod3d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">setuplog</span><span class="p">()):</span>
+    <span class="k">if</span> <span class="n">velmod3d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">velmod3d</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="n">velmod3d</span><span class="p">):</span>
+                <span class="n">model_3d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">velmod3d</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">model_3d</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Path to 3d velocity model should be in str&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model_3d</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># cpara = ccppara(cfg_file)</span>
+    <span class="n">sta_info</span> <span class="o">=</span> <span class="n">Station</span><span class="p">(</span><span class="n">cpara</span><span class="o">.</span><span class="n">stalist</span><span class="p">)</span>
+    <span class="n">RFdepth</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sta_info</span><span class="o">.</span><span class="n">stla</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">rfdep</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">evt_lst</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">cpara</span><span class="o">.</span><span class="n">rfpath</span><span class="p">,</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">station</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">station</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;finallist.dat&#39;</span><span class="p">)</span>
+        <span class="n">stadatar</span> <span class="o">=</span> <span class="n">SACStation</span><span class="p">(</span><span class="n">evt_lst</span><span class="p">,</span> <span class="n">only_r</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">RF2depthlog</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;the </span><span class="si">{}</span><span class="s1">th/</span><span class="si">{}</span><span class="s1"> station with </span><span class="si">{}</span><span class="s1"> events&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">stla</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">stadatar</span><span class="o">.</span><span class="n">ev_num</span><span class="p">))</span>
+        <span class="n">piercelat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">stadatar</span><span class="o">.</span><span class="n">ev_num</span><span class="p">,</span> <span class="n">cpara</span><span class="o">.</span><span class="n">depth_axis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="n">piercelon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">stadatar</span><span class="o">.</span><span class="n">ev_num</span><span class="p">,</span> <span class="n">cpara</span><span class="o">.</span><span class="n">depth_axis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="n">PS_RFdepth</span><span class="p">,</span> <span class="n">end_index</span><span class="p">,</span> <span class="n">x_s</span><span class="p">,</span> <span class="n">x_p</span> <span class="o">=</span> <span class="n">psrf2depth</span><span class="p">(</span><span class="n">stadatar</span><span class="p">,</span> <span class="n">cpara</span><span class="o">.</span><span class="n">depth_axis</span><span class="p">,</span> <span class="n">stadatar</span><span class="o">.</span><span class="n">sampling</span><span class="p">,</span> <span class="n">stadatar</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span> <span class="n">cpara</span><span class="o">.</span><span class="n">velmod</span><span class="p">,</span> 
+                                             <span class="n">velmod_3d</span><span class="o">=</span><span class="n">model_3d</span><span class="p">,</span> <span class="n">srayp</span><span class="o">=</span><span class="n">cpara</span><span class="o">.</span><span class="n">rayp_lib</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stadatar</span><span class="o">.</span><span class="n">ev_num</span><span class="p">):</span>
+            <span class="n">piercelat</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">piercelon</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">latlon_from</span><span class="p">(</span><span class="n">sta_info</span><span class="o">.</span><span class="n">stla</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">stlo</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                                     <span class="n">stadatar</span><span class="o">.</span><span class="n">bazi</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">rad2deg</span><span class="p">(</span><span class="n">x_s</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;Station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">station</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;stalat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">stla</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;stalon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">stlo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># rfdep[&#39;Depthrange&#39;] = cpara.depth_axis</span>
+        <span class="c1"># rfdep[&#39;events&#39;] = _convert_str_mat(stadatar.event)</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;bazi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stadatar</span><span class="o">.</span><span class="n">bazi</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;rayp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stadatar</span><span class="o">.</span><span class="n">rayp</span>
+        <span class="c1"># rfdep[&#39;phases&#39;] = _convert_str_mat(stadatar.phase)</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;moveout_correct&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PS_RFdepth</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;Piercelat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">piercelat</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;Piercelon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">piercelon</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;StopIndex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_index</span>
+        <span class="n">RFdepth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rfdep</span><span class="p">)</span>
+    <span class="n">savemat</span><span class="p">(</span><span class="n">cpara</span><span class="o">.</span><span class="n">depthdat</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;RFdepth&#39;</span><span class="p">:</span> <span class="n">RFdepth</span><span class="p">})</span></div>
+    <span class="c1"># np.save(cpara.depthdat, RFdepth)</span>
+
+
+<div class="viewcode-block" id="makedata3d"><a class="viewcode-back" href="../../seispy.html#seispy.rf2depth_makedata.makedata3d">[docs]</a><span class="k">def</span> <span class="nf">makedata3d</span><span class="p">(</span><span class="n">cpara</span><span class="p">,</span> <span class="n">velmod3d</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">setuplog</span><span class="p">()):</span>
+    <span class="n">mod3d</span> <span class="o">=</span> <span class="n">Mod3DPerturbation</span><span class="p">(</span><span class="n">velmod3d</span><span class="p">,</span> <span class="n">cpara</span><span class="o">.</span><span class="n">depth_axis</span><span class="p">,</span> <span class="n">velmod</span><span class="o">=</span><span class="n">cpara</span><span class="o">.</span><span class="n">velmod</span><span class="p">)</span>
+    <span class="n">sta_info</span> <span class="o">=</span> <span class="n">Station</span><span class="p">(</span><span class="n">cpara</span><span class="o">.</span><span class="n">stalist</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cpara</span><span class="o">.</span><span class="n">rayp_lib</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">srayp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cpara</span><span class="o">.</span><span class="n">rayp_lib</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">srayp</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">RFdepth</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sta_info</span><span class="o">.</span><span class="n">stla</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">rfdep</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">evt_lst</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">cpara</span><span class="o">.</span><span class="n">rfpath</span><span class="p">,</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">station</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">station</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;finallist.dat&#39;</span><span class="p">)</span>
+        <span class="n">stadatar</span> <span class="o">=</span> <span class="n">SACStation</span><span class="p">(</span><span class="n">evt_lst</span><span class="p">,</span> <span class="n">only_r</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">RF2depthlog</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;the </span><span class="si">{}</span><span class="s1">th/</span><span class="si">{}</span><span class="s1"> station with </span><span class="si">{}</span><span class="s1"> events&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">stla</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">stadatar</span><span class="o">.</span><span class="n">ev_num</span><span class="p">))</span>
+        <span class="n">pplat_s</span><span class="p">,</span> <span class="n">pplon_s</span><span class="p">,</span> <span class="n">pplat_p</span><span class="p">,</span> <span class="n">pplon_p</span><span class="p">,</span> <span class="n">raylength_s</span><span class="p">,</span> <span class="n">raylength_p</span><span class="p">,</span> <span class="n">tpds</span> <span class="o">=</span> <span class="n">psrf_1D_raytracing</span><span class="p">(</span><span class="n">sta_info</span><span class="o">.</span><span class="n">stla</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">stlo</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">stadatar</span><span class="p">,</span>
+                                                                                                <span class="n">cpara</span><span class="o">.</span><span class="n">depth_axis</span><span class="p">,</span> <span class="n">srayp</span><span class="o">=</span><span class="n">srayp</span><span class="p">)</span>
+        <span class="n">newtpds</span> <span class="o">=</span> <span class="n">psrf_3D_migration</span><span class="p">(</span><span class="n">pplat_s</span><span class="p">,</span> <span class="n">pplon_s</span><span class="p">,</span> <span class="n">pplat_p</span><span class="p">,</span> <span class="n">pplon_p</span><span class="p">,</span> <span class="n">raylength_s</span><span class="p">,</span> <span class="n">raylength_p</span><span class="p">,</span>
+                                    <span class="n">tpds</span><span class="p">,</span> <span class="n">cpara</span><span class="o">.</span><span class="n">depth_axis</span><span class="p">,</span> <span class="n">mod3d</span><span class="p">)</span>
+        <span class="n">amp3d</span><span class="p">,</span> <span class="n">end_index</span> <span class="o">=</span> <span class="n">time2depth</span><span class="p">(</span><span class="n">stadatar</span><span class="p">,</span> <span class="n">cpara</span><span class="o">.</span><span class="n">depth_axis</span><span class="p">,</span> <span class="n">newtpds</span><span class="p">)</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;Station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">station</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;stalat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">stla</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;stalon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sta_info</span><span class="o">.</span><span class="n">stlo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># rfdep[&#39;Depthrange&#39;] = cpara.depth_axis</span>
+        <span class="c1"># rfdep[&#39;events&#39;] = _convert_str_mat(stadatar.event)</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;bazi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stadatar</span><span class="o">.</span><span class="n">bazi</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;rayp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stadatar</span><span class="o">.</span><span class="n">rayp</span>
+        <span class="c1"># rfdep[&#39;phases&#39;] = _convert_str_mat(stadatar.phase)</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;moveout_correct&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">amp3d</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;Piercelat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pplat_s</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;Piercelon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pplon_s</span>
+        <span class="n">rfdep</span><span class="p">[</span><span class="s1">&#39;StopIndex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_index</span>
+        <span class="n">RFdepth</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rfdep</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">savemat</span><span class="p">(</span><span class="n">cpara</span><span class="o">.</span><span class="n">depthdat</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;RFdepth&#39;</span><span class="p">:</span> <span class="n">RFdepth</span><span class="p">})</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">RF2depthlog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;No such file or directory: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">cpara</span><span class="o">.</span><span class="n">depthdat</span><span class="p">)))</span>
+        <span class="n">rfdep_path</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter a exist path:&#39;</span><span class="p">)</span>
+        <span class="n">savemat</span><span class="p">(</span><span class="n">rfdep_path</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;RFdepth&#39;</span><span class="p">:</span> <span class="n">RFdepth</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="rf2depth"><a class="viewcode-back" href="../../seispy.html#seispy.rf2depth_makedata.rf2depth">[docs]</a><span class="k">def</span> <span class="nf">rf2depth</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Convert Ps RF to depth axis&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to 3d vel model in npz file for moveout correcting&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to 3d vel model in npz file for 1D ray tracing&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;cfg_file&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to configure file&#39;</span><span class="p">)</span>
+    <span class="n">arg</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">cpara</span> <span class="o">=</span> <span class="n">ccppara</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">cfg_file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">d</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">arg</span><span class="o">.</span><span class="n">r</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Specify only 1 argument in </span><span class="se">\&#39;</span><span class="s1">-d</span><span class="se">\&#39;</span><span class="s1"> and </span><span class="se">\&#39;</span><span class="s1">-r</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">arg</span><span class="o">.</span><span class="n">d</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">arg</span><span class="o">.</span><span class="n">r</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="n">makedata3d</span><span class="p">(</span><span class="n">cpara</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">arg</span><span class="o">.</span><span class="n">d</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">arg</span><span class="o">.</span><span class="n">r</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="n">makedata</span><span class="p">(</span><span class="n">cpara</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">makedata</span><span class="p">(</span><span class="n">cpara</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">cfg_file</span> <span class="o">=</span> <span class="s1">&#39;/Users/xumj/Researches/Tibet_MTZ/process/paraCCP.cfg&#39;</span>
+    <span class="n">vel3d_file</span> <span class="o">=</span> <span class="s1">&#39;/Users/xumj/Researches/Tibet_MTZ/models/GYPSUM.npz&#39;</span>
+    <span class="n">cpara</span> <span class="o">=</span> <span class="n">ccppara</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span>
+    <span class="n">makedata3d</span><span class="p">(</span><span class="n">cpara</span><span class="p">,</span> <span class="n">vel3d_file</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mijian Xu
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

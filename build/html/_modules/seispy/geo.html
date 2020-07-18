@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>seispy.geo &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/seispy.png"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'latest',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> seispy
+          
+
+          
+            
+            <img src="../../_static/seispy_100.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>seispy.geo</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for seispy.geo</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">mod</span>
+<span class="kn">from</span> <span class="nn">seispy</span> <span class="kn">import</span> <span class="n">distaz</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<div class="viewcode-block" id="sind"><a class="viewcode-back" href="../../seispy.html#seispy.geo.sind">[docs]</a><span class="k">def</span> <span class="nf">sind</span><span class="p">(</span><span class="n">deg</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">deg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="cosd"><a class="viewcode-back" href="../../seispy.html#seispy.geo.cosd">[docs]</a><span class="k">def</span> <span class="nf">cosd</span><span class="p">(</span><span class="n">deg</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">deg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="tand"><a class="viewcode-back" href="../../seispy.html#seispy.geo.tand">[docs]</a><span class="k">def</span> <span class="nf">tand</span><span class="p">(</span><span class="n">deg</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">deg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="cotd"><a class="viewcode-back" href="../../seispy.html#seispy.geo.cotd">[docs]</a><span class="k">def</span> <span class="nf">cotd</span><span class="p">(</span><span class="n">deg</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">deg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="asind"><a class="viewcode-back" href="../../seispy.html#seispy.geo.asind">[docs]</a><span class="k">def</span> <span class="nf">asind</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="acosd"><a class="viewcode-back" href="../../seispy.html#seispy.geo.acosd">[docs]</a><span class="k">def</span> <span class="nf">acosd</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="atand"><a class="viewcode-back" href="../../seispy.html#seispy.geo.atand">[docs]</a><span class="k">def</span> <span class="nf">atand</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="km2deg"><a class="viewcode-back" href="../../seispy.html#seispy.geo.km2deg">[docs]</a><span class="k">def</span> <span class="nf">km2deg</span><span class="p">(</span><span class="n">km</span><span class="p">):</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="mi">6371</span>
+    <span class="n">circum</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">radius</span>
+    <span class="n">conv</span> <span class="o">=</span> <span class="n">circum</span> <span class="o">/</span> <span class="mi">360</span>
+    <span class="n">deg</span> <span class="o">=</span> <span class="n">km</span> <span class="o">/</span> <span class="n">conv</span>
+    <span class="k">return</span> <span class="n">deg</span></div>
+
+<div class="viewcode-block" id="deg2km"><a class="viewcode-back" href="../../seispy.html#seispy.geo.deg2km">[docs]</a><span class="k">def</span> <span class="nf">deg2km</span><span class="p">(</span><span class="n">deg</span><span class="p">):</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="mi">6371</span>
+    <span class="n">circum</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">radius</span>
+    <span class="n">conv</span> <span class="o">=</span> <span class="n">circum</span> <span class="o">/</span> <span class="mi">360</span>
+    <span class="n">km</span> <span class="o">=</span> <span class="n">deg</span> <span class="o">*</span> <span class="n">conv</span>
+    <span class="k">return</span> <span class="n">km</span></div>
+
+<div class="viewcode-block" id="rad2deg"><a class="viewcode-back" href="../../seispy.html#seispy.geo.rad2deg">[docs]</a><span class="k">def</span> <span class="nf">rad2deg</span><span class="p">(</span><span class="n">rad</span><span class="p">):</span>
+    <span class="n">deg</span> <span class="o">=</span> <span class="n">rad</span><span class="o">*</span><span class="p">(</span><span class="mi">360</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">deg</span></div>
+
+<div class="viewcode-block" id="skm2sdeg"><a class="viewcode-back" href="../../seispy.html#seispy.geo.skm2sdeg">[docs]</a><span class="k">def</span> <span class="nf">skm2sdeg</span><span class="p">(</span><span class="n">skm</span><span class="p">):</span>
+    <span class="n">sdeg</span> <span class="o">=</span> <span class="n">skm</span> <span class="o">*</span> <span class="n">deg2km</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sdeg</span></div>
+
+<div class="viewcode-block" id="sdeg2skm"><a class="viewcode-back" href="../../seispy.html#seispy.geo.sdeg2skm">[docs]</a><span class="k">def</span> <span class="nf">sdeg2skm</span><span class="p">(</span><span class="n">sdeg</span><span class="p">):</span>
+    <span class="n">skm</span> <span class="o">=</span> <span class="n">sdeg</span> <span class="o">/</span> <span class="n">deg2km</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">skm</span></div>
+
+<div class="viewcode-block" id="srad2skm"><a class="viewcode-back" href="../../seispy.html#seispy.geo.srad2skm">[docs]</a><span class="k">def</span> <span class="nf">srad2skm</span><span class="p">(</span><span class="n">srad</span><span class="p">):</span>
+    <span class="n">sdeg</span> <span class="o">=</span> <span class="n">srad</span> <span class="o">*</span> <span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span><span class="o">/</span><span class="mi">360</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sdeg</span> <span class="o">/</span> <span class="n">deg2km</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="skm2srad"><a class="viewcode-back" href="../../seispy.html#seispy.geo.skm2srad">[docs]</a><span class="k">def</span> <span class="nf">skm2srad</span><span class="p">(</span><span class="n">skm</span><span class="p">):</span>
+    <span class="n">sdeg</span> <span class="o">=</span> <span class="n">skm</span> <span class="o">*</span> <span class="n">deg2km</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rad2deg</span><span class="p">(</span><span class="n">sdeg</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rot3D"><a class="viewcode-back" href="../../seispy.html#seispy.geo.rot3D">[docs]</a><span class="k">def</span> <span class="nf">rot3D</span><span class="p">(</span><span class="n">bazi</span><span class="p">,</span> <span class="n">inc</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param bazi:</span>
+<span class="sd">    :param inc:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    M = [cos(inc)     -sin(inc)*sin(bazi)    -sin(inc)*cos(bazi);</span>
+<span class="sd">        sin(inc)      cos(inc)*sin(bazi)     cos(inc)*cos(bazi);</span>
+<span class="sd">        0              -cos(bazi)             sin(bazi)];</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inc</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inc</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">value31</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inc</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">value31</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">inc</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Input args sould be in </span><span class="se">\&#39;</span><span class="s1">float</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">int</span><span class="se">\&#39;</span><span class="s1">, or </span><span class="se">\&#39;</span><span class="s1">numpy.ndarray</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">inc</span> <span class="o">=</span> <span class="n">inc</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">pi</span>
+    <span class="n">bazi</span> <span class="o">=</span> <span class="n">bazi</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">pi</span>
+
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">bazi</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">bazi</span><span class="p">)],</span>
+                  <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">bazi</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">bazi</span><span class="p">)],</span>
+                  <span class="p">[</span><span class="n">value31</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">bazi</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">bazi</span><span class="p">)]])</span>
+    <span class="k">return</span> <span class="n">M</span></div>
+
+
+<div class="viewcode-block" id="rotateSeisZENtoLQT"><a class="viewcode-back" href="../../seispy.html#seispy.geo.rotateSeisZENtoLQT">[docs]</a><span class="k">def</span> <span class="nf">rotateSeisZENtoLQT</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">bazi</span><span class="p">,</span> <span class="n">inc</span><span class="p">):</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">rot3D</span><span class="p">(</span><span class="n">bazi</span><span class="p">,</span> <span class="n">inc</span><span class="p">)</span>
+    <span class="n">ZEN</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">N</span><span class="p">])</span>
+    <span class="n">LQT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">ZEN</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">LQT</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">LQT</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">LQT</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span></div>
+
+
+<div class="viewcode-block" id="spherical2cartesian"><a class="viewcode-back" href="../../seispy.html#seispy.geo.spherical2cartesian">[docs]</a><span class="k">def</span> <span class="nf">spherical2cartesian</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">dep</span><span class="p">):</span>
+    <span class="n">cola</span> <span class="o">=</span> <span class="mf">90.</span> <span class="o">-</span> <span class="n">lat</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="mi">6371</span> <span class="o">-</span> <span class="n">dep</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sind</span><span class="p">(</span><span class="n">cola</span><span class="p">)</span> <span class="o">*</span> <span class="n">cosd</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sind</span><span class="p">(</span><span class="n">cola</span><span class="p">)</span> <span class="o">*</span> <span class="n">sind</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">cosd</span><span class="p">(</span><span class="n">cola</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span></div>
+
+
+<div class="viewcode-block" id="rotateSeisENtoTR"><a class="viewcode-back" href="../../seispy.html#seispy.geo.rotateSeisENtoTR">[docs]</a><span class="k">def</span> <span class="nf">rotateSeisENtoTR</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">BAZ</span><span class="p">):</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">BAZ</span><span class="o">+</span><span class="mi">180</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">N</span><span class="o">*</span><span class="n">cosd</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">+</span> <span class="n">E</span><span class="o">*</span><span class="n">sind</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">E</span><span class="o">*</span><span class="n">cosd</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">-</span> <span class="n">N</span><span class="o">*</span><span class="n">sind</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">T</span><span class="p">,</span> <span class="n">R</span></div>
+
+<div class="viewcode-block" id="rssq"><a class="viewcode-back" href="../../seispy.html#seispy.geo.rssq">[docs]</a><span class="k">def</span> <span class="nf">rssq</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="snr"><a class="viewcode-back" href="../../seispy.html#seispy.geo.snr">[docs]</a><span class="k">def</span> <span class="nf">snr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">spow</span> <span class="o">=</span> <span class="n">rssq</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">npow</span> <span class="o">=</span> <span class="n">rssq</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">spow</span> <span class="o">/</span> <span class="n">npow</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="latlon_from"><a class="viewcode-back" href="../../seispy.html#seispy.geo.latlon_from">[docs]</a><span class="k">def</span> <span class="nf">latlon_from</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">azimuth</span><span class="p">,</span> <span class="n">gcarc_dist</span><span class="p">):</span>
+    <span class="n">lat2</span> <span class="o">=</span> <span class="n">asind</span> <span class="p">((</span><span class="n">sind</span> <span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">cosd</span> <span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sind</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">)</span> <span class="o">*</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">azimuth</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gcarc_dist</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">lon2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gcarc_dist</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">cosd</span> <span class="p">(</span><span class="mi">90</span> <span class="o">-</span> <span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">cosd</span> <span class="p">(</span><span class="mi">90</span> <span class="o">-</span> <span class="n">lat2</span><span class="p">[</span><span class="n">n</span><span class="p">])):</span>
+                <span class="n">lon2</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon1</span> <span class="o">+</span> <span class="n">asind</span> <span class="p">(</span><span class="n">sind</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">*</span> <span class="n">sind</span> <span class="p">(</span><span class="n">azimuth</span><span class="p">)</span> <span class="o">/</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">lat2</span><span class="p">[</span><span class="n">n</span><span class="p">]))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lon2</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon1</span> <span class="o">+</span> <span class="n">asind</span> <span class="p">(</span><span class="n">sind</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">*</span> <span class="n">sind</span> <span class="p">(</span><span class="n">azimuth</span><span class="p">)</span> <span class="o">/</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">lat2</span><span class="p">[</span><span class="n">n</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">180</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">azimuth</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">lon2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">azimuth</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">cosd</span> <span class="p">(</span><span class="mi">90</span> <span class="o">-</span> <span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">cosd</span> <span class="p">(</span><span class="mi">90</span> <span class="o">-</span> <span class="n">lat2</span><span class="p">[</span><span class="n">n</span><span class="p">])):</span>
+                <span class="n">lon2</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon1</span> <span class="o">+</span> <span class="n">asind</span> <span class="p">(</span><span class="n">sind</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">)</span> <span class="o">*</span> <span class="n">sind</span> <span class="p">(</span><span class="n">azimuth</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">/</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">lat2</span><span class="p">[</span><span class="n">n</span><span class="p">]))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lon2</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon1</span> <span class="o">+</span> <span class="n">asind</span> <span class="p">(</span><span class="n">sind</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">)</span> <span class="o">*</span> <span class="n">sind</span> <span class="p">(</span><span class="n">azimuth</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">/</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">lat2</span><span class="p">[</span><span class="n">n</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">180</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">cosd</span> <span class="p">(</span><span class="mi">90</span> <span class="o">-</span> <span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">cosd</span> <span class="p">(</span><span class="mi">90</span> <span class="o">-</span> <span class="n">lat2</span><span class="p">))):</span>
+            <span class="n">lon2</span> <span class="o">=</span> <span class="n">lon1</span> <span class="o">+</span> <span class="n">asind</span> <span class="p">(</span><span class="n">sind</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">)</span> <span class="o">*</span> <span class="n">sind</span> <span class="p">(</span><span class="n">azimuth</span><span class="p">)</span> <span class="o">/</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">lat2</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lon2</span> <span class="o">=</span> <span class="n">lon1</span> <span class="o">+</span> <span class="n">asind</span> <span class="p">(</span><span class="n">sind</span> <span class="p">(</span><span class="n">gcarc_dist</span><span class="p">)</span> <span class="o">*</span> <span class="n">sind</span> <span class="p">(</span><span class="n">azimuth</span><span class="p">)</span> <span class="o">/</span> <span class="n">cosd</span> <span class="p">(</span><span class="n">lat2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">180</span>
+    <span class="k">return</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span></div>
+
+
+<div class="viewcode-block" id="geoproject"><a class="viewcode-back" href="../../seispy.html#seispy.geo.geoproject">[docs]</a><span class="k">def</span> <span class="nf">geoproject</span><span class="p">(</span><span class="n">lat_p</span><span class="p">,</span> <span class="n">lon_p</span><span class="p">,</span> <span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">):</span>
+    <span class="n">azi</span> <span class="o">=</span> <span class="n">distaz</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">)</span><span class="o">.</span><span class="n">baz</span>
+    <span class="n">dis_center</span> <span class="o">=</span> <span class="n">distaz</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat_p</span><span class="p">,</span> <span class="n">lon_p</span><span class="p">)</span><span class="o">.</span><span class="n">delta</span>
+    <span class="n">azi_center</span> <span class="o">=</span> <span class="n">distaz</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat_p</span><span class="p">,</span> <span class="n">lon_p</span><span class="p">)</span><span class="o">.</span><span class="n">baz</span>
+    <span class="n">dis_along</span> <span class="o">=</span> <span class="n">atand</span><span class="p">(</span><span class="n">tand</span><span class="p">(</span><span class="n">dis_center</span><span class="p">))</span><span class="o">*</span><span class="n">cosd</span><span class="p">(</span><span class="n">azi</span><span class="o">-</span><span class="n">azi_center</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span> <span class="o">=</span> <span class="n">latlon_from</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">azi</span><span class="p">,</span> <span class="n">dis_along</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span></div>
+
+
+<div class="viewcode-block" id="extrema"><a class="viewcode-back" href="../../seispy.html#seispy.geo.extrema">[docs]</a><span class="k">def</span> <span class="nf">extrema</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">&#39;Wrong Options!!!&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">idx</span></div>
+
+<div class="viewcode-block" id="slantstack"><a class="viewcode-back" href="../../seispy.html#seispy.geo.slantstack">[docs]</a><span class="k">def</span> <span class="nf">slantstack</span><span class="p">(</span><span class="n">seis</span><span class="p">,</span> <span class="n">timeaxis</span><span class="p">,</span> <span class="n">rayp_range</span><span class="p">,</span> <span class="n">tau_range</span><span class="p">,</span> <span class="n">ref_dis</span><span class="p">,</span> <span class="n">dis</span><span class="p">):</span>
+    <span class="n">EV_num</span> <span class="o">=</span> <span class="n">seis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">EV_num</span><span class="p">,</span> <span class="n">tau_range</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="n">amp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">rayp_range</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tau_range</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rayp_range</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">EV_num</span><span class="p">):</span>
+            <span class="n">seis</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">seis</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">seis</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]))</span>
+            <span class="n">tps</span> <span class="o">=</span> <span class="n">tau_range</span> <span class="o">-</span> <span class="n">rayp_range</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">dis</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">ref_dis</span><span class="p">)</span>
+            <span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">timeaxis</span><span class="p">,</span> <span class="n">seis</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)(</span><span class="n">tps</span><span class="p">)</span>
+        <span class="n">amp</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">amp</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mijian Xu
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

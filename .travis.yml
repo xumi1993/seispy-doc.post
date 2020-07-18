@@ -6,11 +6,11 @@ before_install:
   - git clone --branch=gh-pages https://git.nju.edu.cn/geophy/seispy.git ./public
 
 install:
-  - curl -L https://raw.githubusercontent.com/seisman/install/master/install-hugo.sh | bash
-  - pip install pygments
+  - pip install sphinx sphinx_rtd_theme recommonmark
 
 script:
-  - ./hugo --baseUrl="https://seispy.xumijian.me"
+  - make html
+  - cp -r ./build/html/. ./public
 
 deploy:
   - provider: script

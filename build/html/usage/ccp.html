@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Stack PRFs with Common Conversion points (CCP) method &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/seispy.png"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'latest',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Module Index" href="../modules.html" />
+    <link rel="prev" title="Calculate PRFs for a station" href="rf-sta.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> seispy
+          
+
+          
+            
+            <img src="../_static/seispy_100.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="quickstart.html">Quick start</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="calrf.html">Calculate a P-wave Receiver Function (PRF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rf-sta.html">Calculate PRFs for a station</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Stack PRFs with Common Conversion points (CCP) method</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preparation">Preparation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prfs-data-with-sac-format">1.PRFs data with sac format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#a-station-list">2. A station list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#a-parameter-file">3. A parameter file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#optional-a-lib-of-ps-ray-parameters">4. (Optional) A lib of Ps ray parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#optional-a-3d-velocity-model">5. (Optional) A 3D velocity model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#convert-time-to-depth">Convert time to depth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ccp-stack-prfs-along-a-profile">CCP Stack PRFs along a profile</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#required-parameters">Required parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="quickstart.html">Quick start</a> &raquo;</li>
+        
+      <li>Stack PRFs with Common Conversion points (CCP) method</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/ccp.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <hr class="docutils" />
+<div class="section" id="stack-prfs-with-common-conversion-points-ccp-method">
+<h1>Stack PRFs with Common Conversion points (CCP) method<a class="headerlink" href="#stack-prfs-with-common-conversion-points-ccp-method" title="Permalink to this headline">¶</a></h1>
+<p>This note will introduce how to stack PRFs with CCP method in two steps.</p>
+<p><strong>1. Convert PRFs from time axis to depth axis according to 1D velocity model.<br />2. Search and stack amplitudes in each bin with calculated pierce points falling in.</strong></p>
+<div class="section" id="preparation">
+<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
+<p>Befor the CCP stacking, we should prepare:</p>
+<div class="section" id="prfs-data-with-sac-format">
+<h3>1.PRFs data with sac format<a class="headerlink" href="#prfs-data-with-sac-format" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>The SACHeader of <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">delta</span></code> and <code class="docutils literal notranslate"><span class="pre">npts</span></code> are required. please make sure that they are correct. The <code class="docutils literal notranslate"><span class="pre">b</span></code> denote the shift time before P arrival.</li>
+<li>All of SAC files belong to a same station must be put into a same <strong>directory with name of the station name.</strong></li>
+<li>A list file with 10 columns is required in this directory, whose format as:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">evt</span></code>: the datetime part of sacfile name of each PRF.</li>
+<li><code class="docutils literal notranslate"><span class="pre">phase</span></code>: The phase part of sacfile name of each PRF.</li>
+<li><code class="docutils literal notranslate"><span class="pre">evlat</span></code>: The latitude of the event.</li>
+<li><code class="docutils literal notranslate"><span class="pre">evlon</span></code>: The longitude of the event.</li>
+<li><code class="docutils literal notranslate"><span class="pre">evdep</span></code>: The focal depth of the event.</li>
+<li><code class="docutils literal notranslate"><span class="pre">dis</span></code>: The epicentral distance between event and station.</li>
+<li><code class="docutils literal notranslate"><span class="pre">bazi</span></code>: The back-azimuth from event to station.</li>
+<li><code class="docutils literal notranslate"><span class="pre">rayp</span></code>: The ray parameter of the event.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mag</span></code>: The magnitude of the event.</li>
+<li><code class="docutils literal notranslate"><span class="pre">f0</span></code>: The gauss factor used in computing the PRF.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="a-station-list">
+<h3>2. A station list<a class="headerlink" href="#a-station-list" title="Permalink to this headline">¶</a></h3>
+<p>A text table of station information with 3 columns:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">station</span></code>: The station name which should be the same as the directory name including PRF Files.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stlat</span></code>: The latitude of the station.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stlon</span></code>: The longitude of the station.</li>
+</ul>
+</div>
+<div class="section" id="a-parameter-file">
+<h3>3. A parameter file<a class="headerlink" href="#a-parameter-file" title="Permalink to this headline">¶</a></h3>
+<p>The parameter file include parameters used in CCP stacking. the format should follow configparser as the following example:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">FileIO</span><span class="p">]</span>
+<span class="c1"># Path to stations with RF sac files</span>
+<span class="n">rfpath</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">RFresult</span>
+
+<span class="c1"># Path to station list</span>
+<span class="n">stalist</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sta_all</span><span class="o">.</span><span class="n">lst</span>
+
+<span class="c1"># Path to the lib of Ps ray parameters. </span>
+<span class="c1"># If it&#39;s empty the ray parameters of Ps would be assumed as that of P arrival</span>
+<span class="n">rayp_lib</span> <span class="o">=</span>
+
+<span class="c1"># Output data struct after time to depth</span>
+<span class="n">depthdat</span> <span class="o">=</span>  <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">xumj</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="n">NETibet</span><span class="o">/</span><span class="n">ccp_result</span><span class="o">/</span><span class="n">RFdepth_3D</span><span class="o">.</span><span class="n">mat</span>
+
+<span class="c1"># Output data struct after CCP stacking</span>
+<span class="n">stackfile</span> <span class="o">=</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">xumj</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="n">NETibet</span><span class="o">/</span><span class="n">Ordos_Process</span><span class="o">/</span><span class="n">stack_L5</span>
+
+<span class="c1"># Station list used to stack</span>
+<span class="n">stack_sta_list</span> <span class="o">=</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">xumj</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="n">NETibet</span><span class="o">/</span><span class="n">Ordos_Process</span><span class="o">/</span><span class="n">sta_L5</span><span class="o">.</span><span class="n">lst</span>
+
+<span class="c1"># Path to 1D velocity model</span>
+<span class="c1"># If it&#39;s empty, useing IASP91 model</span>
+<span class="n">velmod</span> <span class="o">=</span>
+
+<span class="p">[</span><span class="nb">bin</span><span class="p">]</span>
+<span class="c1"># The shape of bins</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="n">rect</span>
+
+<span class="c1"># period of S wave (to assuming the radius of fresnel zone)</span>
+<span class="n">domperiod</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Width of the profile in km</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Radius of bins in km</span>
+<span class="c1"># If it&#39;s empty, radius would be assumed following fresnel zone</span>
+<span class="n">bin_radius</span> <span class="o">=</span>
+
+<span class="c1"># sliding interval of bins in km </span>
+<span class="n">slid_val</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="p">[</span><span class="n">line</span><span class="p">]</span>
+<span class="c1"># Coordinate of two end points for the profile</span>
+<span class="n">profile_lat1</span> <span class="o">=</span> <span class="mf">40.82</span>
+<span class="n">profile_lon1</span> <span class="o">=</span> <span class="mf">103.451</span>
+<span class="n">profile_lat2</span> <span class="o">=</span> <span class="mf">36.33</span>
+<span class="n">profile_lon2</span> <span class="o">=</span> <span class="mf">108.817</span>
+
+<span class="p">[</span><span class="n">depth</span><span class="p">]</span>
+<span class="c1"># Max depth you wanna convert to</span>
+<span class="n">dep_end</span> <span class="o">=</span> <span class="mi">800</span>
+
+<span class="c1"># depth interval in converting time to depth</span>
+<span class="n">dep_val</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="p">[</span><span class="n">stack</span><span class="p">]</span>
+<span class="c1"># Stack RFs from &lt;stack_start&gt; km to &lt;stack_end&gt; km with interval of &lt;stack_val&gt; km</span>
+<span class="n">stack_start</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">stack_end</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">stack_val</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="optional-a-lib-of-ps-ray-parameters">
+<h3>4. (Optional) A lib of Ps ray parameters<a class="headerlink" href="#optional-a-lib-of-ps-ray-parameters" title="Permalink to this headline">¶</a></h3>
+<p>If you would stack PRFs in a great depth (e.g., D410 or D660), the ray parameters of P arrival cannot represent that of Ps phase. Therefore, a library file of Ps ray parameters in different depths and epicentral distance is required in calculating Ps-P time difference. This lib file has specific binary format. You can generate it by command of gen_rayp_lib:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">gen_rayp_lib</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">-</span><span class="n">d</span> <span class="n">DIS_STR</span> <span class="o">-</span><span class="n">e</span> <span class="n">DEP_STR</span> <span class="p">[</span><span class="o">-</span><span class="n">l</span> <span class="n">LAY_STR</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUT_PATH</span><span class="p">]</span>
+
+<span class="n">Gen</span> <span class="n">a</span> <span class="n">ray</span> <span class="n">parameter</span> <span class="n">lib</span> <span class="k">for</span> <span class="n">Pds</span> <span class="n">phases</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>   <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">d</span> <span class="n">DIS_STR</span>   <span class="n">Distance</span> <span class="nb">range</span> <span class="k">as</span> <span class="s1">&#39;min_dis/max_dis/interval&#39;</span>
+  <span class="o">-</span><span class="n">e</span> <span class="n">DEP_STR</span>   <span class="n">Event</span> <span class="n">depth</span> <span class="nb">range</span> <span class="k">as</span> <span class="s1">&#39;min_dep/max_dep/interval&#39;</span>
+  <span class="o">-</span><span class="n">l</span> <span class="n">LAY_STR</span>   <span class="n">layers</span> <span class="nb">range</span> <span class="k">as</span> <span class="s1">&#39;min_layer/man_layer&#39;</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">OUT_PATH</span>  <span class="n">Out</span> <span class="n">path</span> <span class="n">to</span> <span class="n">Pds</span> <span class="n">ray</span> <span class="n">parameter</span> <span class="n">lib</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="optional-a-3d-velocity-model">
+<h3>5. (Optional) A 3D velocity model<a class="headerlink" href="#optional-a-3d-velocity-model" title="Permalink to this headline">¶</a></h3>
+<p>To correct influence by velocity anomalies above the interface you wanna study, you can use a 3D velocity model to correct Ps-P time difference. The model file should be <code class="docutils literal notranslate"><span class="pre">.npz</span></code> format (generated by <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.savez.html?highlight=savez"><code class="docutils literal notranslate"><span class="pre">numpy.savez</span></code></a>) with 5 fields:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">dep</span></code>: Depth axis. 1D <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> with shape of <code class="docutils literal notranslate"><span class="pre">(len_dep,)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">lat</span></code>: Latitude axis. 1D <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> with shape of <code class="docutils literal notranslate"><span class="pre">(len_lat,)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">lon</span></code>: Longitude axis. 1D <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> with shape of <code class="docutils literal notranslate"><span class="pre">(len_lon,)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">vp</span></code>: P wave velocity. 3D <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> with shape of <code class="docutils literal notranslate"><span class="pre">(len_dep,</span> <span class="pre">len_lat,</span> <span class="pre">len_lon)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">vs</span></code>: S wave velocity. 3D <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> with shape of <code class="docutils literal notranslate"><span class="pre">(len_dep,</span> <span class="pre">len_lat,</span> <span class="pre">len_lon)</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="convert-time-to-depth">
+<h2>Convert time to depth<a class="headerlink" href="#convert-time-to-depth" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">rf2depth</span></code> command would convert PRFs from time axis to depth axis using above preparations:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">rf2depth</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">d</span> <span class="n">VEL3DPATH</span><span class="p">]</span> <span class="n">cfg_file</span>
+
+<span class="n">Convert</span> <span class="n">Ps</span> <span class="n">RF</span> <span class="n">to</span> <span class="n">depth</span> <span class="n">axis</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">cfg_file</span>      <span class="n">Path</span> <span class="n">to</span> <span class="n">configure</span> <span class="n">file</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>    <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">d</span> <span class="n">VEL3DPATH</span>  <span class="n">Path</span> <span class="n">to</span> <span class="mi">3</span><span class="n">d</span> <span class="n">vel</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">npz</span> <span class="n">file</span>
+</pre></div>
+</div>
+<p>The output struct would be saved as a <code class="docutils literal notranslate"><span class="pre">.mat</span></code> file, which can be read in MATLAB. Therefore, you can browse items and fields of this file using MATLAB or <code class="docutils literal notranslate"><span class="pre">scipy.io.loadmat</span></code>. The number of items is equal to the number of stations in <em><strong>Station list</strong></em>. Each item has 9 fields:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Station</span></code>: The station name.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stalat</span></code>: The Latitude of the station.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stalon</span></code>: The Longitude of the station.</li>
+<li><code class="docutils literal notranslate"><span class="pre">bazi</span></code>: The back-azimuth of each event (1D array with shape of (ev_num,)).</li>
+<li><code class="docutils literal notranslate"><span class="pre">rayp</span></code>: The Ray-parameter of each event (1D array with shape of (ev_num,)).</li>
+<li><code class="docutils literal notranslate"><span class="pre">moveout_correct</span></code>: The amplitude for each PRF after time-depth conversion (2D array with shape of (ev_num, layer_num)).</li>
+<li><code class="docutils literal notranslate"><span class="pre">Piercelat</span></code>: Latitudes of each event at each depth (2D array with shape of (ev_num, layer_num)).</li>
+<li><code class="docutils literal notranslate"><span class="pre">Piercelon</span></code>: Longitudes of each event at each depth (2D array with shape of (ev_num, layer_num)).</li>
+<li><code class="docutils literal notranslate"><span class="pre">StopIndex</span></code>: The last layer after time-depth conversion (2D array with shape of (ev_num, layer_num)).</li>
+</ul>
+<blockquote>
+<div>Note: the layer_num was determined by field <code class="docutils literal notranslate"><span class="pre">[depth]</span></code> in parameter file.</div></blockquote>
+</div>
+<div class="section" id="ccp-stack-prfs-along-a-profile">
+<h2>CCP Stack PRFs along a profile<a class="headerlink" href="#ccp-stack-prfs-along-a-profile" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ccp_profile</span></code> command provide functions to stack PRFs along a profile:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">ccp_profile</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">l</span> <span class="n">LINE_LOCA</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span> <span class="n">STALIST</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUTPATH</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">t</span><span class="p">]</span> <span class="n">cfg_file</span>
+
+<span class="n">Stack</span> <span class="n">PRFS</span> <span class="n">along</span> <span class="n">a</span> <span class="n">profile</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">cfg_file</span>      <span class="n">Path</span> <span class="n">to</span> <span class="n">CCP</span> <span class="n">configure</span> <span class="n">file</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>    <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">l</span> <span class="n">LINE_LOCA</span>  <span class="n">Location</span> <span class="n">of</span> <span class="n">the</span> <span class="n">profile</span> <span class="o">&lt;</span><span class="n">lat1</span><span class="o">&gt;/&lt;</span><span class="n">lon1</span><span class="o">&gt;/&lt;</span><span class="n">lat2</span><span class="o">&gt;/&lt;</span><span class="n">lon2</span><span class="o">&gt;</span>
+  <span class="o">-</span><span class="n">s</span> <span class="n">STALIST</span>    <span class="n">Path</span> <span class="n">to</span> <span class="n">station</span> <span class="nb">list</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">OUTPATH</span>    <span class="n">Path</span> <span class="n">to</span> <span class="n">output</span> <span class="n">data</span>
+  <span class="o">-</span><span class="n">t</span>            <span class="n">Output</span> <span class="k">as</span> <span class="n">text</span> <span class="n">file</span>
+</pre></div>
+</div>
+<div class="section" id="required-parameters">
+<h3>Required parameters<a class="headerlink" href="#required-parameters" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">cfg_file</span></code>: the parameter file introduced above. Meanwhile, some options are required:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">FileIO</span></code>: Allow to set input and output path<ul>
+<li><code class="docutils literal notranslate"><span class="pre">depthdat</span></code>: The .mat file path output from rf2depth</li>
+<li><code class="docutils literal notranslate"><span class="pre">stackfile</span></code>: Path to output file after CCP stacking</li>
+<li><code class="docutils literal notranslate"><span class="pre">stalist</span></code>: Path to station list used to stack. If it is not exists, the stations would be limited using the witdth of the profile. the stations that meets the condition would be project to this proflie and write to this stalist.</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">stack</span></code> section: Define the nodes in depth<ul>
+<li><code class="docutils literal notranslate"><span class="pre">stack_start</span></code>: Define the depth with stacking begining</li>
+<li><code class="docutils literal notranslate"><span class="pre">stack_end</span></code>: Defane the depth with stacking ending</li>
+<li><code class="docutils literal notranslate"><span class="pre">stack_val</span></code>: The interval between adjacent nodes in depth</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">bin</span></code> section: The shape of bin.<ul>
+<li><code class="docutils literal notranslate"><span class="pre">shape</span></code>: Define the shape of bins. Only ‘rect’ or ‘circle’ is avalible</li>
+<li><code class="docutils literal notranslate"><span class="pre">domperiod</span></code>: the period in second of S wave used in calculating radius of a fresnel zone</li>
+<li><code class="docutils literal notranslate"><span class="pre">witdth</span></code>: The width of the profile.</li>
+<li><code class="docutils literal notranslate"><span class="pre">bin_radius</span></code>: Radius of each bin. If it is not defined, radius would be assumed following fresnel zone.</li>
+<li><code class="docutils literal notranslate"><span class="pre">slid_val</span></code>: Interval between adjacent bins
+<code class="docutils literal notranslate"><span class="pre">line</span></code>: Line location</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../modules.html" class="btn btn-neutral float-right" title="Module Index" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rf-sta.html" class="btn btn-neutral float-left" title="Calculate PRFs for a station" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mijian Xu
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

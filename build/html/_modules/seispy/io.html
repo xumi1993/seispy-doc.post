@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>seispy.io &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/seispy.png"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'latest',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> seispy
+          
+
+          
+            
+            <img src="../../_static/seispy_100.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>seispy.io</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for seispy.io</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="kn">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">from</span> <span class="nn">obspy.clients.fdsn</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">netCDF4</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="k">def</span> <span class="nf">_cat2df</span><span class="p">(</span><span class="n">cat</span><span class="p">):</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;evla&#39;</span><span class="p">,</span> <span class="s1">&#39;evlo&#39;</span><span class="p">,</span> <span class="s1">&#39;evdp&#39;</span><span class="p">,</span> <span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;magtype&#39;</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="n">evt</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">evt</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">evt</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">evt</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">depth</span><span class="o">*</span><span class="mf">0.001</span><span class="p">,</span>
+             <span class="n">evt</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mag</span><span class="p">,</span> <span class="n">evt</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">magnitude_type</span><span class="p">]</span> <span class="k">for</span> <span class="n">evt</span> <span class="ow">in</span> <span class="n">cat</span> <span class="k">if</span> <span class="n">evt</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">depth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="wsfetch"><a class="viewcode-back" href="../../seispy.html#seispy.io.wsfetch">[docs]</a><span class="k">def</span> <span class="nf">wsfetch</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">minlatitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">maxlatitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">minlongitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxlongitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">latitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">minradius</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">maxradius</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mindepth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxdepth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">minmagnitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxmagnitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">magnitudetype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">includeallorigins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">includeallmagnitudes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">includearrivals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eventid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">orderby</span><span class="o">=</span><span class="s1">&#39;time-asc&#39;</span><span class="p">,</span> <span class="n">catalog</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">contributor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;server name should be </span><span class="se">\&#39;</span><span class="s1">str</span><span class="se">\&#39;</span><span class="s1"> type&#39;</span><span class="p">)</span>
+    <span class="n">locs</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
+    <span class="n">locs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">)</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_events</span><span class="p">(</span><span class="o">**</span><span class="n">locs</span><span class="p">)</span>
+    <span class="n">cat_df</span> <span class="o">=</span> <span class="n">_cat2df</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cat_df</span></div>
+
+
+<div class="viewcode-block" id="nc2npz"><a class="viewcode-back" href="../../seispy.html#seispy.io.nc2npz">[docs]</a><span class="k">def</span> <span class="nf">nc2npz</span><span class="p">(</span><span class="n">ncdata</span><span class="p">,</span> <span class="n">minlat</span><span class="o">=-</span><span class="mi">90</span><span class="p">,</span> <span class="n">maxlat</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">minlon</span><span class="o">=-</span><span class="mi">180</span><span class="p">,</span> <span class="n">maxlon</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">mindep</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maxdep</span><span class="o">=</span><span class="mi">6371</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;dvs&#39;</span><span class="p">):</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">ncdata</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">][:]</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">ncdata</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">][:]</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">dep</span> <span class="o">=</span> <span class="n">ncdata</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">][:]</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">ncdata</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">key</span><span class="p">][:]</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">idx_lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">lat</span> <span class="o">&gt;=</span> <span class="n">minlat</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">lat</span> <span class="o">&lt;=</span> <span class="n">maxlat</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">idx_lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">lon</span> <span class="o">&gt;=</span> <span class="n">minlon</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">lon</span> <span class="o">&lt;=</span> <span class="n">maxlon</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">idx_dep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">dep</span> <span class="o">&gt;=</span> <span class="n">mindep</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dep</span> <span class="o">&lt;=</span> <span class="n">maxdep</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">cut_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">idx_dep</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">idx_dep</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">idx_lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">idx_lat</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">idx_lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">idx_lon</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cut_lat</span> <span class="o">=</span> <span class="n">lat</span><span class="p">[</span><span class="n">idx_lat</span><span class="p">]</span>
+    <span class="n">cut_lon</span> <span class="o">=</span> <span class="n">lon</span><span class="p">[</span><span class="n">idx_lon</span><span class="p">]</span>
+    <span class="n">cut_dep</span> <span class="o">=</span> <span class="n">dep</span><span class="p">[</span><span class="n">idx_dep</span><span class="p">]</span>
+    <span class="c1"># new_lat, new_dep, new_lon = np.meshgrid(cut_lat, cut_dep, cut_lon)</span>
+    <span class="k">return</span> <span class="n">cut_data</span><span class="p">,</span> <span class="n">cut_dep</span><span class="p">,</span> <span class="n">cut_lat</span><span class="p">,</span> <span class="n">cut_lon</span></div>
+
+
+<div class="viewcode-block" id="lsnc"><a class="viewcode-back" href="../../seispy.html#seispy.io.lsnc">[docs]</a><span class="k">def</span> <span class="nf">lsnc</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;List all fields of netCDF file&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-k&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Key name of fields&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;ncfile&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to netCDF file&#39;</span><span class="p">)</span>
+    <span class="n">arg</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ncdata</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">ncfile</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">ncdata</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">ncdata</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">arg</span><span class="o">.</span><span class="n">key</span><span class="p">])</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">ncfile</span> <span class="o">=</span> <span class="s1">&#39;/Users/xumj/Researches/Tibet_MTZ/models/3D2017-09Sv-depth.nc&#39;</span>
+    <span class="n">ncdata</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span>
+    <span class="n">nc2npz</span><span class="p">(</span><span class="n">ncdata</span><span class="p">,</span> <span class="n">minlat</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">maxlat</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">minlon</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">maxlon</span><span class="o">=</span><span class="mi">105</span><span class="p">,</span> <span class="n">maxdep</span><span class="o">=</span><span class="mi">900</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mijian Xu
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

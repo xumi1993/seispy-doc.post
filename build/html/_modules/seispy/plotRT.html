@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>seispy.plotRT &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/seispy.png"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'latest',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> seispy
+          
+
+          
+            
+            <img src="../../_static/seispy_100.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>seispy.plotRT</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for seispy.plotRT</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.gridspec</span> <span class="kn">import</span> <span class="n">GridSpec</span>
+<span class="kn">from</span> <span class="nn">matplotlib.lines</span> <span class="kn">import</span> <span class="n">Line2D</span>
+<span class="kn">from</span> <span class="nn">seispy.rfcorrect</span> <span class="kn">import</span> <span class="n">SACStation</span>
+<span class="kn">from</span> <span class="nn">seispy.rf</span> <span class="kn">import</span> <span class="n">CfgParser</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">realpath</span><span class="p">,</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<div class="viewcode-block" id="init_figure"><a class="viewcode-back" href="../../seispy.html#seispy.plotRT.init_figure">[docs]</a><span class="k">def</span> <span class="nf">init_figure</span><span class="p">():</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">11.7</span><span class="p">,</span> <span class="mf">8.3</span><span class="p">))</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="n">GridSpec</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">gs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+    <span class="n">axr_sum</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">axr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">axt_sum</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">axt</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">axt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">axb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="n">axb</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">h</span><span class="p">,</span> <span class="n">axr</span><span class="p">,</span> <span class="n">axt</span><span class="p">,</span> <span class="n">axb</span><span class="p">,</span> <span class="n">axr_sum</span><span class="p">,</span> <span class="n">axt_sum</span></div>
+
+
+<div class="viewcode-block" id="read_process_data"><a class="viewcode-back" href="../../seispy.html#seispy.plotRT.read_process_data">[docs]</a><span class="k">def</span> <span class="nf">read_process_data</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="n">stadata</span> <span class="o">=</span> <span class="n">SACStation</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">bazi</span><span class="p">)</span>
+    <span class="n">stadata</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">stadata</span><span class="o">.</span><span class="n">event</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">stadata</span><span class="o">.</span><span class="n">bazi</span> <span class="o">=</span> <span class="n">stadata</span><span class="o">.</span><span class="n">bazi</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">stadata</span><span class="o">.</span><span class="n">datar</span> <span class="o">=</span> <span class="n">stadata</span><span class="o">.</span><span class="n">datar</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">stadata</span><span class="o">.</span><span class="n">datat</span> <span class="o">=</span> <span class="n">stadata</span><span class="o">.</span><span class="n">datat</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">time_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">RFlength</span><span class="p">)</span> <span class="o">*</span> <span class="n">stadata</span><span class="o">.</span><span class="n">sampling</span> <span class="o">-</span> <span class="n">stadata</span><span class="o">.</span><span class="n">shift</span>
+    <span class="k">return</span> <span class="n">stadata</span><span class="p">,</span> <span class="n">time_axis</span></div>
+
+
+<div class="viewcode-block" id="plot_waves"><a class="viewcode-back" href="../../seispy.html#seispy.plotRT.plot_waves">[docs]</a><span class="k">def</span> <span class="nf">plot_waves</span><span class="p">(</span><span class="n">axr</span><span class="p">,</span> <span class="n">axt</span><span class="p">,</span> <span class="n">axb</span><span class="p">,</span> <span class="n">axr_sum</span><span class="p">,</span> <span class="n">axt_sum</span><span class="p">,</span> <span class="n">stadata</span><span class="p">,</span> <span class="n">time_axis</span><span class="p">,</span> <span class="n">enf</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">RFlength</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">ev_num</span><span class="p">):</span>
+        <span class="n">datar</span> <span class="o">=</span> <span class="n">stadata</span><span class="o">.</span><span class="n">datar</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">enf</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">datat</span> <span class="o">=</span> <span class="n">stadata</span><span class="o">.</span><span class="n">datat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">enf</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># axr.plot(time_axis, stadata.datar[i], linewidth=0.2, color=&#39;black&#39;)</span>
+        <span class="n">axr</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">datar</span><span class="p">,</span> <span class="n">bound</span> <span class="o">+</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">datar</span> <span class="o">&gt;</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+                         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+        <span class="n">axr</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">datar</span><span class="p">,</span> <span class="n">bound</span> <span class="o">+</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">datar</span> <span class="o">&lt;</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+                         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+        <span class="c1"># axt.plot(time_axis, stadata.datat[i], linewidth=0.2, color=&#39;black&#39;)</span>
+        <span class="n">axt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">datat</span><span class="p">,</span> <span class="n">bound</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">datat</span> <span class="o">&gt;</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+                         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+        <span class="n">axt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">datat</span><span class="p">,</span> <span class="n">bound</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">datat</span> <span class="o">&lt;</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+                         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">datar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">datar</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">datar</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">datar</span><span class="p">)</span>
+    <span class="n">datat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">datat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">datat</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">datar</span><span class="p">)</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">datar</span><span class="p">,</span> <span class="n">bound</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">datar</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">datar</span><span class="p">,</span> <span class="n">bound</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">datar</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">datat</span><span class="p">,</span> <span class="n">bound</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">datat</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">datat</span><span class="p">,</span> <span class="n">bound</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">datat</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">axb</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">bazi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">ev_num</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="set_fig"><a class="viewcode-back" href="../../seispy.html#seispy.plotRT.set_fig">[docs]</a><span class="k">def</span> <span class="nf">set_fig</span><span class="p">(</span><span class="n">axr</span><span class="p">,</span> <span class="n">axt</span><span class="p">,</span> <span class="n">axb</span><span class="p">,</span> <span class="n">axr_sum</span><span class="p">,</span> <span class="n">axt_sum</span><span class="p">,</span> <span class="n">stadata</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="n">y_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">ev_num</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">space</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="c1"># set axr</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">stadata</span><span class="o">.</span><span class="n">ev_num</span> <span class="o">+</span> <span class="n">space</span><span class="p">)</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">y_range</span><span class="p">)</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">event</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time after P (s)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Event&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axr</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">))</span>
+
+    <span class="c1"># set axr_sum</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;R components (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">station</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">)</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="mf">0.375</span><span class="p">])</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s1">&#39;Sum&#39;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">axr_sum</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axr_sum</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">))</span>
+
+    <span class="c1"># set axt</span>
+    <span class="n">axt</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+    <span class="n">axt</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+    <span class="n">axt</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">axt</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">stadata</span><span class="o">.</span><span class="n">ev_num</span> <span class="o">+</span> <span class="n">space</span><span class="p">)</span>
+    <span class="n">axt</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">y_range</span><span class="p">)</span>
+    <span class="n">bazi</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">{:.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span> <span class="k">for</span> <span class="n">ba</span> <span class="ow">in</span> <span class="n">stadata</span><span class="o">.</span><span class="n">bazi</span><span class="p">]</span>
+    <span class="n">axt</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">bazi</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">axt</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time after P (s)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">axt</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Back-azimuth ($\circ$)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">axt</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axt</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">))</span>
+
+    <span class="c1"># set axt_sum</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;T components (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">station</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">)</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="mf">0.375</span><span class="p">])</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s1">&#39;Sum&#39;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">axt_sum</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axt_sum</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">))</span>
+
+    <span class="c1"># set axb</span>
+    <span class="n">axb</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+    <span class="n">axb</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="n">axb</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;i&#39;</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">axb</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">stadata</span><span class="o">.</span><span class="n">ev_num</span> <span class="o">+</span> <span class="n">space</span><span class="p">)</span>
+    <span class="n">axb</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">y_range</span><span class="p">)</span>
+    <span class="n">axb</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">y_range</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">axb</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Back-azimuth ($\circ$)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="plotrt"><a class="viewcode-back" href="../../seispy.html#seispy.plotRT.plotrt">[docs]</a><span class="k">def</span> <span class="nf">plotrt</span><span class="p">(</span><span class="n">rfpath</span><span class="p">,</span> <span class="n">enf</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_path</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">):</span>
+    <span class="n">station</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">rfpath</span><span class="p">)</span>
+    <span class="n">lst</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">rfpath</span><span class="p">,</span> <span class="n">station</span><span class="o">+</span><span class="s1">&#39;finallist.dat&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="s1">&#39;No such a final list as </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">out_path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="s1">&#39;The output path </span><span class="si">{}</span><span class="s1"> not exists&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out_path</span><span class="p">))</span>
+    <span class="n">h</span><span class="p">,</span> <span class="n">axr</span><span class="p">,</span> <span class="n">axt</span><span class="p">,</span> <span class="n">axb</span><span class="p">,</span> <span class="n">axr_sum</span><span class="p">,</span> <span class="n">axt_sum</span> <span class="o">=</span> <span class="n">init_figure</span><span class="p">()</span>
+    <span class="n">stadata</span><span class="p">,</span> <span class="n">time_axis</span> <span class="o">=</span> <span class="n">read_process_data</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+    <span class="n">plot_waves</span><span class="p">(</span><span class="n">axr</span><span class="p">,</span> <span class="n">axt</span><span class="p">,</span> <span class="n">axb</span><span class="p">,</span> <span class="n">axr_sum</span><span class="p">,</span> <span class="n">axt_sum</span><span class="p">,</span> <span class="n">stadata</span><span class="p">,</span> <span class="n">time_axis</span><span class="p">,</span> <span class="n">enf</span><span class="o">=</span><span class="n">enf</span><span class="p">)</span>
+    <span class="n">set_fig</span><span class="p">(</span><span class="n">axr</span><span class="p">,</span> <span class="n">axt</span><span class="p">,</span> <span class="n">axb</span><span class="p">,</span> <span class="n">axr_sum</span><span class="p">,</span> <span class="n">axt_sum</span><span class="p">,</span> <span class="n">stadata</span><span class="p">,</span> <span class="n">station</span><span class="p">)</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">station</span><span class="o">+</span><span class="s1">&#39;_RT_bazorder_</span><span class="si">{:.1f}</span><span class="s1">.pdf&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stadata</span><span class="o">.</span><span class="n">f0</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../seispy.html#seispy.plotRT.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Plot R&amp;T components for P receiver functions (PRFs)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Path to PRFs with a </span><span class="se">\&#39;</span><span class="s1">finallist.dat</span><span class="se">\&#39;</span><span class="s1"> in it&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Enlargement factor default is 3&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;enf&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Output path without file name&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;./&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">arg</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plotrt</span><span class="p">(</span><span class="n">rfpath</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">enf</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">enf</span><span class="p">,</span> <span class="n">out_path</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">output</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># plotrt(&#39;XHL01&#39;)</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Mijian Xu
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
