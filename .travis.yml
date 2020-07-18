@@ -7,6 +7,7 @@ before_install:
   - git clone --branch=master https://github.com/xumi1993/seispy.git
   - cd seispy
   - pip install .
+  - cd ..
 
 install:
   - pip install sphinx sphinx_rtd_theme recommonmark
