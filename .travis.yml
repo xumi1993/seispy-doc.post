@@ -4,7 +4,7 @@ python: 3.6
 
 before_install:
   - git clone --branch=gh-pages https://git.nju.edu.cn/geophy/seispy.git ./public
-  - git clone --branch=master https://git.nju.edu.cn/geophy/seispy.git
+  - git clone --branch=master https://github.com/xumi1993/seispy.git
 
 install:
   - pip install sphinx sphinx_rtd_theme recommonmark
