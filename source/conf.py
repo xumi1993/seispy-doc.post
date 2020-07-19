@@ -102,11 +102,34 @@ html_static_path = ['_static']
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
+templates_path = ['_templates']
+
 #
 # The default sidebars (for documents that don't match any pattern) are
 # defined by theme itself.  Builtin themes are using these templates by
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
+
+html_context = {
+    'display_github': True,
+    'github_user': 'xumi1993',
+    'github_repo': 'seispy-doc.post',
+    'github_version': 'master',
+    'conf_py_path': '/source/',
+
+    'versions': ['Latest'],
+
+    "menu_links": [
+        (
+            '<i class="fa fa-github fa-fw"></i> Source code',
+            "https://github.com/xumi1993/seispy",
+        ),
+        (
+            '<i class="fa fa-envelope fa-fw"></i> Contact',
+            "https://home.xumijian.me/#contact",
+        ),
+    ],
+}
 #
 # html_sidebars = {}
 html_favicon = os.path.abspath(os.path.join('.', '_static', 'seispy.png'))

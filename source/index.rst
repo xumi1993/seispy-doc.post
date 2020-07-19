@@ -8,8 +8,10 @@ Seispy Documentation
 Seispy is a Python module for processing seismological data and calculating Receiver Functions. The advanced functions are available to improve the Obspy.
 
 .. image:: _static/seispy_shortcut.png
-   :scale: 55%
-   :class: no_scaled-link
+   :height: 719
+   :width: 1182
+   :scale: 50
+   :align: center
 
 .. toctree::
    :maxdepth: 2
@@ -18,7 +20,6 @@ Seispy is a Python module for processing seismological data and calculating Rece
    usage/installation
    usage/quickstart
    modules
-
 
 
 Indices and tables
