@@ -16,7 +16,7 @@
 
   
   
-    <link rel="shortcut icon" href="../_static/seispy.png"/>
+    <link rel="shortcut icon" href="../_static/seispy_100.png"/>
   
   
   
@@ -47,7 +47,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Stack PRFs with Common Conversion points (CCP) method" href="ccp.html" />
+    <link rel="next" title="Reject poor PRFs with an user interface" href="pickrf.html" />
     <link rel="prev" title="Calculate a P-wave Receiver Function (PRF)" href="calrf.html" /> 
 </head>
 
@@ -129,6 +129,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="pickrf.html">Reject poor PRFs with an user interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ccp.html">Stack PRFs with Common Conversion points (CCP) method</a></li>
 </ul>
 </li>
@@ -145,6 +146,8 @@
         <ul>
             
                 <li class="toctree-l1"><a href="https://github.com/xumi1993/seispy"><i class="fa fa-github fa-fw"></i> Source code</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/xumi1993/seispy"><i class="fa fa-rss fa-fw"></i> Chinses blog</a></li>
             
                 <li class="toctree-l1"><a href="https://home.xumijian.me/#contact"><i class="fa fa-envelope fa-fw"></i> Contact</a></li>
             
@@ -216,12 +219,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <hr class="docutils" />
-<div class="section" id="calculate-prfs-for-a-station">
+  <div class="section" id="calculate-prfs-for-a-station">
 <h1>Calculate PRFs for a station<a class="headerlink" href="#calculate-prfs-for-a-station" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="perpare-seismic-records-order-by-stations">
 <h2>1. Perpare seismic records order by stations<a class="headerlink" href="#perpare-seismic-records-order-by-stations" title="Permalink to this headline">¶</a></h2>
-<p>Seismic data should be trimed according earthquakes, including direct P arrival. Meanwhile, the data should be order by stations instead of events. For example, YN001 and YN002 are stations the SAC files are data of events recorded by these stations.</p>
+<p>Seismic data should be trimed according earthquakes, including direct P arrival. Meanwhile, the data should be order by stations instead of events. For example, YN001 and YN002 are stations; the SAC files are teleseismic data recorded of these stations.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>event_data/
 ├── YN001
 │   ├── 2018.229.15.35.02.1.sac
@@ -506,7 +508,7 @@ gitalk.render('gitalk-container');
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ccp.html" class="btn btn-neutral float-right" title="Stack PRFs with Common Conversion points (CCP) method" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pickrf.html" class="btn btn-neutral float-right" title="Reject poor PRFs with an user interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="calrf.html" class="btn btn-neutral float-left" title="Calculate a P-wave Receiver Function (PRF)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

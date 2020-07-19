@@ -1,5 +1,4 @@
 
----
 # Calculate a P-wave Receiver Function (PRF)
 
 ### 0. Download SAC files for this example

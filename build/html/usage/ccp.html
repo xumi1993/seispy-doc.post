@@ -16,7 +16,7 @@
 
   
   
-    <link rel="shortcut icon" href="../_static/seispy.png"/>
+    <link rel="shortcut icon" href="../_static/seispy_100.png"/>
   
   
   
@@ -48,7 +48,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Module Index" href="../modules.html" />
-    <link rel="prev" title="Calculate PRFs for a station" href="rf-sta.html" /> 
+    <link rel="prev" title="Reject poor PRFs with an user interface" href="pickrf.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -101,6 +101,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="quickstart.html">Quick start</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="calrf.html">Calculate a P-wave Receiver Function (PRF)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rf-sta.html">Calculate PRFs for a station</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pickrf.html">Reject poor PRFs with an user interface</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Stack PRFs with Common Conversion points (CCP) method</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#preparation">Preparation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#prfs-data-with-sac-format">1.PRFs data with sac format</a></li>
@@ -132,6 +133,8 @@
         <ul>
             
                 <li class="toctree-l1"><a href="https://github.com/xumi1993/seispy"><i class="fa fa-github fa-fw"></i> Source code</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/xumi1993/seispy"><i class="fa fa-rss fa-fw"></i> Chinses blog</a></li>
             
                 <li class="toctree-l1"><a href="https://home.xumijian.me/#contact"><i class="fa fa-envelope fa-fw"></i> Contact</a></li>
             
@@ -203,8 +206,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <hr class="docutils" />
-<div class="section" id="stack-prfs-with-common-conversion-points-ccp-method">
+  <div class="section" id="stack-prfs-with-common-conversion-points-ccp-method">
 <h1>Stack PRFs with Common Conversion points (CCP) method<a class="headerlink" href="#stack-prfs-with-common-conversion-points-ccp-method" title="Permalink to this headline">¶</a></h1>
 <p>This note will introduce how to stack PRFs with CCP method in two steps.</p>
 <p><strong>1. Convert PRFs from time axis to depth axis according to 1D velocity model.<br />2. Search and stack amplitudes in each bin with calculated pierce points falling in.</strong></p>
@@ -449,7 +451,7 @@ gitalk.render('gitalk-container');
         <a href="../modules.html" class="btn btn-neutral float-right" title="Module Index" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rf-sta.html" class="btn btn-neutral float-left" title="Calculate PRFs for a station" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pickrf.html" class="btn btn-neutral float-left" title="Reject poor PRFs with an user interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

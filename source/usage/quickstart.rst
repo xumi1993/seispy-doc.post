@@ -7,4 +7,5 @@ I have been writing Seispy when I was a master student. At first, I wanted to ca
 
     calrf
     rf-sta
+    pickrf
     ccp

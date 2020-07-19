@@ -1,11 +1,9 @@
 
----
-
 # Calculate PRFs for a station
 
 ## 1. Perpare seismic records order by stations
 
-Seismic data should be trimed according earthquakes, including direct P arrival. Meanwhile, the data should be order by stations instead of events. For example, YN001 and YN002 are stations the SAC files are data of events recorded by these stations.
+Seismic data should be trimed according earthquakes, including direct P arrival. Meanwhile, the data should be order by stations instead of events. For example, YN001 and YN002 are stations; the SAC files are teleseismic data recorded of these stations.
 
 ```
 event_data/

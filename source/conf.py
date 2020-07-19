@@ -47,6 +47,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
     'recommonmark',
+    'sphinx_markdown_tables',
     "sphinx_rtd_theme",
 ]
 
@@ -123,6 +124,10 @@ html_context = {
         (
             '<i class="fa fa-github fa-fw"></i> Source code',
             "https://github.com/xumi1993/seispy",
+        ),
+        (
+            '<i class="fa fa-rss fa-fw"></i> Chinses blog',
+            "https://blog.xumijian.me",
         ),
         (
             '<i class="fa fa-envelope fa-fw"></i> Contact',

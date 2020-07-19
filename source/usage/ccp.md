@@ -1,5 +1,4 @@
 
----
 # Stack PRFs with Common Conversion points (CCP) method
 
 This note will introduce how to stack PRFs with CCP method in two steps.
