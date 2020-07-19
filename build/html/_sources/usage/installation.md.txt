@@ -21,7 +21,7 @@ or
 ```
 git clone https://git.nju.edu.cn/geophy/seispy.git
 ```
-The Github link is a mirror repo from https://git.nju.edu.cn/geophy/seispy.git
+The Github link is a mirror repo from [NJU Git](https://git.nju.edu.cn/geophy/seispy.git)
 
 #### Install Seispy to the Python environment 
 ```
