@@ -122,11 +122,11 @@ html_context = {
 
     "menu_links": [
         (
-            '<i class="fa fa-github fa-fw"></i> Source code',
+            '<i class="fa fa-github fa-fw"></i> Source Code',
             "https://github.com/xumi1993/seispy",
         ),
         (
-            '<i class="fa fa-rss fa-fw"></i> Chinses blog',
+            '<i class="fa fa-rss fa-fw"></i> Chinses Blog',
             "https://blog.xumijian.me",
         ),
         (

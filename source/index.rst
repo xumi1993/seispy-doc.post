@@ -15,7 +15,7 @@ Seispy is a Python module for processing seismological data and calculating Rece
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Getting Started:
 
    usage/installation
    usage/quickstart
