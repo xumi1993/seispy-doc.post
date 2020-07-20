@@ -1,9 +1,9 @@
 
 # Calculate PRFs for a station
 
-## 1. Perpare seismic records order by stations
+## 1. Prepare seismic records order by stations
 
-Seismic data should be trimed according earthquakes, including direct P arrival. Meanwhile, the data should be order by stations instead of events. For example, YN001 and YN002 are stations; the SAC files are teleseismic data recorded of these stations.
+Seismic data including direct P arrival should be trimmed according earthquakes. Meanwhile, the data should be order by stations instead of events. For example, YN001 and YN002 are stations; the SAC files are teleseismic data recorded of these stations.
 
 ```
 event_data/
@@ -27,7 +27,7 @@ event_data/
 ## 2. Calculate PRFs using a simple command
 
 ### 2.1 Prepare a configure file 
-We should perpare a configure file as following including all parameters that will be set during the calculation. The format is following Python module of `configparser`
+We should prepare a configure file as following including all parameters that will be set during the calculation. The format is following Python module of `configparser`
 ```Python
 [path]
 datapath = Data/Path/to/station_name
@@ -89,10 +89,10 @@ optional arguments:
   -l          use local catalog. Default is false
 ```
 - `cfg_file`: configure file shown above.
-- `-l` if the argument was specfied, a local file of catalog would be used in searching earthquakes.
+- `-l` if the argument was specified, a local file of catalog would be used in searching earthquakes.
 
-## 3. Initalize a project instance
-**To further understand the procedure of the command `prf`, we recommend calculateing PRFs with writing a Python script as following steps.**
+## 3. Initialize a project instance
+**To further understand the procedure of the command `prf`, we recommend calculating PRFs with writing a Python script as following steps.**
 
 First, let’s init a `rf`instance. In this instance, we can set parameters, match earthquakes from catalog and calculate PRFs.
 
@@ -156,9 +156,9 @@ pjt = RF(cfg_file='path/to/config')
 
 ## 5. Search earthquakes from catalog
 
-We use the same process as the [SplitRFLab](https://git.nju.edu.cn/xumi1993/SplitRFLab). To match the data records and events, we should search earthquakes with some criteria (period, epicental distance and maganitude).
+We use the same process as the [SplitRFLab](https://git.nju.edu.cn/xumi1993/SplitRFLab). To match the data records and events, we should search earthquakes with some criteria (period, epicentral distance and magnitude).
 
-### 5.1 Load station infomation
+### 5.1 Load station information
 
 the The station latitude and longitude are absolutely necessary when we are used to search earthquakes. the function will read stla and stlo of SAC header from files in pjt.para.datapath.
 ```Python
@@ -200,7 +200,7 @@ pjt.match_eq()
 The process of pretreatment include retrend, bandpass filter, calculating arrival time, reject bad record with low SNR, trim records and rotate components from NE to RT.
 
 ### 7.1 Filter
-We will aply a bandpass filter on seismic records. Two corners shoud be specfied.
+We will aply a bandpass filter on seismic records. Two corners should be specified.
 - `para.freqmin`: Pass band low corner frequency.
 - `para.freqmax`: Pass band high corner frequency.
 
@@ -226,7 +226,7 @@ pjt.rotate()
 ```
 
 
-## 8. Calulating PRFs
+## 8. Calculating PRFs
 
 We need parameters of `pjt.para.gauss`, `pjt.para.itmax` and `pjt.para.minderr` to calculate PRFs using iterative time-domain deconvolution method
 
@@ -244,12 +244,12 @@ pjt.deconv()
 Save the PRFs to pjt.para.rfpath with some criteria. Two kind of criteria allow to set (i.e., crust or mtz). if the parameter set as None, all of PRFs will be saved.
 
 ### `crust`
-- The max peak should appare berween -2s and 2s
+- The maximum peak should appear berween -2s and 2s
 
 
 ### `mtz`
 
-- The max peak should appare berween -5s and 5s
+- The maximum peak should appear berween -5s and 5s
 
 - the maximum amplitudes of PRFs in a 30–120 s window after the direct P are smaller than 30% of the maximum amplitudes of the direct P phases.
 

@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 ```
 
 ### 2. Read SAC files with 3 components (ENZ)
-You should perpare teleseismic data if SAC format (ENZ) and read them via obspy. To facilitate the follow-up, you'd better write positions of the station and the event into SAC header (i.e., `stla`, `stlo`, `evla`, `evlo` and `evdp`).
+You should prepare teleseismic data if SAC format (ENZ) and read them via obspy. To facilitate the follow-up, you'd better write positions of the station and the event into SAC header (i.e., `stla`, `stlo`, `evla`, `evlo` and `evdp`).
 
 
 ```python
@@ -25,7 +25,7 @@ st = obspy.read('tele/*.101.*.SAC')
 ```
 
 ### 3. Pre-process for raw data
-You should remove the mean offset and linear trend of the waveforms, then filtered them with a Butterworth bandpass filter in the range of 0.05–2 Hz. The figures show a comparison between the raw data and the data after pre-process
+You should remove the mean offset and linear trend of the waveforms, then filtered them with a Butterworth filter in the range of 0.05–2 Hz. The figures show a comparison between the raw data and the data after pre-process
 
 
 ```python
@@ -34,7 +34,7 @@ st_cmp = st.copy()
 st.detrend()
 st.filter("bandpass", freqmin=0.05, freqmax=2.0, zerophase=True)
 
-# Plot for comparesion
+# Plot for comparison
 st_cmp.plot()
 st.plot()
 ```
