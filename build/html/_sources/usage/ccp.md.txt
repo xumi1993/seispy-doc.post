@@ -7,7 +7,7 @@ This note will introduce how to stack PRFs with CCP method in two steps.
 2. Search and stack amplitudes in each bin with calculated pierce points falling in.**
 
 ## Preparation
-Befor the CCP stacking, we should prepare:
+Before the CCP stacking, we should prepare:
 
 ### 1.PRFs data with sac format
 - The SACHeader of `b`, `delta` and `npts` are required. please make sure that they are correct. The `b` denote the shift time before P arrival.
@@ -33,7 +33,7 @@ A text table of station information with 3 columns:
 
 ### 3. A parameter file
 
-The parameter file include parameters used in CCP stacking. the format should follow configparser as the following example:
+The parameter file include parameters used in CCP stacking. the format should follow `configparser` module as the following example:
 
 ```Python
 [FileIO]
@@ -47,10 +47,10 @@ stalist = /path/to/sta_all.lst
 # If it's empty the ray parameters of Ps would be assumed as that of P arrival
 rayp_lib =
 
-# Output data struct after time to depth
+# Output data structure after time to depth
 depthdat =  /Users/xumj/Researches/NETibet/ccp_result/RFdepth_3D.mat
 
-# Output data struct after CCP stacking
+# Output data structure after CCP stacking
 stackfile = /Users/xumj/Researches/NETibet/Ordos_Process/stack_L5
 
 # Station list used to stack
@@ -100,7 +100,7 @@ stack_val = 1
 
 ### 4. (Optional) A lib of Ps ray parameters
 
-If you would stack PRFs in a great depth (e.g., D410 or D660), the ray parameters of P arrival cannot represent that of Ps phase. Therefore, a library file of Ps ray parameters in different depths and epicentral distance is required in calculating Ps-P time difference. This lib file has specific binary format. You can generate it by command of gen_rayp_lib:
+If you would stack PRFs in a large depth (e.g., D410 or D660), the ray parameters of P arrival cannot represent that of Ps phase. Therefore, a library file of Ps ray parameters in different depths and epicentral distance is required in calculating Ps-P time difference. This lib file has specific binary format. You can generate it by command of gen_rayp_lib:
 
 ```
 usage: gen_rayp_lib [-h] -d DIS_STR -e DEP_STR [-l LAY_STR] [-o OUT_PATH]
@@ -142,7 +142,7 @@ optional arguments:
   -d VEL3DPATH  Path to 3d vel model in npz file
 ```
 
-The output struct would be saved as a `.mat` file, which can be read in MATLAB. Therefore, you can browse items and fields of this file using MATLAB or `scipy.io.loadmat`. The number of items is equal to the number of stations in ***Station list***. Each item has 9 fields:
+The output structure would be saved as a `.mat` file, which can be read in MATLAB. Therefore, you can browse items and fields of this file using MATLAB or `scipy.io.loadmat`. The number of items is equal to the number of stations in ***Station list***. Each item has 9 fields:
 
 - `Station`: The station name.
 - `stalat`: The Latitude of the station.
@@ -163,7 +163,7 @@ The `ccp_profile` command provide functions to stack PRFs along a profile:
 ```
 usage: ccp_profile [-h] [-l LINE_LOCA] [-s STALIST] [-o OUTPATH] [-t] cfg_file
 
-Stack PRFS along a profile
+Stack PRFs along a profile
 
 positional arguments:
   cfg_file      Path to CCP configure file
@@ -182,13 +182,13 @@ optional arguments:
     - `FileIO`: Allow to set input and output path
         - `depthdat`: The .mat file path output from rf2depth
         - `stackfile`: Path to output file after CCP stacking
-        - `stalist`: Path to station list used to stack. If it is not exists, the stations would be limited using the witdth of the profile. the stations that meets the condition would be project to this proflie and write to this stalist.
+        - `stalist`: Path to station list used to stack. If it is not exists, the stations would be limited using the width of the profile. the stations that meets the condition would be project to this profile and write to this stalist.
     - `stack` section: Define the nodes in depth
-        - `stack_start`: Define the depth with stacking begining
-        - `stack_end`: Defane the depth with stacking ending
+        - `stack_start`: Define the depth with stacking beginning
+        - `stack_end`: Define the depth with stacking ending
         - `stack_val`: The interval between adjacent nodes in depth
     - `bin` section: The shape of bin.
-        - `shape`: Define the shape of bins. Only ‘rect’ or ‘circle’ is avalible
+        - `shape`: Define the shape of bins. Only ‘rect’ or ‘circle’ is available
         - `domperiod`: the period in second of S wave used in calculating radius of a fresnel zone
         - `witdth`: The width of the profile.
         - `bin_radius`: Radius of each bin. If it is not defined, radius would be assumed following fresnel zone.

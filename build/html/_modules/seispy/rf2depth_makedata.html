@@ -181,20 +181,20 @@
            <div itemprop="articleBody">
             
   <h1>Source code for seispy.rf2depth_makedata</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">seispy.rfcorrect</span> <span class="kn">import</span> <span class="n">SACStation</span><span class="p">,</span> <span class="n">psrf2depth</span><span class="p">,</span> <span class="n">Mod3DPerturbation</span><span class="p">,</span> <span class="n">psrf_1D_raytracing</span><span class="p">,</span>\
+<span></span><span class="kn">from</span> <span class="nn">seispy.rfcorrect</span> <span class="k">import</span> <span class="n">SACStation</span><span class="p">,</span> <span class="n">psrf2depth</span><span class="p">,</span> <span class="n">Mod3DPerturbation</span><span class="p">,</span> <span class="n">psrf_1D_raytracing</span><span class="p">,</span>\
     <span class="n">psrf_3D_migration</span><span class="p">,</span> <span class="n">time2depth</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">seispy.ccppara</span> <span class="kn">import</span> <span class="n">ccppara</span>
-<span class="kn">from</span> <span class="nn">seispy.setuplog</span> <span class="kn">import</span> <span class="n">setuplog</span>
-<span class="kn">from</span> <span class="nn">seispy.geo</span> <span class="kn">import</span> <span class="n">latlon_from</span><span class="p">,</span> <span class="n">deg2km</span><span class="p">,</span> <span class="n">rad2deg</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">exists</span>
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">savemat</span>
+<span class="kn">from</span> <span class="nn">seispy.ccppara</span> <span class="k">import</span> <span class="n">ccppara</span>
+<span class="kn">from</span> <span class="nn">seispy.setuplog</span> <span class="k">import</span> <span class="n">setuplog</span>
+<span class="kn">from</span> <span class="nn">seispy.geo</span> <span class="k">import</span> <span class="n">latlon_from</span><span class="p">,</span> <span class="n">deg2km</span><span class="p">,</span> <span class="n">rad2deg</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">savemat</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 
 <div class="viewcode-block" id="Station"><a class="viewcode-back" href="../../seispy.html#seispy.rf2depth_makedata.Station">[docs]</a><span class="k">class</span> <span class="nc">Station</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sta_lst</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sta_lst</span><span class="p">):</span>
         <span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;evla&#39;</span><span class="p">,</span> <span class="s1">&#39;evlo&#39;</span><span class="p">),</span> <span class="s1">&#39;formats&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;U20&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">)}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stla</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stlo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">sta_lst</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="c1">#self.station = [sta.decode() for sta in self.station]</span>

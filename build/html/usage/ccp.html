@@ -47,7 +47,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Documentation" href="../modules.html" />
+    <link rel="next" title="Module Index" href="../modules.html" />
     <link rel="prev" title="Reject poor PRFs with an user interface" href="pickrf.html" /> 
 </head>
 
@@ -121,8 +121,9 @@
 </ul>
 </li>
 </ul>
+<p class="caption"><span class="caption-text">API Documentation:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Module Index</a></li>
 </ul>
 
             
@@ -214,7 +215,7 @@
 <p><strong>1. Convert PRFs from time axis to depth axis according to 1D velocity model.<br />2. Search and stack amplitudes in each bin with calculated pierce points falling in.</strong></p>
 <div class="section" id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
-<p>Befor the CCP stacking, we should prepare:</p>
+<p>Before the CCP stacking, we should prepare:</p>
 <div class="section" id="prfs-data-with-sac-format">
 <h3>1.PRFs data with sac format<a class="headerlink" href="#prfs-data-with-sac-format" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -246,7 +247,7 @@
 </div>
 <div class="section" id="a-parameter-file">
 <h3>3. A parameter file<a class="headerlink" href="#a-parameter-file" title="Permalink to this headline">¶</a></h3>
-<p>The parameter file include parameters used in CCP stacking. the format should follow configparser as the following example:</p>
+<p>The parameter file include parameters used in CCP stacking. the format should follow <code class="docutils literal notranslate"><span class="pre">configparser</span></code> module as the following example:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">FileIO</span><span class="p">]</span>
 <span class="c1"># Path to stations with RF sac files</span>
 <span class="n">rfpath</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">RFresult</span>
@@ -258,10 +259,10 @@
 <span class="c1"># If it&#39;s empty the ray parameters of Ps would be assumed as that of P arrival</span>
 <span class="n">rayp_lib</span> <span class="o">=</span>
 
-<span class="c1"># Output data struct after time to depth</span>
+<span class="c1"># Output data structure after time to depth</span>
 <span class="n">depthdat</span> <span class="o">=</span>  <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">xumj</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="n">NETibet</span><span class="o">/</span><span class="n">ccp_result</span><span class="o">/</span><span class="n">RFdepth_3D</span><span class="o">.</span><span class="n">mat</span>
 
-<span class="c1"># Output data struct after CCP stacking</span>
+<span class="c1"># Output data structure after CCP stacking</span>
 <span class="n">stackfile</span> <span class="o">=</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">xumj</span><span class="o">/</span><span class="n">Researches</span><span class="o">/</span><span class="n">NETibet</span><span class="o">/</span><span class="n">Ordos_Process</span><span class="o">/</span><span class="n">stack_L5</span>
 
 <span class="c1"># Station list used to stack</span>
@@ -312,7 +313,7 @@
 </div>
 <div class="section" id="optional-a-lib-of-ps-ray-parameters">
 <h3>4. (Optional) A lib of Ps ray parameters<a class="headerlink" href="#optional-a-lib-of-ps-ray-parameters" title="Permalink to this headline">¶</a></h3>
-<p>If you would stack PRFs in a great depth (e.g., D410 or D660), the ray parameters of P arrival cannot represent that of Ps phase. Therefore, a library file of Ps ray parameters in different depths and epicentral distance is required in calculating Ps-P time difference. This lib file has specific binary format. You can generate it by command of gen_rayp_lib:</p>
+<p>If you would stack PRFs in a large depth (e.g., D410 or D660), the ray parameters of P arrival cannot represent that of Ps phase. Therefore, a library file of Ps ray parameters in different depths and epicentral distance is required in calculating Ps-P time difference. This lib file has specific binary format. You can generate it by command of gen_rayp_lib:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">gen_rayp_lib</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">-</span><span class="n">d</span> <span class="n">DIS_STR</span> <span class="o">-</span><span class="n">e</span> <span class="n">DEP_STR</span> <span class="p">[</span><span class="o">-</span><span class="n">l</span> <span class="n">LAY_STR</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUT_PATH</span><span class="p">]</span>
 
 <span class="n">Gen</span> <span class="n">a</span> <span class="n">ray</span> <span class="n">parameter</span> <span class="n">lib</span> <span class="k">for</span> <span class="n">Pds</span> <span class="n">phases</span>
@@ -353,7 +354,7 @@
   <span class="o">-</span><span class="n">d</span> <span class="n">VEL3DPATH</span>  <span class="n">Path</span> <span class="n">to</span> <span class="mi">3</span><span class="n">d</span> <span class="n">vel</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">npz</span> <span class="n">file</span>
 </pre></div>
 </div>
-<p>The output struct would be saved as a <code class="docutils literal notranslate"><span class="pre">.mat</span></code> file, which can be read in MATLAB. Therefore, you can browse items and fields of this file using MATLAB or <code class="docutils literal notranslate"><span class="pre">scipy.io.loadmat</span></code>. The number of items is equal to the number of stations in <em><strong>Station list</strong></em>. Each item has 9 fields:</p>
+<p>The output structure would be saved as a <code class="docutils literal notranslate"><span class="pre">.mat</span></code> file, which can be read in MATLAB. Therefore, you can browse items and fields of this file using MATLAB or <code class="docutils literal notranslate"><span class="pre">scipy.io.loadmat</span></code>. The number of items is equal to the number of stations in <em><strong>Station list</strong></em>. Each item has 9 fields:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">Station</span></code>: The station name.</li>
 <li><code class="docutils literal notranslate"><span class="pre">stalat</span></code>: The Latitude of the station.</li>
@@ -373,7 +374,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">ccp_profile</span></code> command provide functions to stack PRFs along a profile:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">ccp_profile</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">l</span> <span class="n">LINE_LOCA</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span> <span class="n">STALIST</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUTPATH</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">t</span><span class="p">]</span> <span class="n">cfg_file</span>
 
-<span class="n">Stack</span> <span class="n">PRFS</span> <span class="n">along</span> <span class="n">a</span> <span class="n">profile</span>
+<span class="n">Stack</span> <span class="n">PRFs</span> <span class="n">along</span> <span class="n">a</span> <span class="n">profile</span>
 
 <span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
   <span class="n">cfg_file</span>      <span class="n">Path</span> <span class="n">to</span> <span class="n">CCP</span> <span class="n">configure</span> <span class="n">file</span>
@@ -393,17 +394,17 @@
 <li><code class="docutils literal notranslate"><span class="pre">FileIO</span></code>: Allow to set input and output path<ul>
 <li><code class="docutils literal notranslate"><span class="pre">depthdat</span></code>: The .mat file path output from rf2depth</li>
 <li><code class="docutils literal notranslate"><span class="pre">stackfile</span></code>: Path to output file after CCP stacking</li>
-<li><code class="docutils literal notranslate"><span class="pre">stalist</span></code>: Path to station list used to stack. If it is not exists, the stations would be limited using the witdth of the profile. the stations that meets the condition would be project to this proflie and write to this stalist.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stalist</span></code>: Path to station list used to stack. If it is not exists, the stations would be limited using the width of the profile. the stations that meets the condition would be project to this profile and write to this stalist.</li>
 </ul>
 </li>
 <li><code class="docutils literal notranslate"><span class="pre">stack</span></code> section: Define the nodes in depth<ul>
-<li><code class="docutils literal notranslate"><span class="pre">stack_start</span></code>: Define the depth with stacking begining</li>
-<li><code class="docutils literal notranslate"><span class="pre">stack_end</span></code>: Defane the depth with stacking ending</li>
+<li><code class="docutils literal notranslate"><span class="pre">stack_start</span></code>: Define the depth with stacking beginning</li>
+<li><code class="docutils literal notranslate"><span class="pre">stack_end</span></code>: Define the depth with stacking ending</li>
 <li><code class="docutils literal notranslate"><span class="pre">stack_val</span></code>: The interval between adjacent nodes in depth</li>
 </ul>
 </li>
 <li><code class="docutils literal notranslate"><span class="pre">bin</span></code> section: The shape of bin.<ul>
-<li><code class="docutils literal notranslate"><span class="pre">shape</span></code>: Define the shape of bins. Only ‘rect’ or ‘circle’ is avalible</li>
+<li><code class="docutils literal notranslate"><span class="pre">shape</span></code>: Define the shape of bins. Only ‘rect’ or ‘circle’ is available</li>
 <li><code class="docutils literal notranslate"><span class="pre">domperiod</span></code>: the period in second of S wave used in calculating radius of a fresnel zone</li>
 <li><code class="docutils literal notranslate"><span class="pre">witdth</span></code>: The width of the profile.</li>
 <li><code class="docutils literal notranslate"><span class="pre">bin_radius</span></code>: Radius of each bin. If it is not defined, radius would be assumed following fresnel zone.</li>
@@ -450,7 +451,7 @@ gitalk.render('gitalk-container');
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../modules.html" class="btn btn-neutral float-right" title="API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../modules.html" class="btn btn-neutral float-right" title="Module Index" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="pickrf.html" class="btn btn-neutral float-left" title="Reject poor PRFs with an user interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

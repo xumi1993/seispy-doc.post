@@ -186,10 +186,10 @@
 <span class="kn">import</span> <span class="nn">obspy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">basename</span><span class="p">,</span> <span class="n">dirname</span>
-<span class="kn">from</span> <span class="nn">seispy.setuplog</span> <span class="kn">import</span> <span class="n">setuplog</span>
-<span class="kn">from</span> <span class="nn">seispy.plotRT</span> <span class="kn">import</span> <span class="n">init_figure</span><span class="p">,</span> <span class="n">set_fig</span><span class="p">,</span> <span class="n">plot_waves</span>
+<span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="k">import</span> <span class="n">Figure</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">basename</span><span class="p">,</span> <span class="n">dirname</span>
+<span class="kn">from</span> <span class="nn">seispy.setuplog</span> <span class="k">import</span> <span class="n">setuplog</span>
+<span class="kn">from</span> <span class="nn">seispy.plotRT</span> <span class="k">import</span> <span class="n">init_figure</span><span class="p">,</span> <span class="n">set_fig</span><span class="p">,</span> <span class="n">plot_waves</span>
 
 
 <div class="viewcode-block" id="indexpags"><a class="viewcode-back" href="../../seispy.html#seispy.pickfigure.indexpags">[docs]</a><span class="k">def</span> <span class="nf">indexpags</span><span class="p">(</span><span class="n">evt_num</span><span class="p">,</span> <span class="n">maxidx</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
@@ -206,7 +206,7 @@
 
 
 <div class="viewcode-block" id="StaData"><a class="viewcode-back" href="../../seispy.html#seispy.pickfigure.StaData">[docs]</a><span class="k">class</span> <span class="nc">StaData</span><span class="p">():</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">rrf</span><span class="p">,</span> <span class="n">trf</span><span class="p">,</span> <span class="n">baz</span><span class="p">,</span> <span class="n">goodrf</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">rrf</span><span class="p">,</span> <span class="n">trf</span><span class="p">,</span> <span class="n">baz</span><span class="p">,</span> <span class="n">goodrf</span><span class="p">):</span>
         <span class="n">goodidx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">goodrf</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="p">[</span><span class="n">filenames</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">goodidx</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bazi</span> <span class="o">=</span> <span class="n">baz</span><span class="p">[</span><span class="n">goodidx</span><span class="p">]</span>
@@ -220,7 +220,7 @@
 
 
 <div class="viewcode-block" id="RFFigure"><a class="viewcode-back" href="../../seispy.html#seispy.pickfigure.RFFigure">[docs]</a><span class="k">class</span> <span class="nc">RFFigure</span><span class="p">(</span><span class="n">Figure</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rfpath</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rfpath</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">RFFigure</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">setuplog</span><span class="p">()</span>

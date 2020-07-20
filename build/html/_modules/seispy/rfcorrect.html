@@ -181,12 +181,12 @@
            <div itemprop="articleBody">
             
   <h1>Source code for seispy.rfcorrect</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">obspy.io.sac.sactrace</span> <span class="kn">import</span> <span class="n">SACTrace</span>
+<span></span><span class="kn">from</span> <span class="nn">obspy.io.sac.sactrace</span> <span class="k">import</span> <span class="n">SACTrace</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span><span class="p">,</span> <span class="n">interpn</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">exists</span>
-<span class="kn">from</span> <span class="nn">seispy.geo</span> <span class="kn">import</span> <span class="n">skm2srad</span><span class="p">,</span> <span class="n">sdeg2skm</span><span class="p">,</span> <span class="n">rad2deg</span><span class="p">,</span> <span class="n">latlon_from</span>
-<span class="kn">from</span> <span class="nn">seispy.psrayp</span> <span class="kn">import</span> <span class="n">get_psrayp</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">interp1d</span><span class="p">,</span> <span class="n">interpn</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">seispy.geo</span> <span class="k">import</span> <span class="n">skm2srad</span><span class="p">,</span> <span class="n">sdeg2skm</span><span class="p">,</span> <span class="n">rad2deg</span><span class="p">,</span> <span class="n">latlon_from</span>
+<span class="kn">from</span> <span class="nn">seispy.psrayp</span> <span class="k">import</span> <span class="n">get_psrayp</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
@@ -194,7 +194,7 @@
 
 
 <div class="viewcode-block" id="SACStation"><a class="viewcode-back" href="../../seispy.html#seispy.rfcorrect.SACStation">[docs]</a><span class="k">class</span> <span class="nc">SACStation</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evt_lst</span><span class="p">,</span> <span class="n">only_r</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evt_lst</span><span class="p">,</span> <span class="n">only_r</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param evt_lst: event list in RF data dir. Column as date string, phase, evt lat, evt lon, evt dep,</span>
 <span class="sd">                        distance, back-azimuth, ray parameter, magnitude, gauss factor.</span>
@@ -229,7 +229,7 @@
 
 
 <div class="viewcode-block" id="DepModel"><a class="viewcode-back" href="../../seispy.html#seispy.rfcorrect.DepModel">[docs]</a><span class="k">class</span> <span class="nc">DepModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">YAxisRange</span><span class="p">,</span> <span class="n">velmod</span><span class="o">=</span><span class="s1">&#39;iasp91&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">YAxisRange</span><span class="p">,</span> <span class="n">velmod</span><span class="o">=</span><span class="s1">&#39;iasp91&#39;</span><span class="p">):</span>
         <span class="n">VelocityModel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">from_file</span><span class="p">(</span><span class="n">velmod</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">depthsraw</span> <span class="o">=</span> <span class="n">VelocityModel</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vpraw</span> <span class="o">=</span> <span class="n">VelocityModel</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
@@ -438,7 +438,7 @@
 
 
 <div class="viewcode-block" id="Mod3DPerturbation"><a class="viewcode-back" href="../../seispy.html#seispy.rfcorrect.Mod3DPerturbation">[docs]</a><span class="k">class</span> <span class="nc">Mod3DPerturbation</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modpath</span><span class="p">,</span> <span class="n">YAxisRange</span><span class="p">,</span> <span class="n">velmod</span><span class="o">=</span><span class="s1">&#39;iasp91&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modpath</span><span class="p">,</span> <span class="n">YAxisRange</span><span class="p">,</span> <span class="n">velmod</span><span class="o">=</span><span class="s1">&#39;iasp91&#39;</span><span class="p">):</span>
         <span class="n">dep_mod</span> <span class="o">=</span> <span class="n">DepModel</span><span class="p">(</span><span class="n">YAxisRange</span><span class="p">,</span> <span class="n">velmod</span><span class="o">=</span><span class="n">velmod</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">modpath</span><span class="p">)</span>
         <span class="n">new1dvp</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">dep_mod</span><span class="o">.</span><span class="n">depthsraw</span><span class="p">,</span> <span class="n">dep_mod</span><span class="o">.</span><span class="n">vpraw</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;dep&#39;</span><span class="p">])</span>

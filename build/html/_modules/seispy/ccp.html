@@ -182,17 +182,17 @@
             
   <h1>Source code for seispy.ccp</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">seispy.geo</span> <span class="kn">import</span> <span class="n">km2deg</span><span class="p">,</span> <span class="n">deg2km</span><span class="p">,</span> <span class="n">latlon_from</span><span class="p">,</span> <span class="n">geoproject</span><span class="p">,</span> <span class="n">sind</span>
-<span class="kn">from</span> <span class="nn">seispy.distaz</span> <span class="kn">import</span> <span class="n">distaz</span>
-<span class="kn">from</span> <span class="nn">seispy.ccppara</span> <span class="kn">import</span> <span class="n">ccppara</span>
-<span class="kn">from</span> <span class="nn">seispy.setuplog</span> <span class="kn">import</span> <span class="n">setuplog</span>
-<span class="kn">from</span> <span class="nn">seispy.rfcorrect</span> <span class="kn">import</span> <span class="n">DepModel</span>
-<span class="kn">from</span> <span class="nn">seispy.bootstrap</span> <span class="kn">import</span> <span class="n">ci</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
+<span class="kn">from</span> <span class="nn">seispy.geo</span> <span class="k">import</span> <span class="n">km2deg</span><span class="p">,</span> <span class="n">deg2km</span><span class="p">,</span> <span class="n">latlon_from</span><span class="p">,</span> <span class="n">geoproject</span><span class="p">,</span> <span class="n">sind</span>
+<span class="kn">from</span> <span class="nn">seispy.distaz</span> <span class="k">import</span> <span class="n">distaz</span>
+<span class="kn">from</span> <span class="nn">seispy.ccppara</span> <span class="k">import</span> <span class="n">ccppara</span>
+<span class="kn">from</span> <span class="nn">seispy.setuplog</span> <span class="k">import</span> <span class="n">setuplog</span>
+<span class="kn">from</span> <span class="nn">seispy.rfcorrect</span> <span class="k">import</span> <span class="n">DepModel</span>
+<span class="kn">from</span> <span class="nn">seispy.bootstrap</span> <span class="k">import</span> <span class="n">ci</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">interp1d</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">basename</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">basename</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">exists</span>
 <span class="c1"># import matplotlib.pyplot as plt</span>
 
 
