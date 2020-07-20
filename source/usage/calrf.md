@@ -127,7 +127,7 @@ ax3.set_ylabel('R')
 
 
 ### 8. Calculate PRF
-`seispy.decov.decovit` provide a function with an iterative time-domain deconvolution method. Now let's Calculate a PRF. In this example we assume:
+`seispy.decov.decovit` provide a function with an iterative time-domain deconvolution method. Now let's calculate a PRF. In this example we assume:
 - Gauss factor = 2.0
 - The maximum number of iterations = 400
 - Minimum error = 0.001
