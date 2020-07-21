@@ -1,9 +1,6 @@
 CCP package
 ====================
 
-seispy.ccp module
------------------
-
 seispy.rfcorrect module
 -----------------------
 
@@ -19,6 +16,9 @@ seispy.rf2depth\_makedata module
     :members:
     :undoc-members:
     :show-inheritance:
+
+seispy.ccp module
+-----------------
 
 .. automodule:: seispy.ccp
     :members:
