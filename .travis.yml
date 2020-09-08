@@ -16,6 +16,7 @@ script:
   - make html
   - rm -r ./public/*
   - cp -r ./build/html/* ./public
+  - echo seispy.xumijian.me > CNAME
 
 deploy:
   - provider: script
