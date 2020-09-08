@@ -77,7 +77,7 @@ criterion = crust
 ## 2.2 Run in command line
 We have provided the command `prf`. The usage is shown as:
 ```
-usage: prf [-h] [-l] cfg_file
+usage: prf [-h] [-l] [-r COMP] [-s] [-b [BAZ]] cfg_file
 
 Calculating RFs for single station
 
@@ -87,9 +87,16 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   -l          use local catalog. Default is false
+  -r COMP     Reverse components: EN, E or N
+  -s          Switch East and North components
+  -b [BAZ]    Correct back-azimuth with minimal energy of T component. "baz"
+              is specified as half-searching range. Default value is 90 deg
 ```
 - `cfg_file`: configure file shown above.
 - `-l` if the argument was specified, a local file of catalog would be used in searching earthquakes.
+- `-r` Reverse the horizontal components. The arguments should be in `EN`, `E` or `N`.
+- `-s` If this option is specified the the East and North components would be changed.
+- `-b` Correct the back-azimuth with minimal energy of T component. the argument would be specified as half-searching range. Default value is 90 deg.
 
 ## 3. Initialize a project instance
 **To further understand the procedure of the command `prf`, we recommend calculating PRFs with writing a Python script as following steps.**
