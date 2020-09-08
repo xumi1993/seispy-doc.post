@@ -14,7 +14,8 @@ install:
 
 script:
   - make html
-  - cp -r ./build/html/. ./public
+  - rm -r ./public/*
+  - cp -r ./build/html/* ./public
 
 deploy:
   - provider: script
