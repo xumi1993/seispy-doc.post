@@ -5,9 +5,6 @@
 
 Seispy Documentation
 ==================================
-Seispy is a Python module for processing seismological data and calculating Receiver Functions. The advanced functions are available to improve the Obspy.
-
-I have been writing Seispy when I was a master student. At first, I wanted to calculate Receiver Functions in Python, but there is no suitable toolkit. Fortunately, The obspy provided mounts of APIs for processing seismic data, so I ported codes for calculating Receiver Functions from Matlab to Python. Today increased functions have been added to Seispy to further process seismic data over than Obspy.
 
 .. image:: https://img.shields.io/travis/com/xumi1993/seispy
    :target: https://travis-ci.com/xumi1993/seispy
@@ -27,6 +24,11 @@ I have been writing Seispy when I was a master student. At first, I wanted to ca
    :target: https://github.com/xumi1993/seispy
 .. image:: https://img.shields.io/github/forks/xumi1993/seispy?style=social
    :target: https://github.com/xumi1993/seispy
+
+
+Seispy is a Python module for processing seismological data and calculating Receiver Functions. The advanced functions are available to improve the Obspy.
+
+I have been writing Seispy when I was a master student. At first, I wanted to calculate Receiver Functions in Python, but there is no suitable toolkit. Fortunately, The obspy provided mounts of APIs for processing seismic data, so I ported codes for calculating Receiver Functions from Matlab to Python. Today increased functions have been added to Seispy to further process seismic data over than Obspy.
 
 .. image:: _static/seispy_shortcut.png
    :height: 719
