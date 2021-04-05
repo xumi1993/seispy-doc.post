@@ -57,6 +57,14 @@ seispy.geo module
     :undoc-members:
     :show-inheritance:
 
+seispy.get_cpt module
+-----------------
+
+.. automodule:: seispy.get_cpt
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 seispy.hk module
 ----------------
 
