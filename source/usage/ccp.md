@@ -33,7 +33,7 @@ A text table of station information with 3 columns:
 
 ### 3. A parameter file
 
-The parameter file include parameters used in CCP stacking. the format should follow `configparser` module as the following example:
+The parameter file include parameters used in the time-to-depth and CCP stacking. the format should follow `configparser` module as the following example:
 
 ```Python
 [FileIO]
@@ -57,7 +57,7 @@ stackfile = /Users/xumj/Researches/NETibet/Ordos_Process/stack_L5
 stack_sta_list = /Users/xumj/Researches/NETibet/Ordos_Process/sta_L5.lst
 
 # Path to 1D velocity model
-# If it's empty, useing IASP91 model
+# If it's empty, the IASP91 model will be used in time-to-depth conversion 
 velmod =
 
 [bin]

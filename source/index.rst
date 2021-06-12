@@ -48,6 +48,12 @@ I have been writing Seispy when I was a master student. At first, I wanted to ca
 
 .. toctree::
    :maxdepth: 2
+   :caption: Examples:
+
+   examples/ex-prf
+
+.. toctree::
+   :maxdepth: 3
    :caption: API Documentation:
 
    modules
