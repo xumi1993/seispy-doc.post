@@ -130,16 +130,18 @@ To correct influence by velocity anomalies above the interface you wanna study, 
 `rf2depth` command would convert PRFs from time axis to depth axis using above preparations:
 
 ```
-usage: rf2depth [-h] [-d VEL3DPATH] cfg_file
+usage: rf2depth [-h] [-d D] [-m M] [-r R] cfg_file
 
 Convert Ps RF to depth axis
 
 positional arguments:
-  cfg_file      Path to configure file
+  cfg_file    Path to configure file
 
 optional arguments:
-  -h, --help    show this help message and exit
-  -d VEL3DPATH  Path to 3d vel model in npz file
+  -h, --help  show this help message and exit
+  -d D        Path to 3d vel model in npz file for moveout correcting
+  -m M        Folder path to 1d vel model files with staname.vel as the file name
+  -r R        Path to 3d vel model in npz file for 3D ray tracing
 ```
 
 The output structure would be saved as a `.mat` file, which can be read in MATLAB. Therefore, you can browse items and fields of this file using MATLAB or `scipy.io.loadmat`. The number of items is equal to the number of stations in ***Station list***. Each item has 9 fields:
