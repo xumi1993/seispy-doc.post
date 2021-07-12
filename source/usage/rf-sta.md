@@ -99,7 +99,7 @@ optional arguments:
 - `-l` if the argument was specified, a local file of catalog would be used in searching earthquakes.
 - `-r` Reverse the horizontal components. The arguments should be in `EN`, `E` or `N`.
 - `-s` If this option is specified, the East and North components would be changed.
-- `-b` Correct the back-azimuth with minimal energy of T component. the argument would be specified as half-searching range. Default value is 90 deg.
+- `-b` Correct azimuth of horizontal components with minimal energy of T component. the argument would be specified as half-searching range. Default value is 90 deg.
 
 ## Initialize a project instance
 **To further understand the procedure of the command `prf`, we recommend calculating PRFs with writing a Python script as following steps.**
