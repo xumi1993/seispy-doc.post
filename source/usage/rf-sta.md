@@ -77,6 +77,7 @@ criterion = crust
 
 ## Run in command line
 We have provided the command `prf`. The usage is shown as:
+
 ```
 usage: prf [-h] [-l] [-r COMP] [-s] [-b [BAZ]] cfg_file
 
@@ -93,10 +94,11 @@ optional arguments:
   -b [BAZ]    Correct back-azimuth with minimal energy of T component. "baz"
               is specified as half-searching range. Default value is 90 deg
 ```
+
 - `cfg_file`: configure file shown above.
 - `-l` if the argument was specified, a local file of catalog would be used in searching earthquakes.
 - `-r` Reverse the horizontal components. The arguments should be in `EN`, `E` or `N`.
-- `-s` If this option is specified the the East and North components would be changed.
+- `-s` If this option is specified, the East and North components would be changed.
 - `-b` Correct the back-azimuth with minimal energy of T component. the argument would be specified as half-searching range. Default value is 90 deg.
 
 ## Initialize a project instance
@@ -168,7 +170,7 @@ We use the same process as the [SplitRFLab](https://git.nju.edu.cn/xumi1993/Spli
 
 ### Load station information
 
-the The station latitude and longitude are absolutely necessary when we are used to search earthquakes. the function will read stla and stlo of SAC header from files in pjt.para.datapath.
+the The station latitude and longitude are absolutely necessary when we are used to search earthquakes. the function will read `stla` and `stlo` of SAC header from files in pjt.para.datapath.
 ```Python
 pjt.load_stainfo()
 ```
@@ -183,7 +185,7 @@ pjt.search_eq()
 
 to search earthquakes in IRIS Web service with the CMT catalog.
 
-In addition, the function allow to perpare earthquakes from a CMT catalog file (saved to seispy/seispy/data/EventCMT.dat). Use command updatecatalog to update the catalog file.
+In addition, the function allow to prepare earthquakes from a CMT catalog file (saved to seispy/seispy/data/EventCMT.dat). Use command `updatecatalog` to update the catalog file.
 
 ```Python
 pjt.search_eq(local=True)
@@ -214,10 +216,11 @@ The process of pretreatment include detrend, bandpass filter, calculating arriva
 ### Filter
 
 We will aply a bandpass filter on seismic records. Two corners should be specified.
+
 - `para.freqmin`: Pass band low corner frequency.
 - `para.freqmax`: Pass band high corner frequency.
 
-### Signal-noise-ratios calculation
+### Signal-noise-ratios (SNR) calculation
 
 Bad records will be rejected in this step. We will reject records with SNR < `para.noisegate`. The SNR was calculated as:
 
@@ -263,7 +266,7 @@ Save the PRFs to pjt.para.rfpath with some criteria. Two kind of criteria allow 
 
 ### `mtz`
 
-- The maximum peak should appear berween -5s and 5s
+- The maximum peak should appear between -5s and 5s
 
 - the maximum amplitudes of PRFs in a 30–120 s window after the direct P are smaller than 30% of the maximum amplitudes of the direct P phases.
 

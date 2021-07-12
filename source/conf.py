@@ -46,6 +46,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
+    'sphinx.ext.mathjax',
     'recommonmark',
     'sphinx_markdown_tables',
     "sphinx_rtd_theme",
