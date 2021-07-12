@@ -222,14 +222,13 @@ We will aply a bandpass filter on seismic records. Two corners should be specifi
 
 ### Signal-noise-ratios (SNR) calculation
 
-Bad records will be rejected in this step. We will reject records with SNR < `para.noisegate`. The SNR was calculated as:
+seismic records with poor quality will be rejected in this step. We will reject records with SNR < `para.noisegate`. The SNR was calculated as:
 
 $$
 SNR = 10log_{10}\left(\frac{A_S}{A_N}\right)
 $$
 
-where $A_N$ and $A_N$ are root mean squares (RMS) of the waveform in
-a `para.noiselen` time-window before and after theoretical P arrival times, respectively.
+where $A_N$ and $A_N$ are root mean squares (RMS) of the waveform trimmed with time length of `para.noiselen` before and after theoretical P arrival times, respectively.
 
 ### Trim
 
