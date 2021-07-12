@@ -1,10 +1,10 @@
-# Calculating PRFs of the station CB.NJ2
+# Calculate PRFs of the station CB.NJ2
 
 Here, we provide an example for calculating PRFs of CB.NJ2, which is a permanent station at Nanjing China mainland.
 
 ## Download Seismic data and configure files
 
-Download link: [ex-prf](https://osf.io/c8h3t/download)
+Download link: [ex-prf.tar.gz](https://osf.io/c8h3t/download)
 
 unzip the file to any directory.
 
@@ -24,13 +24,13 @@ Change directory to Data.CB.NJ2 then execute following command:
 prf rf.cfg
 ```
 
-As the `rfpath` set in the `rf.cfg`, run following command to virtual check PRFs use a GUI. See [Virtual check PRFs with an user interface](../usage/pickrf.md)
+As the `rfpath` set in the `rf.cfg`, run following command to virtual check PRFs use a GUI. See [Virtual check PRFs with an user interface](../usage/pickrf.md) in detail.
 
 ```shell
 pickrf ./RFresult/CB.NJ2
 ```
 
-# Estimated the Moho depth and the crustal Vp/Vs using the H-k stacking method
+# Estimate the Moho depth and the crustal Vp/Vs using the H-k stacking method
 
 The PRFs had been saved to `./RFresult/CB.NJ2`, and the `CB.NJ2finallist.dat` had been created via the virtual check. The Moho depth can be estimated using the the H-k stacking method.
 
@@ -88,6 +88,7 @@ hk hk.cfg -p
 ```
 
 If `-p` was specified a figure would be generated to `hkpath`, which shows the stacking energy of difference phases and the final result of the estimation.
+
 ![](../_static/CB.NJ2.png)
 
 The result of the Moho depth and Vp/Vs were saved into the path of `hklst`(default is `hk.dat`).

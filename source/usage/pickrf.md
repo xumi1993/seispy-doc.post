@@ -18,6 +18,7 @@ For example, PRFs were saved in folder `net.sta`. the file name of the PRF must 
 $ pickrf /path/to/net.sta
 ```
 The window will open as following image. Each page will display 20 PRFs. You can press `z` and `c` hotkey or click `previous` and `next` button for turning pages.
+
 ![](/_static/pickrf.png)
 
 

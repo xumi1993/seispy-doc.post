@@ -51,6 +51,8 @@ I have been writing Seispy when I was a master student. At first, I wanted to ca
    :caption: Examples:
 
    examples/ex-prf
+   examples/ex-ccp
+
 
 .. toctree::
    :maxdepth: 3

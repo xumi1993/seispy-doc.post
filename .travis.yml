@@ -10,7 +10,7 @@ before_install:
   - cd ..
 
 install:
-  - pip install sphinx sphinx_rtd_theme recommonmark sphinx-markdown-tables
+  - pip install sphinx==3.5.3 sphinx_rtd_theme==0.5.2 recommonmark sphinx-markdown-tables
 
 script:
   - make html
