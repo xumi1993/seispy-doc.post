@@ -1,6 +1,6 @@
 dist: xenial
 language: python
-python: 3.6
+python: 3.8
 
 before_install:
   - git clone --branch=gh-pages https://github.com/xumi1993/seispy.git ./public
@@ -10,7 +10,7 @@ before_install:
   - cd ..
 
 install:
-  - pip install sphinx==3.5.3 sphinx_rtd_theme==0.5.2 recommonmark sphinx-markdown-tables
+  - pip install sphinx==3.5.3 sphinx_rtd_theme==0.5.2 recommonmark==0.7.1 sphinx-markdown-tables==0.0.15
 
 script:
   - make html
