@@ -104,7 +104,7 @@ optional arguments:
 ## Initialize a project instance
 **To further understand the procedure of the command `prf`, we recommend calculating PRFs with writing a Python script as following steps.**
 
-First, let’s init a `rf`instance. In this instance, we can set parameters, match earthquakes from catalog and calculate PRFs.
+First, let’s initialize a `RF`instance. In this instance, we can set parameters, match earthquakes from catalog and calculate PRFs.
 
 ```Python
 from seispy.rf import RF
@@ -116,10 +116,12 @@ pjt = RF()
 
 ## Set parameters
 
-Most of parameters are saved in `pjt.para`. Let’s show all default parameters
+Most of parameters are saved in the class `pjt.para`. All default parameters are shown as following
+
 ```Python
 print(pjt.para.__dict__)
 ```
+
 ```
 {'_datapath': '/Users/xumj',
  '_rfpath': '/Users/xumj',
@@ -201,7 +203,8 @@ the `pjt.para.offset` and `pjt.para.tolerance` are used to match the origin time
 
 - The “offset” is the time duration between the event time and the starting time of your seismograms. Ideally, this offset should be identical to the “request start time” defined in the previous window but the data management center may have sent you data beginning later than requested. The offset value represents this difference.
 
-- The “Tolerance” value in seconds will define the time window within which the program will try to associate a seismic file to an event file, by using either its name or the information contained in the header. It is up to the user to find the best compromise: a value too small will let orphans and a value too large will bring confusion since several files could be associated to a seismic event. ![](/_static/offset.png)
+- The “Tolerance” value in seconds will define the time window within which the program will try to associate a seismic file to an event file, by using either its name or the information contained in the header. It is up to the user to find the best compromise: a value too small will let orphans and a value too large will bring confusion since several files could be associated to a seismic event.
+![](/_static/offset.png)
 
 After setting up these parameters, use following command to match data records to the catalog:
 
@@ -247,25 +250,26 @@ pjt.rotate()
 
 We need parameters of `pjt.para.gauss`, `pjt.para.itmax` and `pjt.para.minderr` to calculate PRFs using iterative time-domain deconvolution method
 
-- `pjt.para.gauss`: Gauss factor. Default is 2.0
-- `pjt.para.itmax`: The maximum number of iterations. Default is 400
-- `pjt.para.minderr`: The minimum misfit. Default is 0.001
+- `pjt.para.gauss`: Gauss factor. Default is 2.0.
+- `pjt.para.itmax`: The maximum number of iterations. Default is 400.
+- `pjt.para.minderr`: The minimum misfit. Default is 0.001.
 
 ```Python
 pjt.deconv()
-``` 
+```
 
 ## Save PRFs
 
 Save the PRFs to pjt.para.rfpath with some criteria. Two kind of criteria allow to set (i.e., crust or mtz). if the parameter set as None, all of PRFs will be saved.
 
 ### `crust`
-- The maximum peak should appear berween -2s and 2s
+
+- The maximum peak should appear berween -2s and 2s.
 
 
 ### `mtz`
 
-- The maximum peak should appear between -5s and 5s
+- The maximum peak should appear between -5s and 5s.
 
 - the maximum amplitudes of PRFs in a 30–120 s window after the direct P are smaller than 30% of the maximum amplitudes of the direct P phases.
 
