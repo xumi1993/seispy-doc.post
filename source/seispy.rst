@@ -161,6 +161,14 @@ seispy.rf2depth\_makedata module
     :undoc-members:
     :show-inheritance:
 
+seispy.rfani module
+--------------------------------
+
+.. automodule:: seispy.rfani
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 seispy.rfcorrect module
 -----------------------
 
