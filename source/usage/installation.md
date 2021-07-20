@@ -54,7 +54,7 @@ cd seispy
 pip install .
 ```
 
-## Update Seispy
+### Update Seispy
 
 To update the Seispy, please change to directory of the source code, and execute following commands.
 
