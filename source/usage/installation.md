@@ -13,9 +13,23 @@ Following Python modules are required for the Seispy, **but do not have to be in
 - [Matplotlib](https://matplotlib.org/)
 - [Pyqt5](https://pypi.org/project/PyQt5/)
 
-## Install Seispy
+## Install and update via [PyPi](https://pypi.org/)
 
-Now download and install Seispy.
+### Installation 
+
+Run on command line:
+
+```shell
+pip install python-seispy
+```
+
+### Upgrade to stable version
+
+```shell
+pip install -U python-seispy
+```
+
+## Install and update from source code
 
 ### Download the source codes
 
