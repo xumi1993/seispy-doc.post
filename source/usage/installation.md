@@ -25,6 +25,12 @@ Clone the source code from [Github](https://github.com/xumi1993/seispy.git) to a
 git clone https://github.com/xumi1993/seispy.git
 ```
 
+For **Chinese users**, try to clone the source code from [Git service of Nanjing University](https://git.nju.edu.cn/geophy/seispy)
+
+```Shell
+git clone https://git.nju.edu.cn/geophy/seispy.git
+```
+
 ### Install Seispy to the Python environment
 
 Change path to where the source code was cloned into, and install the module via [Python pip](https://pip.pypa.io/) command
