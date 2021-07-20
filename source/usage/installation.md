@@ -26,7 +26,7 @@ pip install python-seispy
 ### Upgrade to stable version
 
 ```shell
-pip install -U python-seispy
+pip install python-seispy -U
 ```
 
 ## Install and update from source code
