@@ -10,8 +10,8 @@ Seispy Documentation
    :target: https://travis-ci.com/xumi1993/seispy
 .. image:: https://img.shields.io/travis/com/xumi1993/seispy-doc.post?label=doc
    :target: https://seispy.xumijian.me
-.. image:: https://img.shields.io/pypi/v/python-seispy   :alt: PyPI
-.. image:: https://img.shields.io/pypi/pyversions/python-seispy   :alt: PyPI - Python Version
+.. image:: https://img.shields.io/pypi/v/python-seispy
+.. image:: https://img.shields.io/pypi/pyversions/python-seispy
 .. image:: https://img.shields.io/github/license/xumi1993/seispy
 .. image:: https://img.shields.io/github/v/tag/xumi1993/seispy
 .. image:: https://img.shields.io/github/last-commit/xumi1993/seispy
@@ -54,7 +54,7 @@ I have been writing Seispy when I was a master student. At first, I wanted to ca
 
    examples/ex-prf
    examples/ex-ccp
-   examples/ex-ccp3d
+   examples/ex-ccp3d.rst
 
 
 .. toctree::
