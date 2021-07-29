@@ -54,6 +54,7 @@ I have been writing Seispy when I was a master student. At first, I wanted to ca
 
    examples/ex-prf
    examples/ex-ccp
+   examples/ex-ccp3d
 
 
 .. toctree::

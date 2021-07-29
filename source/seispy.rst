@@ -9,10 +9,18 @@ seispy.bootstrap module
     :undoc-members:
     :show-inheritance:
 
-seispy.ccp module
+seispy.ccpprofile module
 -----------------
 
-.. automodule:: seispy.ccp
+.. automodule:: seispy.ccpprofile
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+seispy.cc3d module
+-----------------
+
+.. automodule:: seispy.ccp3d
     :members:
     :undoc-members:
     :show-inheritance:
@@ -25,10 +33,10 @@ seispy.ccppara module
     :undoc-members:
     :show-inheritance:
 
-seispy.decov module
+seispy.decon module
 -------------------
 
-.. automodule:: seispy.decov
+.. automodule:: seispy.decon
     :members:
     :undoc-members:
     :show-inheritance:
