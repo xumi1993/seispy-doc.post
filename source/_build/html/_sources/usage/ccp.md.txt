@@ -198,5 +198,5 @@ optional arguments:
         - `domperiod`: the period in second of S wave used in calculating radius of a fresnel zone
         - `witdth`: The width of the profile.
         - `bin_radius`: Radius of each bin. If it is not defined, radius would be assumed following fresnel zone.
-        - `slide_val`: Interval between adjacent bins
+        - `slid_val`: Interval between adjacent bins
     - `line` section: Line location

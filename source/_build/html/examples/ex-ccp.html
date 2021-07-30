@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Calculate PRFs of a seismic array in batch &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/seispy_100.png"/>
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="seispy.xumijian.me/examples/ex-ccp.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3-D CCP stacking for mantle transition zone structure under the Tibet." href="ex-ccp3d.html" />
+    <link rel="prev" title="Calculate PRFs of the station CB.NJ2" href="ex-prf.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+    
+    <a href="../index.html" class="icon icon-home"> seispy
+    
+
+    
+    
+    <img src="../_static/seispy_100.png" class="logo" alt="Logo"/>
+    
+    </a>
+
+    
+    
+    
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/calrf.html">Calculate a P-wave Receiver Function (PRF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/rf-sta.html">Calculate PRFs for a station</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/pickrf.html">Virtual check PRFs with an user interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/ccp.html">Stack PRFs with Common Conversion points (CCP) method</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ex-prf.html">Calculate PRFs of the station CB.NJ2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex-prf.html#estimate-the-moho-depth-and-the-crustal-vp-vs-using-the-h-k-stacking-method">Estimate the Moho depth and the crustal Vp/Vs using the H-k stacking method</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Calculate PRFs of a seismic array in batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#download-teleseismic-data-records">Download teleseismic data records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#write-a-script-for-batch-calculation">Write a script for batch calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#ccp-stacking-along-a-linear-seismic-array">CCP stacking along a linear seismic array</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preparation">Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#time-to-depth-conversion">Time-to-depth conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ccp-stacking">CCP stacking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-the-stacking-image">Plot the stacking image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ex-ccp3d.html">3-D CCP stacking for mantle transition zone structure under the Tibet.</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">Links:</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/xumi1993/seispy"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+                <li class="toctree-l1"><a href="https://blog.xumijian.me"><i class="fa fa-rss fa-fw"></i> Chinses Blog</a></li>
+            
+                <li class="toctree-l1"><a href="https://home.xumijian.me/#contact"><i class="fa fa-envelope fa-fw"></i> Contact</a></li>
+            
+        </ul>
+    
+
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Calculate PRFs of a seismic array in batch</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            
+              <a href="https://github.com/xumi1993/seispy-doc.post/blob/master/source/examples/ex-ccp.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="calculate-prfs-of-a-seismic-array-in-batch">
+<h1>Calculate PRFs of a seismic array in batch<a class="headerlink" href="#calculate-prfs-of-a-seismic-array-in-batch" title="Permalink to this headline">¶</a></h1>
+<p>This example provide a procedure for batch calculating PRFs of NCISP-III array (<a class="reference external" href="https://doi.org/10.1016/j.pepi.2007.01.004">Zheng et al., 2007</a>)</p>
+<div class="section" id="download-teleseismic-data-records">
+<h2>Download teleseismic data records<a class="headerlink" href="#download-teleseismic-data-records" title="Permalink to this headline">¶</a></h2>
+<p>Download link: <a class="reference external" href="https://osf.io/wsj83/download">ex-batRF.tar.gz</a></p>
+<p>Unzip the file to any directory. The package include <code class="docutils literal notranslate"><span class="pre">Data.ZX</span></code> with 47 sub folders named as <code class="docutils literal notranslate"><span class="pre">network.station</span></code>, which include <code class="docutils literal notranslate"><span class="pre">sac</span></code> files cut out from 300 s after origin time to 1000 s after origin time seismic events. The <code class="docutils literal notranslate"><span class="pre">SACHeader`</span> <span class="pre">of</span> <span class="pre">station</span> <span class="pre">information</span> <span class="pre">(``netwk</span></code>, <code class="docutils literal notranslate"><span class="pre">stnm</span></code>, <code class="docutils literal notranslate"><span class="pre">stla</span></code> and <code class="docutils literal notranslate"><span class="pre">stlo</span></code>) had been written into <code class="docutils literal notranslate"><span class="pre">sac</span></code> files.</p>
+</div>
+<div class="section" id="write-a-script-for-batch-calculation">
+<h2>Write a script for batch calculation<a class="headerlink" href="#write-a-script-for-batch-calculation" title="Permalink to this headline">¶</a></h2>
+<p>Seispy has provided a command called <code class="docutils literal notranslate"><span class="pre">setpar</span></code>, which will modify values in the <code class="docutils literal notranslate"><span class="pre">.cfg</span></code> file. Combining with a list of station information with 3 columns (<code class="docutils literal notranslate"><span class="pre">staname</span></code>, <code class="docutils literal notranslate"><span class="pre">stla</span></code>, <code class="docutils literal notranslate"><span class="pre">stlo</span></code>), We can use the <code class="docutils literal notranslate"><span class="pre">setpar</span></code> and <code class="docutils literal notranslate"><span class="pre">prf</span></code> command in shell script (<code class="docutils literal notranslate"><span class="pre">run.sh</span></code>) for batch calculation of the PRFs. In this example, please execute <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> in <code class="docutils literal notranslate"><span class="pre">ex-batRF</span></code> directory for the batch calculation.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="nb">read</span> staname stla stlo
+<span class="k">do</span>
+    setpar rf.cfg path datapath ./Data.ZX/<span class="nv">$staname</span>
+    setpar rf.cfg path rfpath ./RFresult/<span class="nv">$staname</span>
+    prf rf.cfg
+<span class="k">done</span> &lt; sta.lst
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">sta.lst</span></code> includes station information.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">rf.cfg</span></code> is the configure file. In addition to the <code class="docutils literal notranslate"><span class="pre">datapath</span></code> and <code class="docutils literal notranslate"><span class="pre">rfpath</span></code>, other parameters can be set in advance.</p></li>
+<li><p>If set up a local catalog, the calculation time will be saved.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="ccp-stacking-along-a-linear-seismic-array">
+<h1>CCP stacking along a linear seismic array<a class="headerlink" href="#ccp-stacking-along-a-linear-seismic-array" title="Permalink to this headline">¶</a></h1>
+<p>Download link: <a class="reference external" href="https://osf.io/hzq2x/download">ex-ccp.tar.gz</a></p>
+<div class="section" id="preparation">
+<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>A Folder with PRFs (<code class="docutils literal notranslate"><span class="pre">RFresult</span></code>)</p></li>
+<li><p>A configure file with <code class="docutils literal notranslate"><span class="pre">cfg</span></code> format (<code class="docutils literal notranslate"><span class="pre">ccp.cfg</span></code>).</p></li>
+</ul>
+</div>
+<div class="section" id="time-to-depth-conversion">
+<h2>Time-to-depth conversion<a class="headerlink" href="#time-to-depth-conversion" title="Permalink to this headline">¶</a></h2>
+<p>specify following parameters in the <code class="docutils literal notranslate"><span class="pre">ccp.cfg</span></code> for time-to-depth conversion</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rfpath</span></code>: Path to PRFs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">depthdat</span></code>: Output data structure after time-to-depth conversion</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stalist</span></code>: The list of station information with 3 columns (<code class="docutils literal notranslate"><span class="pre">staname</span></code>, <code class="docutils literal notranslate"><span class="pre">stla</span></code>, <code class="docutils literal notranslate"><span class="pre">stlo</span></code>)</p></li>
+</ul>
+<p>Then execute follow command to do the conversion</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>rf2depth ccp.cfg
+</pre></div>
+</div>
+<p>After the time-to-depth conversion, the <code class="docutils literal notranslate"><span class="pre">RFdepth.mat</span></code> will be generated following the path set as <code class="docutils literal notranslate"><span class="pre">depthdat</span></code>.</p>
+</div>
+<div class="section" id="ccp-stacking">
+<h2>CCP stacking<a class="headerlink" href="#ccp-stacking" title="Permalink to this headline">¶</a></h2>
+<p>specify following parameters in the <code class="docutils literal notranslate"><span class="pre">ccp.cfg</span></code> for CCP stacking. See <a class="reference internal" href="../usage/ccp.html"><span class="doc">Stack PRFs with Common Conversion points (CCP) method</span></a> in detail.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">stackfile</span></code>: Output file for the CCP stacking</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stack_sta_list</span></code>: Stations used for the CCP stacking. In this example, we use the same stations as the <code class="docutils literal notranslate"><span class="pre">stalist</span></code>.</p></li>
+<li><p>Section <code class="docutils literal notranslate"><span class="pre">[bin]</span></code> for parameters of stacking bins</p></li>
+<li><p>Section <code class="docutils literal notranslate"><span class="pre">[line]</span></code> for location of the profile.</p></li>
+<li><p>Section <code class="docutils literal notranslate"><span class="pre">[stack]</span></code> for Depth samples.</p></li>
+</ul>
+<p>Then execute following command for CCP stacking</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ccp_profile ccp.cfg -t
+</pre></div>
+</div>
+<p>An text file set by <code class="docutils literal notranslate"><span class="pre">stackfile</span></code> will be generated including 6 columns: <code class="docutils literal notranslate"><span class="pre">bin_lat</span></code>, <code class="docutils literal notranslate"><span class="pre">bin_lon</span></code>, <code class="docutils literal notranslate"><span class="pre">bin_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">depth</span></code>, <code class="docutils literal notranslate"><span class="pre">amplitude</span></code> and <code class="docutils literal notranslate"><span class="pre">stack_num</span></code>.</p>
+</div>
+<div class="section" id="plot-the-stacking-image">
+<h2>Plot the stacking image<a class="headerlink" href="#plot-the-stacking-image" title="Permalink to this headline">¶</a></h2>
+<p>Seispy dose not provide any functions or script for plotting stacking image. Here we provide a script with GMT6 format for plotting the image. Just run in <code class="docutils literal notranslate"><span class="pre">ex-ccp</span></code> directory.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sh ps_profile.sh
+</pre></div>
+</div>
+<div class="figure align-center" id="id1">
+<img alt="profile" src="../_images/profile_ZX.png" />
+<p class="caption"><span class="caption-text">CCP stacking along the seismic array</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>Zheng T, Chen L, Zhao L, et al. Crustal structure across the Yanshan belt at the northern margin of the North China Craton[J]. Physics of the Earth and Planetary Interiors, 2007, 161(1-2): 36-49.</p>
+</div>
+</div>
+
+
+           </div>
+           
+           <div class="articleComments">
+            
+
+<!-- gitalk 脚本-->
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '353cad2a2d15e1570ff3',
+    clientSecret: '4405286d2f00e73da8474211999fdee5a6f09f42',
+    owner: 'xumi1993',
+    repo: 'seispy-doc.post',
+    admin: ['xumi1993'],
+    id: md5(location.pathname),
+    body: location.href,
+    language: 'en'
+  });
+gitalk.render('gitalk-container');
+</script>
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="ex-ccp3d.html" class="btn btn-neutral float-right" title="3-D CCP stacking for mantle transition zone structure under the Tibet." accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ex-prf.html" class="btn btn-neutral float-left" title="Calculate PRFs of the station CB.NJ2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Mijian Xu.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

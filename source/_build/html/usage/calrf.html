@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Calculate a P-wave Receiver Function (PRF) &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/seispy_100.png"/>
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="seispy.xumijian.me/usage/calrf.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Calculate PRFs for a station" href="rf-sta.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+    
+    <a href="../index.html" class="icon icon-home"> seispy
+    
+
+    
+    
+    <img src="../_static/seispy_100.png" class="logo" alt="Logo"/>
+    
+    </a>
+
+    
+    
+    
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Calculate a P-wave Receiver Function (PRF)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#download-sac-files-for-this-example">Download SAC files for this example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#import-corresponding-modules">Import corresponding modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-sac-files-with-3-components-enz">Read SAC files with 3 components (ENZ)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pre-process-for-raw-data">Pre-process for raw data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calculate-the-epicenter-distance-and-back-azimuth">Calculate the epicenter distance and back-azimuth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rotation">Rotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#estimating-p-arrival-time-and-ray-parameter-with-obspy-taup">Estimating P arrival time and ray parameter with <code class="docutils literal notranslate"><span class="pre">obspy.taup</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trim-the-waveforms-for-prf">Trim the waveforms for PRF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calculate-prf">Calculate PRF</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rf-sta.html">Calculate PRFs for a station</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pickrf.html">Virtual check PRFs with an user interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ccp.html">Stack PRFs with Common Conversion points (CCP) method</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex-prf.html">Calculate PRFs of the station CB.NJ2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex-prf.html#estimate-the-moho-depth-and-the-crustal-vp-vs-using-the-h-k-stacking-method">Estimate the Moho depth and the crustal Vp/Vs using the H-k stacking method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex-ccp.html">Calculate PRFs of a seismic array in batch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex-ccp.html#ccp-stacking-along-a-linear-seismic-array">CCP stacking along a linear seismic array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex-ccp3d.html">3-D CCP stacking for mantle transition zone structure under the Tibet.</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">Links:</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/xumi1993/seispy"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+                <li class="toctree-l1"><a href="https://blog.xumijian.me"><i class="fa fa-rss fa-fw"></i> Chinses Blog</a></li>
+            
+                <li class="toctree-l1"><a href="https://home.xumijian.me/#contact"><i class="fa fa-envelope fa-fw"></i> Contact</a></li>
+            
+        </ul>
+    
+
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Calculate a P-wave Receiver Function (PRF)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            
+              <a href="https://github.com/xumi1993/seispy-doc.post/blob/master/source/usage/calrf.md" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="calculate-a-p-wave-receiver-function-prf">
+<h1>Calculate a P-wave Receiver Function (PRF)<a class="headerlink" href="#calculate-a-p-wave-receiver-function-prf" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="download-sac-files-for-this-example">
+<h2>Download SAC files for this example<a class="headerlink" href="#download-sac-files-for-this-example" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://osf.io/7xb63/download">Download SAC files</a></p>
+<p>Download and unzip this <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> file, which include SAC files of three components.</p>
+</div>
+<div class="section" id="import-corresponding-modules">
+<h2>Import corresponding modules<a class="headerlink" href="#import-corresponding-modules" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">obspy</span>
+<span class="kn">import</span> <span class="nn">seispy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="read-sac-files-with-3-components-enz">
+<h2>Read SAC files with 3 components (ENZ)<a class="headerlink" href="#read-sac-files-with-3-components-enz" title="Permalink to this headline">¶</a></h2>
+<p>You should prepare teleseismic data if SAC format (ENZ) and read them via obspy. To facilitate the follow-up, you’d better write positions of the station and the event into SAC header (i.e., <code class="docutils literal notranslate"><span class="pre">stla</span></code>, <code class="docutils literal notranslate"><span class="pre">stlo</span></code>, <code class="docutils literal notranslate"><span class="pre">evla</span></code>, <code class="docutils literal notranslate"><span class="pre">evlo</span></code> and <code class="docutils literal notranslate"><span class="pre">evdp</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">st</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;tele/*.101.*.SAC&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pre-process-for-raw-data">
+<h2>Pre-process for raw data<a class="headerlink" href="#pre-process-for-raw-data" title="Permalink to this headline">¶</a></h2>
+<p>You should remove the mean offset and linear trend of the waveforms, then filtered them with a Butterworth filter in the range of 0.05–2 Hz. The figures show a comparison between the raw data and the data after pre-process</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">st_cmp</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">st</span><span class="o">.</span><span class="n">detrend</span><span class="p">()</span>
+<span class="n">st</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;bandpass&quot;</span><span class="p">,</span> <span class="n">freqmin</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">freqmax</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">zerophase</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Plot for comparison</span>
+<span class="n">st_cmp</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">st</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../_images/output_5_0.png" /></p>
+<p><img alt="png" src="../_images/output_5_1.png" /></p>
+</div>
+<div class="section" id="calculate-the-epicenter-distance-and-back-azimuth">
+<h2>Calculate the epicenter distance and back-azimuth<a class="headerlink" href="#calculate-the-epicenter-distance-and-back-azimuth" title="Permalink to this headline">¶</a></h2>
+<p>To trim the waveform or rotate the components, you can use the <code class="docutils literal notranslate"><span class="pre">seispy.distaz</span></code> to calculate the epicenter distance and back-azimuth.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">da</span> <span class="o">=</span> <span class="n">seispy</span><span class="o">.</span><span class="n">distaz</span><span class="p">(</span><span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sac</span><span class="o">.</span><span class="n">stla</span><span class="p">,</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sac</span><span class="o">.</span><span class="n">stlo</span><span class="p">,</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sac</span><span class="o">.</span><span class="n">evla</span><span class="p">,</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sac</span><span class="o">.</span><span class="n">evlo</span><span class="p">)</span>
+<span class="n">dis</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">delta</span>
+<span class="n">bazi</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">baz</span>
+<span class="n">ev_dep</span> <span class="o">=</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sac</span><span class="o">.</span><span class="n">evdp</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Distance = </span><span class="si">%5.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">dis</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;back-azimuth = </span><span class="si">%5.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">bazi</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Distance</span> <span class="o">=</span> <span class="mf">51.64</span>
+<span class="n">back</span><span class="o">-</span><span class="n">azimuth</span> <span class="o">=</span> <span class="mf">131.59</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rotation">
+<h2>Rotation<a class="headerlink" href="#rotation" title="Permalink to this headline">¶</a></h2>
+<p>Now you can rotate horizontal components (ENZ) into radial and transverse components (TRZ)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">st_TRZ</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="s1">&#39;NE-&gt;RT&#39;</span><span class="p">,</span> <span class="n">back_azimuth</span><span class="o">=</span><span class="n">bazi</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="estimating-p-arrival-time-and-ray-parameter-with-obspy-taup">
+<h2>Estimating P arrival time and ray parameter with <code class="docutils literal notranslate"><span class="pre">obspy.taup</span></code><a class="headerlink" href="#estimating-p-arrival-time-and-ray-parameter-with-obspy-taup" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">obspy.taup</span> <span class="kn">import</span> <span class="n">TauPyModel</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">TauPyModel</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;iasp91&#39;</span><span class="p">)</span>
+<span class="n">arrivals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_travel_times</span><span class="p">(</span><span class="n">ev_dep</span><span class="p">,</span> <span class="n">dis</span><span class="p">,</span> <span class="n">phase_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">])</span>
+<span class="n">rayp</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_ray_paths</span><span class="p">(</span><span class="n">ev_dep</span><span class="p">,</span> <span class="n">dis</span><span class="p">,</span> <span class="n">phase_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">])</span>
+<span class="n">P_arr</span> <span class="o">=</span> <span class="n">arrivals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">P_ray</span> <span class="o">=</span> <span class="n">rayp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="trim-the-waveforms-for-prf">
+<h2>Trim the waveforms for PRF<a class="headerlink" href="#trim-the-waveforms-for-prf" title="Permalink to this headline">¶</a></h2>
+<p>Then you cut 130 s long waveforms around P arrival time (from 10 s before to 120 s after theoretical P arrival times).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+<span class="n">shift</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">time_after</span> <span class="o">=</span> <span class="mi">120</span>
+
+<span class="n">cut_pos_begin</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">P_arr</span><span class="o">.</span><span class="n">time</span> <span class="o">-</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sac</span><span class="o">.</span><span class="n">o</span> <span class="o">-</span> <span class="n">shift</span><span class="p">)</span> <span class="o">/</span> <span class="n">dt</span><span class="p">)</span>
+<span class="n">cut_pos_end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">P_arr</span><span class="o">.</span><span class="n">time</span> <span class="o">-</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sac</span><span class="o">.</span><span class="n">o</span> <span class="o">+</span> <span class="n">time_after</span><span class="p">)</span> <span class="o">/</span> <span class="n">dt</span><span class="p">)</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">st_TRZ</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">cut_pos_begin</span><span class="p">:</span><span class="n">cut_pos_end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">st_TRZ</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">cut_pos_begin</span><span class="p">:</span><span class="n">cut_pos_end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">st_TRZ</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">cut_pos_begin</span><span class="p">:</span><span class="n">cut_pos_end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">time_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">shift</span><span class="p">,</span> <span class="n">time_after</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+<span class="n">ax3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../_images/output_13_1.png" /></p>
+</div>
+<div class="section" id="calculate-prf">
+<h2>Calculate PRF<a class="headerlink" href="#calculate-prf" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">seispy.decov.decovit</span></code> provide a function with an iterative time-domain deconvolution method. Now let’s calculate a PRF. In this example we assume:</p>
+<ul class="simple">
+<li><p>Gauss factor = 2.0</p></li>
+<li><p>The maximum number of iterations = 400</p></li>
+<li><p>Minimum error = 0.001</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f0</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">tmax</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">minderr</span> <span class="o">=</span> <span class="mf">0.001</span>
+
+<span class="n">PRF_R</span><span class="p">,</span> <span class="n">RMS</span><span class="p">,</span> <span class="n">it</span> <span class="o">=</span> <span class="n">seispy</span><span class="o">.</span><span class="n">decov</span><span class="o">.</span><span class="n">decovit</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shift</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">minderr</span><span class="p">)</span>
+<span class="n">PRF_T</span><span class="p">,</span> <span class="n">RMS</span><span class="p">,</span> <span class="n">it</span> <span class="o">=</span> <span class="n">seispy</span><span class="o">.</span><span class="n">decov</span><span class="o">.</span><span class="n">decovit</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shift</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">minderr</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">PRF_R</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">PRF_T</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../_images/output_15_1.png" /></p>
+<p>The figure shows PRFs in R and T components.</p>
+<p><a class="reference external" href="/_static/files/PRF_Process.ipynb"><strong>Download this Jupyter Notebook</strong></a></p>
+</div>
+</div>
+
+
+           </div>
+           
+           <div class="articleComments">
+            
+
+<!-- gitalk 脚本-->
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '353cad2a2d15e1570ff3',
+    clientSecret: '4405286d2f00e73da8474211999fdee5a6f09f42',
+    owner: 'xumi1993',
+    repo: 'seispy-doc.post',
+    admin: ['xumi1993'],
+    id: md5(location.pathname),
+    body: location.href,
+    language: 'en'
+  });
+gitalk.render('gitalk-container');
+</script>
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="rf-sta.html" class="btn btn-neutral float-right" title="Calculate PRFs for a station" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Mijian Xu.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

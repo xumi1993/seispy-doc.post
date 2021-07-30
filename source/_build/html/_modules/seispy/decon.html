@@ -1,0 +1,556 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>seispy.decon &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/seispy_100.png"/>
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="seispy.xumijian.me/_modules/seispy/decon.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+    
+    <a href="../../index.html" class="icon icon-home"> seispy
+    
+
+    
+    
+    <img src="../../_static/seispy_100.png" class="logo" alt="Logo"/>
+    
+    </a>
+
+    
+    
+    
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/calrf.html">Calculate a P-wave Receiver Function (PRF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/rf-sta.html">Calculate PRFs for a station</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/pickrf.html">Virtual check PRFs with an user interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/ccp.html">Stack PRFs with Common Conversion points (CCP) method</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/ex-prf.html">Calculate PRFs of the station CB.NJ2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/ex-prf.html#estimate-the-moho-depth-and-the-crustal-vp-vs-using-the-h-k-stacking-method">Estimate the Moho depth and the crustal Vp/Vs using the H-k stacking method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/ex-ccp.html">Calculate PRFs of a seismic array in batch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/ex-ccp.html#ccp-stacking-along-a-linear-seismic-array">CCP stacking along a linear seismic array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/ex-ccp3d.html">3-D CCP stacking for mantle transition zone structure under the Tibet.</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Module Index</a></li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">Links:</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/xumi1993/seispy"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+                <li class="toctree-l1"><a href="https://blog.xumijian.me"><i class="fa fa-rss fa-fw"></i> Chinses Blog</a></li>
+            
+                <li class="toctree-l1"><a href="https://home.xumijian.me/#contact"><i class="fa fa-envelope fa-fw"></i> Contact</a></li>
+            
+        </ul>
+    
+
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>seispy.decon</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for seispy.decon</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">obspy</span>
+<span class="kn">from</span> <span class="nn">obspy.io.sac</span> <span class="kn">import</span> <span class="n">SACTrace</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.util</span> <span class="kn">import</span> <span class="n">next_pow_2</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">ifft</span><span class="p">,</span> <span class="n">ifftshift</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">fftconvolve</span><span class="p">,</span> <span class="n">correlate</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">solve_toeplitz</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<div class="viewcode-block" id="gaussFilter"><a class="viewcode-back" href="../../seispy.html#seispy.decon.gaussFilter">[docs]</a><span class="k">def</span> <span class="nf">gaussFilter</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">nft</span><span class="p">,</span> <span class="n">f0</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">nft</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="n">nft21</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">nft</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">df</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nft21</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span>
+
+    <span class="n">gauss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">nft</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">gauss1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.25</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="n">f0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">dt</span>
+    <span class="n">gauss1</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gauss1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">gauss</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">nft21</span><span class="p">)]</span> <span class="o">=</span> <span class="n">gauss1</span>
+    <span class="n">gauss</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">nft21</span><span class="p">):]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">gauss</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">nft21</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">gauss</span> <span class="o">=</span> <span class="n">gauss</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">gauss</span></div>
+
+
+<div class="viewcode-block" id="gfilter"><a class="viewcode-back" href="../../seispy.html#seispy.decon.gfilter">[docs]</a><span class="k">def</span> <span class="nf">gfilter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">gauss</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+    <span class="n">Xf</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)</span>
+    <span class="n">Xf</span> <span class="o">=</span> <span class="n">Xf</span> <span class="o">*</span> <span class="n">gauss</span> <span class="o">*</span> <span class="n">dt</span>
+    <span class="n">xnew</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">Xf</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>
+    <span class="k">return</span> <span class="n">xnew</span></div>
+
+
+<div class="viewcode-block" id="correl"><a class="viewcode-back" href="../../seispy.html#seispy.decon.correl">[docs]</a><span class="k">def</span> <span class="nf">correl</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">nfft</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">fft</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">fft</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)),</span> <span class="n">nfft</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">real</span>
+    <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="phaseshift"><a class="viewcode-back" href="../../seispy.html#seispy.decon.phaseshift">[docs]</a><span class="k">def</span> <span class="nf">phaseshift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">tshift</span><span class="p">):</span>
+    <span class="n">Xf</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)</span>
+    <span class="n">shift_i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tshift</span> <span class="o">/</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nfft</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">shift_i</span> <span class="o">/</span> <span class="n">nfft</span>
+    <span class="n">Xf</span> <span class="o">=</span> <span class="n">Xf</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="nb">complex</span><span class="p">)(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">Xf</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">shift_i</span> <span class="o">/</span> <span class="n">nfft</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">real</span>
+    <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="deconit"><a class="viewcode-back" href="../../seispy.html#seispy.decon.deconit">[docs]</a><span class="k">def</span> <span class="nf">deconit</span><span class="p">(</span><span class="n">uin</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">nt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tshift</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">f0</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">itmax</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">minderr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s1">&#39;P&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Created on Wed Sep 10 14:21:38 2014</span>
+<span class="sd">    [RFI, rms, it]=makeRFitdecon(uin,win,dt,nt,tshift,f0,itmax,minderr)</span>
+
+<span class="sd">    In:</span>
+<span class="sd">    uin = numerator (radial for PdS)</span>
+<span class="sd">    win = denominator (vertical component for PdS)</span>
+<span class="sd">    dt = sample interval (s)</span>
+<span class="sd">    nt = number of samples</span>
+<span class="sd">    tshift = Time until beginning of receiver function (s)</span>
+<span class="sd">    f0 = width of gaussian filter</span>
+<span class="sd">    itmax = max # iterations</span>
+<span class="sd">    minderr = Min change in error required for stopping iterations</span>
+
+<span class="sd">    Out:</span>
+<span class="sd">    RFI = receiver function</span>
+<span class="sd">    rms = Root mean square error for predicting numerator after each iteration</span>
+
+<span class="sd">    @author: Mijian Xu @ NJU</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># print(&#39;Iterative Decon (Ligorria &amp; Ammon):\n&#39;)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">uin</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">win</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The two input trace must be in same length&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">nt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">nt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">uin</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">rms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">itmax</span><span class="p">)</span>
+    <span class="n">nfft</span> <span class="o">=</span> <span class="n">next_pow_2</span><span class="p">(</span><span class="n">nt</span><span class="p">)</span>
+    <span class="n">p0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nfft</span><span class="p">)</span>
+
+    <span class="n">u0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nfft</span><span class="p">)</span>
+    <span class="n">w0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nfft</span><span class="p">)</span>
+
+    <span class="n">u0</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nt</span><span class="p">]</span> <span class="o">=</span> <span class="n">uin</span>
+    <span class="n">w0</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nt</span><span class="p">]</span> <span class="o">=</span> <span class="n">win</span>
+
+    <span class="n">gaussF</span> <span class="o">=</span> <span class="n">gaussFilter</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span>
+    <span class="c1"># gaussF = _gauss_filter(dt, nfft, f0)</span>
+
+    <span class="n">u_flt</span> <span class="o">=</span> <span class="n">gfilter</span><span class="p">(</span><span class="n">u0</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">gaussF</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="n">w_flt</span> <span class="o">=</span> <span class="n">gfilter</span><span class="p">(</span><span class="n">w0</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">gaussF</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">w0</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)</span>
+    <span class="n">r_flt</span> <span class="o">=</span> <span class="n">u_flt</span>
+
+    <span class="n">powerU</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">u_flt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">sumsq_i</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">d_error</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">powerU</span> <span class="o">+</span> <span class="n">minderr</span>
+    <span class="n">maxlag</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">nfft</span>
+    <span class="c1"># print(&#39;\tMax Spike Display is &#39; + str((maxlag) * dt))</span>
+
+    <span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d_error</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">minderr</span> <span class="ow">and</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="n">itmax</span><span class="p">:</span>
+        <span class="n">rw</span> <span class="o">=</span> <span class="n">correl</span><span class="p">(</span><span class="n">r_flt</span><span class="p">,</span> <span class="n">w_flt</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)</span>
+        <span class="n">rw</span> <span class="o">=</span> <span class="n">rw</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w_flt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s1">&#39;P&#39;</span><span class="p">:</span>
+            <span class="n">i1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rw</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">maxlag</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">i1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rw</span><span class="p">))</span>
+        <span class="n">amp</span> <span class="o">=</span> <span class="n">rw</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span> <span class="o">/</span> <span class="n">dt</span>
+
+        <span class="n">p0</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span> <span class="o">=</span> <span class="n">p0</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span> <span class="o">+</span> <span class="n">amp</span>
+        <span class="n">p_flt</span> <span class="o">=</span> <span class="n">gfilter</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">gaussF</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+        <span class="n">p_flt</span> <span class="o">=</span> <span class="n">gfilter</span><span class="p">(</span><span class="n">p_flt</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">wf</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+        <span class="n">r_flt</span> <span class="o">=</span> <span class="n">u_flt</span> <span class="o">-</span> <span class="n">p_flt</span>
+        <span class="n">sumsq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">r_flt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">powerU</span>
+        <span class="n">rms</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">=</span> <span class="n">sumsq</span>
+        <span class="n">d_error</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="n">sumsq_i</span> <span class="o">-</span> <span class="n">sumsq</span><span class="p">)</span>
+
+        <span class="n">sumsq_i</span> <span class="o">=</span> <span class="n">sumsq</span>
+
+        <span class="n">it</span> <span class="o">=</span> <span class="n">it</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">p_flt</span> <span class="o">=</span> <span class="n">gfilter</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">gaussF</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="n">p_flt</span> <span class="o">=</span> <span class="n">phaseshift</span><span class="p">(</span><span class="n">p_flt</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">tshift</span><span class="p">)</span>
+    <span class="n">RFI</span> <span class="o">=</span> <span class="n">p_flt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nt</span><span class="p">]</span>
+    <span class="n">rms</span> <span class="o">=</span> <span class="n">rms</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">it</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">RFI</span><span class="p">,</span> <span class="n">rms</span><span class="p">,</span> <span class="n">it</span> </div>
+    
+
+<div class="viewcode-block" id="deconwater"><a class="viewcode-back" href="../../seispy.html#seispy.decon.deconwater">[docs]</a><span class="k">def</span> <span class="nf">deconwater</span><span class="p">(</span><span class="n">uin</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">tshift</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">wlevel</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">f0</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Frequency-domain deconvolution using waterlevel method.</span>
+
+<span class="sd">    :param uin: R or Q component for the response function</span>
+<span class="sd">    :type uin: np.ndarray</span>
+<span class="sd">    :param win: Z or L component for the source function</span>
+<span class="sd">    :type win: np.ndarray</span>
+<span class="sd">    :param dt: sample interval in second </span>
+<span class="sd">    :type dt: float</span>
+<span class="sd">    :param tshift: Time shift before P arrival, defaults to 10.</span>
+<span class="sd">    :type tshift: float, optional</span>
+<span class="sd">    :param wlevel: Waterlevel to stabilize the deconvolution, defaults to 0.05</span>
+<span class="sd">    :type wlevel: float, optional</span>
+<span class="sd">    :param f0: Gauss factor, defaults to 2.0</span>
+<span class="sd">    :type f0: float, optional</span>
+<span class="sd">    :param normalize: If normalize the amplitude of the RF, defaults to False</span>
+<span class="sd">    :type normalize: bool, optional</span>
+
+<span class="sd">    :return: (rf, rms) RF and final rms.</span>
+<span class="sd">    :rtype: (np.ndarray, float)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">uin</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="n">win</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The length of the </span><span class="se">\&#39;</span><span class="s1">uin</span><span class="se">\&#39;</span><span class="s1"> must be same as the </span><span class="se">\&#39;</span><span class="s1">win</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">nt</span> <span class="o">=</span> <span class="n">uin</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">nft</span> <span class="o">=</span> <span class="n">next_pow_2</span><span class="p">(</span><span class="n">nt</span><span class="p">)</span>
+    <span class="n">nfpts</span> <span class="o">=</span> <span class="n">nft</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>     <span class="c1"># number of freq samples</span>
+    <span class="n">fny</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span><span class="o">*</span> <span class="n">dt</span><span class="p">);</span>     <span class="c1"># nyquist</span>
+    <span class="n">delf</span> <span class="o">=</span> <span class="n">fny</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nft</span><span class="p">)</span>
+    <span class="n">freq</span> <span class="o">=</span> <span class="n">delf</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nfpts</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">freq</span>
+
+    <span class="c1"># containers</span>
+    <span class="c1"># rff = np.zeros(nft); # Rfn in freq domain</span>
+    <span class="n">upf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nft</span><span class="p">);</span> <span class="c1"># predicted numer in freq domain</span>
+
+    <span class="c1"># Convert seismograms to freq domain</span>
+    <span class="n">uf</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">uin</span><span class="p">,</span> <span class="n">nft</span><span class="p">)</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">nft</span><span class="p">)</span>
+
+    <span class="c1"># denominator</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">wf</span> <span class="o">*</span> <span class="n">wf</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+    <span class="n">dmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">real</span><span class="p">);</span>   
+
+    <span class="c1"># add water level correction</span>
+    <span class="n">phi1</span> <span class="o">=</span> <span class="n">wlevel</span> <span class="o">*</span> <span class="n">dmax</span> <span class="c1"># water level</span>
+    <span class="c1"># nwl = length( find(df&lt;phi1) ) # number corrected</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">real</span> <span class="o">&lt;</span> <span class="n">phi1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">phi1</span>
+    <span class="n">gaussF</span> <span class="o">=</span> <span class="n">gaussFilter</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">nft</span><span class="p">,</span> <span class="n">f0</span><span class="p">)</span>
+    <span class="n">nf</span> <span class="o">=</span> <span class="n">gaussF</span> <span class="o">*</span> <span class="n">uf</span> <span class="o">*</span> <span class="n">wf</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+
+    <span class="c1"># compute RF</span>
+    <span class="n">rff</span> <span class="o">=</span> <span class="n">nf</span> <span class="o">/</span> <span class="n">df</span>
+    
+    <span class="c1"># compute predicted numerator</span>
+    <span class="n">upf</span> <span class="o">=</span> <span class="n">rff</span> <span class="o">*</span> <span class="n">wf</span>
+
+    <span class="c1"># add phase shift to RF</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">rff</span> <span class="o">=</span> <span class="n">rff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">w</span> <span class="o">*</span> <span class="n">tshift</span><span class="p">)</span>
+
+    <span class="c1"># back to time domain</span>
+    <span class="n">rft</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">rff</span> <span class="p">,</span> <span class="n">nft</span><span class="p">)</span>
+    <span class="n">rft</span> <span class="o">=</span> <span class="n">rft</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nt</span><span class="p">]</span><span class="o">.</span><span class="n">real</span>
+
+    <span class="c1"># compute the fit</span>
+    <span class="n">uf</span> <span class="o">=</span> <span class="n">gaussF</span> <span class="o">*</span> <span class="n">uf</span> <span class="c1"># compare to filtered numerator</span>
+    <span class="n">ut</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">uf</span><span class="p">,</span> <span class="n">nft</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>
+    <span class="n">upt</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">upf</span><span class="p">,</span> <span class="n">nft</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>
+
+    <span class="n">powerU</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ut</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nt</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">rms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">upt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nt</span><span class="p">]</span> <span class="o">-</span> <span class="n">ut</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nt</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="p">)</span><span class="o">/</span><span class="n">powerU</span>
+
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">gnorm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">gaussF</span><span class="p">)</span> <span class="o">*</span> <span class="n">delf</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="n">rft</span> <span class="o">=</span> <span class="n">rft</span><span class="o">.</span><span class="n">real</span> <span class="o">/</span> <span class="n">gnorm</span>
+
+    <span class="k">return</span> <span class="n">rft</span><span class="p">,</span> <span class="n">rms</span> </div>
+
+<span class="k">def</span> <span class="nf">_add_zeros</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">numl</span><span class="p">,</span> <span class="n">numr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add zeros at left and rigth side of array a&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">numl</span><span class="p">),</span> <span class="n">a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">numr</span><span class="p">)])</span>
+
+
+<span class="k">def</span> <span class="nf">_acorrt</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Not normalized auto-correlation of signal a.</span>
+<span class="sd">    Sample 0 corresponds to zero lag time. Auto-correlation will consist of</span>
+<span class="sd">    num samples. Correlation is performed in time domain with scipy.</span>
+<span class="sd">    :param a: Data</span>
+<span class="sd">    :param num: Number of returned data points</span>
+<span class="sd">    :return: autocorrelation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">correlate</span><span class="p">(</span><span class="n">_add_zeros</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">a</span><span class="p">,</span> <span class="s1">&#39;valid&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_xcorrt</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">zero_sample</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Not normalized cross-correlation of signals a and b.</span>
+<span class="sd">    :param a,b: data</span>
+<span class="sd">    :param num: The cross-correlation will consist of num samples.\n</span>
+<span class="sd">        The sample with 0 lag time will be in the middle.</span>
+<span class="sd">    :param zero_sample: Signals a and b are aligned around the middle of their</span>
+<span class="sd">        signals.\n</span>
+<span class="sd">        If zero_sample != 0 a will be shifted additionally to the left.</span>
+<span class="sd">    :return: cross-correlation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">zero_sample</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">_add_zeros</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">zero_sample</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">zero_sample</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">_add_zeros</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">zero_sample</span><span class="p">))</span>
+    <span class="n">dif</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">num</span>
+    <span class="k">if</span> <span class="n">dif</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">_add_zeros</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="n">dif</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dif</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">_add_zeros</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">dif</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">dif</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">correlate</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;valid&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="decontime"><a class="viewcode-back" href="../../seispy.html#seispy.decon.decontime">[docs]</a><span class="k">def</span> <span class="nf">decontime</span><span class="p">(</span><span class="n">uin</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">tshift</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">spiking</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">nt</span> <span class="o">=</span> <span class="n">uin</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">nshift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tshift</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="n">STS</span> <span class="o">=</span> <span class="n">_acorrt</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">nt</span><span class="p">)</span>
+    <span class="n">STS</span> <span class="o">=</span> <span class="n">STS</span> <span class="o">/</span> <span class="n">STS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">STS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">spiking</span>
+    <span class="n">STR</span> <span class="o">=</span> <span class="n">_xcorrt</span><span class="p">(</span><span class="n">uin</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">nt</span><span class="p">,</span> <span class="n">nshift</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">STR</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">STS</span><span class="p">)</span>
+    <span class="n">rf</span> <span class="o">=</span> <span class="n">solve_toeplitz</span><span class="p">(</span><span class="n">STS</span><span class="p">,</span> <span class="n">STR</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rf</span><span class="p">))</span>
+        <span class="n">rf</span> <span class="o">*=</span> <span class="n">norm</span>
+    <span class="k">return</span> <span class="n">rf</span></div>
+
+
+<div class="viewcode-block" id="deconvolute"><a class="viewcode-back" href="../../seispy.html#seispy.decon.deconvolute">[docs]</a><span class="k">def</span> <span class="nf">deconvolute</span><span class="p">(</span><span class="n">uin</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iter&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;iter&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">deconit</span><span class="p">(</span><span class="n">uin</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;water&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">deconwater</span><span class="p">(</span><span class="n">uin</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;method must be in the </span><span class="se">\&#39;</span><span class="s1">iter</span><span class="se">\&#39;</span><span class="s1"> or </span><span class="se">\&#39;</span><span class="s1">water</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">ldata</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;data/syn_S.L&#39;</span><span class="p">)</span>
+    <span class="n">qdata</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;data/syn_S.Q&#39;</span><span class="p">)</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">ldata</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">qdata</span><span class="o">.</span><span class="n">data</span>
+    <span class="c1"># l = np.flip(ldata.data, axis=0)</span>
+    <span class="c1"># q = np.flip(qdata.data, axis=0)</span>
+    <span class="n">time_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">qdata</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">qdata</span><span class="o">.</span><span class="n">npts</span><span class="o">*</span><span class="n">qdata</span><span class="o">.</span><span class="n">delta</span><span class="o">+</span><span class="n">qdata</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">qdata</span><span class="o">.</span><span class="n">npts</span><span class="p">)</span>
+
+    <span class="n">rf</span><span class="p">,</span> <span class="n">rms</span><span class="p">,</span> <span class="n">it</span> <span class="o">=</span> <span class="n">deconit</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">qdata</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span> <span class="n">tshift</span><span class="o">=-</span><span class="n">qdata</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">f0</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">itmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">qdata</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">ldata</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span> <span class="n">rf</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+           <div class="articleComments">
+            
+
+<!-- gitalk 脚本-->
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '353cad2a2d15e1570ff3',
+    clientSecret: '4405286d2f00e73da8474211999fdee5a6f09f42',
+    owner: 'xumi1993',
+    repo: 'seispy-doc.post',
+    admin: ['xumi1993'],
+    id: md5(location.pathname),
+    body: location.href,
+    language: 'en'
+  });
+gitalk.render('gitalk-container');
+</script>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Mijian Xu.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

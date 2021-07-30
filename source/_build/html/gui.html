@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>GUI package &mdash; seispy latest documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/seispy_100.png"/>
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="seispy.xumijian.me/gui.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="seispy package" href="seispy.html" />
+    <link rel="prev" title="CCP package" href="ccp.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+    
+    <a href="index.html" class="icon icon-home"> seispy
+    
+
+    
+    
+    <img src="_static/seispy_100.png" class="logo" alt="Logo"/>
+    
+    </a>
+
+    
+    
+    
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/calrf.html">Calculate a P-wave Receiver Function (PRF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/rf-sta.html">Calculate PRFs for a station</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/pickrf.html">Virtual check PRFs with an user interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/ccp.html">Stack PRFs with Common Conversion points (CCP) method</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/ex-prf.html">Calculate PRFs of the station CB.NJ2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/ex-prf.html#estimate-the-moho-depth-and-the-crustal-vp-vs-using-the-h-k-stacking-method">Estimate the Moho depth and the crustal Vp/Vs using the H-k stacking method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/ex-ccp.html">Calculate PRFs of a seismic array in batch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/ex-ccp.html#ccp-stacking-along-a-linear-seismic-array">CCP stacking along a linear seismic array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/ex-ccp3d.html">3-D CCP stacking for mantle transition zone structure under the Tibet.</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module Index</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rf.html">RF package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hk.html">Hk package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ccp.html">CCP package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">GUI package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-seispy.pickfigure">seispy.pickfigure module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-seispy.pickui">seispy.pickui module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="seispy.html">seispy package</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">Links:</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/xumi1993/seispy"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+                <li class="toctree-l1"><a href="https://blog.xumijian.me"><i class="fa fa-rss fa-fw"></i> Chinses Blog</a></li>
+            
+                <li class="toctree-l1"><a href="https://home.xumijian.me/#contact"><i class="fa fa-envelope fa-fw"></i> Contact</a></li>
+            
+        </ul>
+    
+
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">seispy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">Module Index</a> &raquo;</li>
+        
+      <li>GUI package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            
+              <a href="https://github.com/xumi1993/seispy-doc.post/blob/master/source/gui.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gui-package">
+<h1>GUI package<a class="headerlink" href="#gui-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-seispy.pickfigure">
+<span id="seispy-pickfigure-module"></span><h2>seispy.pickfigure module<a class="headerlink" href="#module-seispy.pickfigure" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="seispy.pickfigure.RFFigure">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">seispy.pickfigure.</span></code><code class="sig-name descname"><span class="pre">RFFigure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rfpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code></p>
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.butnext">
+<code class="sig-name descname"><span class="pre">butnext</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.butnext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.butnext" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.butprevious">
+<code class="sig-name descname"><span class="pre">butprevious</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.butprevious"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.butprevious" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.enlarge">
+<code class="sig-name descname"><span class="pre">enlarge</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.enlarge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.enlarge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.finish">
+<code class="sig-name descname"><span class="pre">finish</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.finish" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.init_figure">
+<code class="sig-name descname"><span class="pre">init_figure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.init_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.init_figure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.init_variables">
+<code class="sig-name descname"><span class="pre">init_variables</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.init_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.init_variables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.onclick">
+<code class="sig-name descname"><span class="pre">onclick</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.onclick"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.onclick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.plot">
+<code class="sig-name descname"><span class="pre">plot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.plotbaz">
+<code class="sig-name descname"><span class="pre">plotbaz</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.plotbaz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.plotbaz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.plotwave">
+<code class="sig-name descname"><span class="pre">plotwave</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.plotwave"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.plotwave" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.read_sac">
+<code class="sig-name descname"><span class="pre">read_sac</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.read_sac"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.read_sac" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.reduce">
+<code class="sig-name descname"><span class="pre">reduce</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.reduce"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.reduce" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.set_figure">
+<code class="sig-name descname"><span class="pre">set_figure</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.set_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.set_figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the <cite>.Figure</cite> instance the artist belongs to.</p>
+<p>fig : <cite>.Figure</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.set_page">
+<code class="sig-name descname"><span class="pre">set_page</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.set_page"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.set_page" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.set_ylabels">
+<code class="sig-name descname"><span class="pre">set_ylabels</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.set_ylabels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.set_ylabels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickfigure.RFFigure.sort_baz_">
+<code class="sig-name descname"><span class="pre">sort_baz_</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#RFFigure.sort_baz_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.RFFigure.sort_baz_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="seispy.pickfigure.StaData">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">seispy.pickfigure.</span></code><code class="sig-name descname"><span class="pre">StaData</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rrf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goodrf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#StaData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.StaData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="seispy.pickfigure.indexpags">
+<code class="sig-prename descclassname"><span class="pre">seispy.pickfigure.</span></code><code class="sig-name descname"><span class="pre">indexpags</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evt_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxidx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickfigure.html#indexpags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickfigure.indexpags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-seispy.pickui">
+<span id="seispy-pickui-module"></span><h2>seispy.pickui module<a class="headerlink" href="#module-seispy.pickui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="seispy.pickui.MatplotlibWidget">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">seispy.pickui.</span></code><code class="sig-name descname"><span class="pre">MatplotlibWidget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rfpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
+<dl class="py method">
+<dt id="seispy.pickui.MatplotlibWidget.add_btn">
+<code class="sig-name descname"><span class="pre">add_btn</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget.add_btn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget.add_btn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickui.MatplotlibWidget.enlarge">
+<code class="sig-name descname"><span class="pre">enlarge</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget.enlarge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget.enlarge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickui.MatplotlibWidget.finish">
+<code class="sig-name descname"><span class="pre">finish</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget.finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget.finish" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickui.MatplotlibWidget.initUi">
+<code class="sig-name descname"><span class="pre">initUi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rfpath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget.initUi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget.initUi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickui.MatplotlibWidget.next_connect">
+<code class="sig-name descname"><span class="pre">next_connect</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget.next_connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget.next_connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickui.MatplotlibWidget.on_click">
+<code class="sig-name descname"><span class="pre">on_click</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget.on_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget.on_click" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickui.MatplotlibWidget.plot_save">
+<code class="sig-name descname"><span class="pre">plot_save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget.plot_save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget.plot_save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickui.MatplotlibWidget.plot_ui">
+<code class="sig-name descname"><span class="pre">plot_ui</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget.plot_ui"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget.plot_ui" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickui.MatplotlibWidget.previous_connect">
+<code class="sig-name descname"><span class="pre">previous_connect</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget.previous_connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget.previous_connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="seispy.pickui.MatplotlibWidget.reduce">
+<code class="sig-name descname"><span class="pre">reduce</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MatplotlibWidget.reduce"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MatplotlibWidget.reduce" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="seispy.pickui.MyMplCanvas">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">seispy.pickui.</span></code><code class="sig-name descname"><span class="pre">MyMplCanvas</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rfpath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#MyMplCanvas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.MyMplCanvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.backends.backend_qt5agg.FigureCanvasQTAgg</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="seispy.pickui.main">
+<code class="sig-prename descclassname"><span class="pre">seispy.pickui.</span></code><code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/seispy/pickui.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seispy.pickui.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+           <div class="articleComments">
+            
+
+<!-- gitalk 脚本-->
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '353cad2a2d15e1570ff3',
+    clientSecret: '4405286d2f00e73da8474211999fdee5a6f09f42',
+    owner: 'xumi1993',
+    repo: 'seispy-doc.post',
+    admin: ['xumi1993'],
+    id: md5(location.pathname),
+    body: location.href,
+    language: 'en'
+  });
+gitalk.render('gitalk-container');
+</script>
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="seispy.html" class="btn btn-neutral float-right" title="seispy package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ccp.html" class="btn btn-neutral float-left" title="CCP package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Mijian Xu.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
