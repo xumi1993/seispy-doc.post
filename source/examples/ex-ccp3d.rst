@@ -9,7 +9,7 @@ mantle transition zone (MTZ) thickness) is correspond to mineral phase
 transitions and thermal process in the mantle.
 
 Here, we will introduce the usage of the Seispy for imaging the MTZ
-structure.
+structure in the central Tibet (Xu et al., 2020). 
 
 Download link
 -------------
@@ -98,10 +98,57 @@ in this D660 depth
 
 
 Plot the map of D410, D660 and the MTZ thickness
----------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We have provided a Bash script to plot the map
 
 .. code-block:: Bash
 
     sh ps_mtz.sh
+
+.. figure:: ../_static/mtz.png
+    :alt: MTZ structure
+    :align: center
+
+    Topographies of the d410, d660 and MTZ thickness
+
+CCP stacking along a profile with bootstrapping
+-----------------------------------------------
+
+Lateral variations of the topography of D410 and D660 can be imaged by 2-D CCP stacking. To estimate errors of stacked PRFs, we will calculate 95% confidence interval with bootstrap method.
+
+Required parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Following parameters are required in the ``ccp.cfg``.
+
+- Path to input/output files, including ``depthdat`` and ``stackfile``.
+- The bin ``shape`` was set to ``circle``; ``bin_radius`` was set to 75 km; the interval between adjacent bins was set to 25 km.
+- Two end points of the profile were set in ``[line]`` section.
+- In ``[stack]`` section, We set the stacking from 300 km to 750 km with 2 km interval in depth.
+- The ``boot_samples`` was set to 2000 times in bootstrapping.
+
+Run 2-D CCP stacking in command line
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Run following command
+
+.. code-block:: Shell
+
+    ccp_profile ccp.cfg -t
+
+The text ``stackfile`` will be generated. Use provided bash script to plot the profile.
+
+.. code-block:: Shell
+
+    sh ps_profile.sh
+
+.. figure:: ../_static/profile.png
+    :alt: MTZ structure profile
+    :align: center
+
+    Topography of D410 and D660 along the profile
+
+Reference
+------------
+Xu M, Huang Z, Wang L, et al. Lateral variation of the mantle transition zone beneath the Tibetan Plateau: Insight into thermal processes during Indian–Asian collision[J]. Physics of the Earth and Planetary Interiors, 2020, 301: 106452.
