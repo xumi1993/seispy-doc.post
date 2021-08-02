@@ -56,9 +56,11 @@ optional arguments:
   -e min_dep/max_dep/interval
                         Event depth range in km
   -l min_layer/man_layer
-                        layers range as in km, dfaults to 0/800
+                        layers range as in km, defaults to 0/800
   -o outpath            Out path to Pds ray parameter lib
 ```
+
+Here, we provide a ray-parameter file with distance from 30-90 degree and source depth from 0 to 600 km: [psrayp.npz](https://osf.io/utx24/download)
 
 ### (Optional) A 3D velocity model
 
