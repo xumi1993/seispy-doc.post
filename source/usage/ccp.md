@@ -15,7 +15,7 @@ Before the CCP stacking, we should prepare:
 
 - The SACHeader of `b`, `delta` and `npts` are required. please make sure that they are correct. The `b` denote the shift time before P arrival.
 - All of SAC files belong to a same station must be put into a same **directory with name of the station name.**
-- A list file with 10 columns is required in this directory, whose format as: 
+- A list file with 10 columns is required in this directory, whose format as:
     - `evt`: the datetime part of sacfile name of each PRF.
     - `phase`: The phase part of sacfile name of each PRF.
     - `evlat`: The latitude of the event.
@@ -37,86 +37,27 @@ A text table of station information with 3 columns:
 
 ### A parameter file
 
-The parameter file include parameters used in the time-to-depth and CCP stacking. the format should follow `configparser` module as the following example:
+The parameter file include parameters used in the time-to-depth and CCP stacking. the format should follow `configparser` module. See [Template for CCP stacking](../notes/config)
 
-```Python
-[FileIO]
-# Path to stations with RF sac files
-rfpath = /path/to/RFresult
-
-# Path to station list
-stalist = /path/to/sta_all.lst
-
-# Path to the lib of Ps ray parameters. 
-# If it's empty the ray parameters of Ps would be assumed as that of P arrival
-rayp_lib =
-
-# Output data structure after time to depth
-depthdat =  /Users/xumj/Researches/NETibet/ccp_result/RFdepth_3D.mat
-
-# Output data structure after CCP stacking
-stackfile = /Users/xumj/Researches/NETibet/Ordos_Process/stack_L5
-
-# Station list used to stack
-stack_sta_list = /Users/xumj/Researches/NETibet/Ordos_Process/sta_L5.lst
-
-# Path to 1D velocity model
-# If it's empty, the IASP91 model will be used in time-to-depth conversion 
-velmod =
-
-[bin]
-# The shape of bins
-shape = rect
-
-# period of S wave (to assuming the radius of fresnel zone)
-domperiod = 5
-
-# Width of the profile in km
-width = 100
-
-# Radius of bins in km
-# If it's empty, radius would be assumed following fresnel zone
-bin_radius =
-
-# sliding interval of bins in km 
-slid_val = 5
-
-[line]
-# Coordinate of two end points for the profile
-profile_lat1 = 40.82
-profile_lon1 = 103.451
-profile_lat2 = 36.33
-profile_lon2 = 108.817
-
-[depth]
-# Max depth you wanna convert to
-dep_end = 800
-
-# depth interval in converting time to depth
-dep_val = 1
-
-[stack]
-# Stack RFs from <stack_start> km to <stack_end> km with interval of <stack_val> km
-stack_start = 0
-stack_end = 150
-stack_val = 1
-```
 
 ### (Optional) A lib of Ps ray parameters
 
 If you would stack PRFs in a large depth (e.g., D410 or D660), the ray parameters of P arrival cannot represent that of Ps phase. Therefore, a library file of Ps ray parameters in different depths and epicentral distance is required in calculating Ps-P time difference. This lib file has specific binary format. You can generate it by command of gen_rayp_lib:
 
 ```shell
-usage: gen_rayp_lib [-h] -d DIS_STR -e DEP_STR [-l LAY_STR] [-o OUT_PATH]
+usage: gen_rayp_lib [-h] -d min_dis/max_dis/interval -e min_dep/max_dep/interval [-l min_layer/man_layer] [-o outpath]
 
 Gen a ray parameter lib for Pds phases
 
 optional arguments:
-  -h, --help   show this help message and exit
-  -d DIS_STR   Distance range as 'min_dis/max_dis/interval'
-  -e DEP_STR   Event depth range as 'min_dep/max_dep/interval'
-  -l LAY_STR   layers range as 'min_layer/man_layer'
-  -o OUT_PATH  Out path to Pds ray parameter lib
+  -h, --help            show this help message and exit
+  -d min_dis/max_dis/interval
+                        Distance range in degree
+  -e min_dep/max_dep/interval
+                        Event depth range in km
+  -l min_layer/man_layer
+                        layers range as in km, dfaults to 0/800
+  -o outpath            Out path to Pds ray parameter lib
 ```
 
 ### (Optional) A 3D velocity model
@@ -160,26 +101,24 @@ The output structure would be saved as a `.mat` file, which can be read in MATLA
 - `Piercelon`: Longitudes of each event at each depth (2D array with shape of (ev_num, layer_num)).
 - `StopIndex`: The last layer after time-depth conversion (2D array with shape of (ev_num, layer_num)).
 
->Note: the layer_num was determined by field `[depth]` in parameter file. 
+**NOTE:**
+The layer_num was determined by field `[depth]` in parameter file. 
 
 ## CCP Stack PRFs along a profile
 
 The `ccp_profile` command provide functions to stack PRFs along a profile:
 
 ```
-usage: ccp_profile [-h] [-l LINE_LOCA] [-s STALIST] [-o OUTPATH] [-t] cfg_file
+usage: ccp_profile [-h] [-t] cfg_file
 
-Stack PRFs along a profile
+Stack PRFS along a profile
 
 positional arguments:
-  cfg_file      Path to CCP configure file
+  cfg_file    Path to CCP configure file
 
 optional arguments:
-  -h, --help    show this help message and exit
-  -l LINE_LOCA  Location of the profile <lat1>/<lon1>/<lat2>/<lon2>
-  -s STALIST    Path to station list
-  -o OUTPATH    Path to output data
-  -t            Output as text file
+  -h, --help  show this help message and exit
+  -t          Output as a text file
 ```
 
 ### Required parameters

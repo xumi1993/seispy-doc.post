@@ -56,9 +56,14 @@ I have been writing Seispy when I was a master student. At first, I wanted to ca
    examples/ex-ccp
    examples/ex-ccp3d.rst
 
-
 .. toctree::
    :maxdepth: 3
+   :caption: Configurations & Commands:
+
+   notes/config
+
+.. toctree::
+   :maxdepth: 4
    :caption: API Documentation:
 
    modules

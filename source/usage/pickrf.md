@@ -23,7 +23,7 @@ The window will open as following image. Each page will display 20 PRFs. You can
 
 
 ### Operations
-Directly click PRFs on the interface to set up them to 'poor' PRFs. The PRFs would turn gray when you click a PRF. If you click again, it will be restored to a 'good' PRF.
+Directly click PRFs on the interface to set up them to 'poor' PRFs. The PRFs will turn gray when you click a PRF. If you click again, it will restored to a 'good' PRF.
 
 ![](/_static/click.png)
 
@@ -44,7 +44,9 @@ This list file is **very important** for derived method such as H-k stacking and
 
 
 ### Other functions
+
 #### enlarge and reduce visual amplitudes of the waveforms
+
 Buttons of `Amp enlarge` and `Amp reduce` are available to control the visual amplitudes.
 
 #### Preview all PRFs
