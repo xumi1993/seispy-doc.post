@@ -6,14 +6,14 @@ This example provide a procedure for batch calculating PRFs of NCISP-III array (
 Download teleseismic data records
 --------------------------------------
 
-Download link: `ex-batRF.tar.gz <https://osf.io/wsj83/download>`_
+Download link: `ex-batrf.tar.gz <https://osf.io/xghrk/download>`_
 
 Unzip the file to any directory. The package include ``Data.ZX`` with 47 sub folders named as ``network.station``, which include ``sac`` files cut out from 300 s after origin time to 1000 s after origin time seismic events. The ``SACHeader` of station information (``netwk``, ``stnm``, ``stla`` and ``stlo``) had been written into ``sac`` files.
 
 Write a script for batch calculation
 --------------------------------------
 
-Seispy has provided a command called ``setpar``, which will modify values in the ``.cfg`` file. Combining with a list of station information with 3 columns (``staname``, ``stla``, ``stlo``), We can use the ``setpar`` and ``prf`` command in shell script (``run.sh``) for batch calculation of the PRFs. In this example, please execute ``run.sh`` in ``ex-batRF`` directory for the batch calculation.
+Seispy has provided a command as ``setpar``, which will modify values in the ``.cfg`` file. Combining with a list of station information with 3 columns (``staname``, ``stla``, ``stlo``), We can use the ``setpar`` and ``prf`` command in shell script (``run.sh``) for RF calculation in batch. In this example, please execute ``run.sh`` in ``ex-batRF`` directory for the batch calculation.
 
 .. code-block:: bash
 

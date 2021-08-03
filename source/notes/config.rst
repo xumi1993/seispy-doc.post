@@ -1,4 +1,4 @@
-Template of Configurations
+Templates of Configurations
 =================================
 
 RF calculation

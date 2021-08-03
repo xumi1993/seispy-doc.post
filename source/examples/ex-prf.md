@@ -37,7 +37,7 @@ The PRFs had been saved to `./RFresult/CB.NJ2`, and the `CB.NJ2finallist.dat` ha
 The Seispy has provided a command `hk` to do this process.
 
 ```shell
-usage: hk [-h] [-p] [-v] cfg_file
+usage: hk [-h] [-v] cfg_file
 
 HK stacking for single station
 
@@ -46,40 +46,12 @@ positional arguments:
 
 optional arguments:
   -h, --help  show this help message and exit
-  -p          Whether to save the image
   -v          Display results to standard output
 ```
 
 ## Prepare a configure file for `hk`
 
-Here we provide an `hk.cfg` in this example. In this file, please specify input/output directories and some other parameters.
-
-```python
-[FileIO]
-# Path to PRFs calculated before
-rfpath = ./RFresult/CB.NJ2
-
-# Path to Hk images output
-hkpath = ./
-
-# Path to the file that saves results
-hklst =
-
-[hk]
-# Range for searching H and kappa
-hmin = 40
-hmax = 80
-kmin = 1.6
-kmax = 1.9
-
-# Constant value of the crustal Vp
-vp = 6.3
-
-# Weight of different phases
-weight1 = 0.7
-weight2 = 0.2
-weight3 = 0.1
-```
+Here we provide an `hk.cfg` in this example. See [Templates of configurations](../notes/config.rst) in detail.
 
 ## Run this example
 
