@@ -4,7 +4,7 @@ Here, we provide an example for calculating PRFs of CB.NJ2, which is a permanent
 
 ## Download Seismic data and configure files
 
-Download link: [ex-prf.tar.gz](https://osf.io/c8h3t/download)
+Download link: [ex-prf.tar.gz](https://osf.io/dxcfz/download)
 
 unzip the file to any directory.
 
