@@ -17,7 +17,7 @@ Following Python modules are required for the Seispy, **but do not have to be in
 
 ### Installation 
 
-Run on command line:
+Run in command line:
 
 ```shell
 pip install python-seispy
@@ -36,7 +36,7 @@ pip install python-seispy -U
 Clone the source code from [Github](https://github.com/xumi1993/seispy.git) to any directory.
 
 ```Shell
-git clone https://github.com/xumi1993/seispy.git
+git clone --depth=1 https://github.com/xumi1993/seispy.git
 ```
 
 For **Chinese users**, try to clone the source code from [Git service of Nanjing University](https://git.nju.edu.cn/geophy/seispy)
