@@ -26,8 +26,20 @@ Run in command line:
 
 .. note::
 
-    We recommend Chinese users to use `清华大学 pypi 镜像 <https://mirrors.tuna.tsinghua.edu.cn/help/pypi/>`_ to install Seispy.
+    1. We recommend Chinese users to use `清华大学 pypi 镜像 <https://mirrors.tuna.tsinghua.edu.cn/help/pypi/>`_ to install Seispy.
+    
+    2. An error may be raised during installing Obspy via PyPi on Linux platform as following:
 
+        .. code-block::
+
+            ERROR: Could not build wheels for obspy which use PEP 517 and cannot be installed directly
+
+        Please `install Obspy via conda <https://github.com/obspy/obspy/wiki/Installation-via-Anaconda>`_ first.
+
+        .. code-block:: shell
+
+            conda config --add channels conda-forge
+            conda install obspy
 
 Upgrade to stable version
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
