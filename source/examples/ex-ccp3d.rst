@@ -11,13 +11,15 @@ transitions and thermal process in the mantle.
 Here, we will introduce the usage of the Seispy for imaging the MTZ
 structure in the central Tibet (`Xu et al., 2020 <https://doi.org/10.1016/j.pepi.2020.106452>`_). 
 
-Download link
--------------
+
+Download this example
+-----------------------
+
+Download link: `ex-ccp3d.tar.gz <https://osf.io/4cga5/download>`_
 
 The package include:
 
--  ``RFdepth_1D.npy``: RF data with 1-D time-to-depth conversion using
-   ``rf2depth`` command.
+-  ``RFdepth_1D.npy``: RF data with time-to-depth conversion with 1-D IASP91 model.
 -  ``ccp.cfg``: Configure file for 3-D CCP stacking.
 -  ``ps_mtz.sh``: Plot map for topography of D410 and D660 and the MTZ
    thickness.

@@ -2,7 +2,7 @@
 
 Here, we provide an example for calculating PRFs of CB.NJ2, which is a permanent station at Nanjing China mainland.
 
-## Download Seismic data and configure files
+## Download this example
 
 Download link: [ex-prf.tar.gz](https://osf.io/dxcfz/download)
 
@@ -12,7 +12,7 @@ unzip the file to any directory.
 tar -xzf Data.CB.NJ2.tar.gz
 ```
 
-the package include the seismic records of the station CB.NJ2 and configure files for calculating PRFs and H-k stacking.
+the package include the seismic records of the station CB.NJ2 and configure files for RF calculation and H-k stacking.
 
 The seismic records of CB.NJ2 were cut out from origin time of seismic events to 1000 s after the origin time, which contained the direct P wave and its conversion phases.
 

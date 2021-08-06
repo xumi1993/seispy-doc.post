@@ -3,7 +3,7 @@ Calculate PRFs of a seismic array in batch
 
 This example provide a procedure for batch calculating PRFs of NCISP-III array (`Zheng et al., 2007 <https://doi.org/10.1016/j.pepi.2007.01.004>`_)
 
-Download teleseismic data records
+Download this example
 --------------------------------------
 
 Download link: `ex-batrf.tar.gz <https://osf.io/xghrk/download>`_
@@ -32,10 +32,12 @@ Seispy has provided a command as ``setpar``, which will modify values in the ``.
 CCP stacking along a linear seismic array
 ==========================================
 
+Download this example
+------------------------
+
 Download link: `ex-ccp.tar.gz <https://osf.io/hzq2x/download>`_
 
-Preparation
---------------
+This package include:
 
 - A Folder with PRFs (``RFresult``)
 - A configure file with ``cfg`` format (``ccp.cfg``).
