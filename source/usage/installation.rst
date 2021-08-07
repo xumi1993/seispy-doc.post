@@ -30,16 +30,16 @@ Run in command line:
     
     2. An error may be raised during installing Obspy via PyPi on Linux platform as following:
 
-        .. code-block::
+     .. code-block:: shell
 
-            ERROR: Could not build wheels for obspy which use PEP 517 and cannot be installed directly
+        ERROR: Could not build wheels for obspy which use PEP 517 and cannot be installed directly
 
-        Please `install Obspy via conda <https://github.com/obspy/obspy/wiki/Installation-via-Anaconda>`_ first.
+    Please `install Obspy via conda <https://github.com/obspy/obspy/wiki/Installation-via-Anaconda>`_ first.
 
-        .. code-block:: shell
+     .. code-block:: shell
 
-            conda config --add channels conda-forge
-            conda install obspy
+        conda config --add channels conda-forge
+        conda install obspy
 
 Upgrade to stable version
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
