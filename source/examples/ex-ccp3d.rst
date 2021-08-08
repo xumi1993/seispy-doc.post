@@ -17,6 +17,13 @@ Download this example
 
 Download link: `ex-ccp3d.tar.gz <https://osf.io/4cga5/download>`_
 
+Download and unzip the file to any directory.
+
+.. code-block:: shell
+
+    wget https://osf.io/4cga5/download -O ex-ccp3d.tar.gz
+    tar -xzf ex-ccp3d.tar.gz
+
 The package include:
 
 -  ``RFdepth_1D.npy``: RF data with time-to-depth conversion with 1-D IASP91 model.

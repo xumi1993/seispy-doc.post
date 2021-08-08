@@ -14,9 +14,11 @@ net.sta
 ```
 
 For example, PRFs were saved in folder `net.sta`. the file name of the PRF must be in `%Y.%j.%H.%M.%S_P_[RT].sac`. Now input following command to open the UI to browse the PRFs and reject poor PRFs.
+
 ```
 $ pickrf /path/to/net.sta
 ```
+
 The window will open as following image. Each page will display 20 PRFs. You can press `z` and `c` hotkey or click `previous` and `next` button for turning pages.
 
 ![](/_static/pickrf.png)
@@ -42,7 +44,6 @@ When you have selected all PRFs, please click `finish` button to delete all 'poo
 
 This list file is **very important** for derived method such as H-k stacking and CCP stacking.
 
-
 ### Other functions
 
 #### enlarge and reduce visual amplitudes of the waveforms
@@ -51,7 +52,6 @@ Buttons of `Amp enlarge` and `Amp reduce` are available to control the visual am
 
 #### Preview all PRFs
 the `space` hotkey and `preview` button provide a function to plot all 'good' PRFs. Use `ctrl+s` on Linux/Windows and `cmd+s` on MacOS to save this figure as a PDF file.
-
 
 ### Keymap
 

@@ -8,7 +8,14 @@ Download this example
 
 Download link: `ex-batrf.tar.gz <https://osf.io/xghrk/download>`_
 
-Unzip the file to any directory. The package include ``Data.ZX`` with 47 sub folders named as ``network.station``, which include ``sac`` files cut out from 300 s after origin time to 1000 s after origin time seismic events. The ``SACHeader` of station information (``netwk``, ``stnm``, ``stla`` and ``stlo``) had been written into ``sac`` files.
+Download and unzip the file to any directory.
+
+.. code-block:: shell
+
+    wget https://osf.io/xghrk/download -O ex-batrf.tar.gz
+    tar -xzf ex-batrf.tar.gz
+
+The package include ``Data.ZX`` with 47 sub folders named as ``network.station``, which include ``sac`` files cut out from 300 s after origin time to 1000 s after origin time seismic events. The ``SACHeader` of station information (``netwk``, ``stnm``, ``stla`` and ``stlo``) had been written into ``sac`` files.
 
 Write a script for batch calculation
 --------------------------------------
@@ -36,6 +43,13 @@ Download this example
 ------------------------
 
 Download link: `ex-ccp.tar.gz <https://osf.io/hzq2x/download>`_
+
+Download and unzip the file to any directory.
+
+.. code-block:: shell
+
+    wget https://osf.io/hzq2x/download -O ex-ccp.tar.gz
+    tar -xzf ex-ccp.tar.gz
 
 This package include:
 

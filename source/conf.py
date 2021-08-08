@@ -127,7 +127,7 @@ html_context = {
             "https://github.com/xumi1993/seispy",
         ),
         (
-            '<i class="fa fa-rss fa-fw"></i> Chinses Blog',
+            '<i class="fa fa-rss fa-fw"></i> Chinese Blog',
             "https://blog.xumijian.me",
         ),
         (

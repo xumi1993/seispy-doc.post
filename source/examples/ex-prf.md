@@ -9,7 +9,8 @@ Download link: [ex-prf.tar.gz](https://osf.io/dxcfz/download)
 unzip the file to any directory.
 
 ```shell
-tar -xzf Data.CB.NJ2.tar.gz
+wget https://osf.io/dxcfz/download -O ex-prf.tar.gz
+tar -xzf ex-prf.tar.gz
 ```
 
 the package include the seismic records of the station CB.NJ2 and configure files for RF calculation and H-k stacking.
@@ -63,4 +64,4 @@ If `-p` was specified a figure would be generated to `hkpath`, which shows the s
 
 ![](../_static/CB.NJ2.png)
 
-The result of the Moho depth and Vp/Vs were saved into the path of `hklst`(default is `hk.dat`).
+The result of the Moho depth and Vp/Vs were saved into the path of `hklst` (defaults to `hk.dat`).

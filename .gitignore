@@ -2,3 +2,4 @@
 build/
 source/_build/
 .vscode/
+public/
