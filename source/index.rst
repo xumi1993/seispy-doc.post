@@ -53,7 +53,7 @@ Libraries
   - Water level frequency domain deconvolution method (CJ. Ammon 1991 BSSA)
 - ``seispy.rf``: Procedure for RF calculation. The functions of ``match_eq``, ``search_eq`` invoked ``obspy.core.UTCDateTime`` and ``obspy.clients`` from the `Obspy <https://docs.obspy.org/>`_.
 - ``seispy.eq``: RF processing for each event, which invoked ``obspy.io.sac``, ``obspy.signal``, ``obspy.taup`` and ``obspy.core.Stream`` from the `Obspy <https://docs.obspy.org/>`_.
-- ``seispy.rfcorrect``: Subsequent process of RFs including moveout correction and time to depth conversion (1D and 3D) (see `Mijian Xu et al., 2018 EPSL <https://www.sciencedirect.com/science/article/pii/S0012821X17306921?via%3Dihub>`_)
+- ``seispy.rfcorrect``: Subsequent process of RFs including moveout correction and time to depth conversion (1D and 3D) (see `Xu et al., 2018 EPSL <https://www.sciencedirect.com/science/article/pii/S0012821X17306921?via%3Dihub>`_)
 - ``seispy.ccpprofile``: CCP stacking along a profile.
 - ``seispy.ccp3d``: 3-D CCP stacking with extracting depth D410 and D660.
 
