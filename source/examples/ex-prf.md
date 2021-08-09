@@ -57,10 +57,9 @@ Here we provide an `hk.cfg` in this example. See [Templates of configurations](.
 ## Run this example
 
 ```shell
-hk hk.cfg -p
+hk hk.cfg
 ```
-
-If `-p` was specified a figure would be generated to `hkpath`, which shows the stacking energy of difference phases and the final result of the estimation.
+The figure would be generated to `hkpath`, which shows the stacking energy of difference phases and the final result of the estimation.
 
 ![](../_static/CB.NJ2.png)
 
