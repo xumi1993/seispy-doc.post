@@ -126,8 +126,8 @@ f0 = 2.0
 tmax = 400
 minderr = 0.001
 
-PRF_R, RMS, it = seispy.decov.decovit(R, Z, dt, R.shape[0], shift, f0, tmax, minderr)
-PRF_T, RMS, it = seispy.decov.decovit(T, Z, dt, T.shape[0], shift, f0, tmax, minderr)
+PRF_R, RMS, it = seispy.decon.deconit(R, Z, dt, R.shape[0], shift, f0, tmax, minderr)
+PRF_T, RMS, it = seispy.decon.deconit(T, Z, dt, T.shape[0], shift, f0, tmax, minderr)
 
 plt.plot(time_axis, PRF_R)
 plt.plot(time_axis, PRF_T)
