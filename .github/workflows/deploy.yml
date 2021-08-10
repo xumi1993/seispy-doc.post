@@ -29,21 +29,15 @@ jobs:
       - name: before_install
         run: |
           git clone --branch=gh-pages https://github.com/xumi1993/seispy.git ./public
-          git clone --branch=master https://github.com/xumi1993/seispy.git
-          cd seispy
-          pip install .
-          cd ..
+          pip install python-seispy
       
-      - name: install dependence
-        run: pip install sphinx==3.5.3 sphinx_rtd_theme==0.5.2 recommonmark==0.7.1 sphinx-markdown-tables==0.0.15
+#       - name: install dependence
+#         run: pip install sphinx==3.5.3 sphinx_rtd_theme==0.5.2 recommonmark==0.7.1 sphinx-markdown-tables==0.0.15
 
       # Runs a set of commands using the runners shell
-      - name: build docs
-        run: |
-          make html
-          rm -r ./public/*
-          cp -r ./build/html/* ./public
-          echo seispy.xumijian.me > ./public/CNAME
+      - uses: ammaraskar/sphinx-action@master
+        with:
+          docs-folder: "public/"
           
       - name: Commit files
         run: |
