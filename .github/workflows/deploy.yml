@@ -52,14 +52,13 @@ jobs:
           git config --local user.name "xumi1993"
           git commit -m `date +"%Y.%m.%dT%H:%M%S"` -a
           
-      - name: Push
-        run: |
-          cd ./public
-          touch ~/.git-credentials
-          chmod 0600 ~/.git-credentials
-          echo "https://${{ secrets.GITHUB_TOKEN }}:@github.com" > ~/.git-credentials
-          git config credential.helper store
-          git push --force origin HEAD:gh-pages
-
-        # github_token: ${{ secrets.GITHUB_TOKEN }}
-        # directory: ./public
+      - name: Pushes to seispy gh-pages repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'public'
+          destination-github-username: 'xumi1993'
+          destination-repository-name: 'seispy'
+          user-email: gomijianxu@gmail.com
+          target-branch: gh-pages
