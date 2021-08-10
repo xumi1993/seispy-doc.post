@@ -54,6 +54,7 @@ jobs:
           
       - name: Push
         run: |
+          cd ./public
           touch ~/.git-credentials
           chmod 0600 ~/.git-credentials
           echo "https://${{ secrets.GITHUB_TOKEN }}:@github.com" > ~/.git-credentials
