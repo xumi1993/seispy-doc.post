@@ -35,12 +35,12 @@ jobs:
 #         run: pip install sphinx==3.5.3 sphinx_rtd_theme==0.5.2 recommonmark==0.7.1 sphinx-markdown-tables==0.0.15
 
       # Runs a set of commands using the runners shell
-      - uses: ammaraskar/sphinx-action@master
-        with:
-          docs-folder: "public/"
-          
+      - name: build docs 
+        uses: ammaraskar/sphinx-action@master
+         
       - name: Commit files
         run: |
+          cp -r html/* public/
           cd ./public
           git config --local user.email "gomijianxu@gmail.com"
           git config --local user.name "xumi1993"
