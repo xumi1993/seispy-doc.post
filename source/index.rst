@@ -4,12 +4,14 @@
    contain the root `toctree` directive.
 
 Seispy Documentation
-==================================
+==========================
 
-.. image:: https://img.shields.io/travis/com/xumi1993/seispy
-   :target: https://travis-ci.com/xumi1993/seispy
-.. image:: https://img.shields.io/travis/com/xumi1993/seispy-doc.post?label=doc
-   :target: https://seispy.xumijian.me
+.. image:: https://github.com/xumi1993/seispy/actions/workflows/python-publish.yml/badge.svg
+   :target: https://github.com/xumi1993/seispy/actions/workflows/python-publish.yml
+.. image:: https://github.com/xumi1993/seispy-doc.post/actions/workflows/deploy.yml/badge.svg
+   :target: https://github.com/xumi1993/seispy-doc.post/actions/workflows/deploy.yml
+.. image:: https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/seispy-feedstock?branchName=master
+   :target: https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=13623&branchName=master
 .. image:: https://img.shields.io/pypi/v/python-seispy
    :target: https://pypi.org/project/python-seispy
 .. image:: https://img.shields.io/pypi/pyversions/python-seispy
