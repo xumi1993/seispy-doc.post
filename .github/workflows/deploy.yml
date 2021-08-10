@@ -24,6 +24,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.7'
+          architecture: amd64
 
       # Runs a single command using the runners shell
       - name: before_install
@@ -32,8 +38,8 @@ jobs:
           pip install python-seispy
       
       - name: install dependence
-#         run: pip install sphinx==3.5.3 sphinx_rtd_theme==0.5.2 recommonmark==0.7.1 sphinx-markdown-tables==0.0.15
-        run: pip install sphinx sphinx_rtd_theme recommonmark sphinx-markdown-tables
+        run: pip install sphinx==3.5.3 sphinx_rtd_theme==0.5.2 recommonmark==0.7.1 sphinx-markdown-tables==0.0.15
+#         run: pip install sphinx sphinx_rtd_theme recommonmark sphinx-markdown-tables
 
       # Runs a set of commands using the runners shell
       - name: build docs 
