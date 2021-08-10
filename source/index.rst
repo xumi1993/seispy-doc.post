@@ -12,6 +12,9 @@ Seispy Documentation
    :target: https://github.com/xumi1993/seispy-doc.post/actions/workflows/deploy.yml
 .. image:: https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/seispy-feedstock?branchName=master
    :target: https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=13623&branchName=master
+.. image:: https://img.shields.io/conda/vn/conda-forge/seispy.svg
+   :target: https://anaconda.org/conda-forge/seispy
+
 .. image:: https://img.shields.io/pypi/v/python-seispy
    :target: https://pypi.org/project/python-seispy
 .. image:: https://img.shields.io/pypi/pyversions/python-seispy
