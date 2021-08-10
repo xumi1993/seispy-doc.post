@@ -50,7 +50,7 @@ jobs:
           cd ./public
           touch ~/.git-credentials
           chmod 0600 ~/.git-credentials
-          echo "https://${GITHUB_TOKEN}:@github.com" > ~/.git-credentials
+          echo "https://${{ secrets.GITHUB_TOKEN }}:@github.com" > ~/.git-credentials
           git config credential.helper store
           git config --local user.email "gomijianxu@gmail.com"
           git config --local user.name "xumi1993"
