@@ -45,5 +45,9 @@ jobs:
           cp -r ./build/html/* ./public
           echo seispy.xumijian.me > ./public/CNAME
           
-      - name: deploy
-        run: sh deploy.sh
+      - name: Commit files
+        run: |
+          git config --local user.email "gomijianxu@gmail.com"
+          git config --local user.name "xumi1993"
+          git commit -m `date +"%Y.%m.%dT%H:%M%S"`
+          git push --force origin HEAD:gh-pages
