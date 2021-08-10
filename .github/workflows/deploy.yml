@@ -37,7 +37,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: build docs 
         uses: ammaraskar/sphinx-action@master
-         
+        with:
+          docs-folder: "./"
+
       - name: Commit files
         run: |
           cp -r html/* public/
