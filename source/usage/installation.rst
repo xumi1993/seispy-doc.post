@@ -4,7 +4,7 @@ Installation
 Dependencies
 ---------------
 
-The current version has been integration tested using **Python 3**. We recommend to install the `Anaconda <https://www.anaconda.com/>`_ as the Python environment.
+The current version has been integration tested using **Python 3**. 
 
 Following Python modules are required for the Seispy, **but do not have to be installed manually.**
 
@@ -14,11 +14,41 @@ Following Python modules are required for the Seispy, **but do not have to be in
 - `Matplotlib <https://matplotlib.org/>`_
 - `Pyqt5 <https://pypi.org/project/PyQt5/>`_
 
+
+Install and update via `Anaconda <https://www.anaconda.com/>`_ 
+-------------------------------------------------------------------
+
+We recommend to install the `Anaconda <https://www.anaconda.com/>`_ as the Python environment. 
+
+Installing ``seispy`` from the ``conda-forge`` channel can be achieved by adding ``conda-forge`` to your channels with:
+
+.. code-block:: shell
+
+    conda config --add channels conda-forge
+    conda config --set channel_priority strict
+
+.. note::
+
+    For Chinese users, we recommend to change the source of the ``conda-forge`` to `清华大学 Anaconda 镜像 <https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/>`_
+
+Once the ``conda-forge`` channel has been enabled, ``seispy`` can be installed with:
+
+.. code-block:: shell
+
+    conda install seispy
+
+
+It is possible to list all of the versions of ``seispy`` available on your platform with:
+
+.. code-block:: shell
+
+    conda search seispy --channel conda-forge
+
+
 Install and update via `PyPi <https://pypi.org/>`_
 ---------------------------------------------------
 
-Run in command line:
-^^^^^^^^^^^^^^^^^^^^^^^
+Recommended for normal users to install Seispy with a stable version
 
 .. code-block:: shell
 
@@ -26,23 +56,22 @@ Run in command line:
 
 .. note::
 
-    1. We recommend Chinese users to use `清华大学 pypi 镜像 <https://mirrors.tuna.tsinghua.edu.cn/help/pypi/>`_ to install Seispy.
+    - We recommend Chinese users to use `清华大学 pypi 镜像 <https://mirrors.tuna.tsinghua.edu.cn/help/pypi/>`_ to install Seispy.
     
-    2. An error may be raised during installing Obspy via PyPi on Linux platform as following:
+    - An error may be raised during installing Obspy via PyPi on Linux platform as following:
 
      .. code-block:: shell
 
         ERROR: Could not build wheels for obspy which use PEP 517 and cannot be installed directly
 
-    Please `install Obspy via conda <https://github.com/obspy/obspy/wiki/Installation-via-Anaconda>`_ first.
+     Please `install Obspy via conda <https://github.com/obspy/obspy/wiki/Installation-via-Anaconda>`_ first.
 
      .. code-block:: shell
 
         conda config --add channels conda-forge
         conda install obspy
 
-Upgrade to stable version
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Upgrading Seispy to the next stable version. 
 
 .. code-block:: shell
 
@@ -52,8 +81,6 @@ Upgrade to stable version
 Install and update from source code
 --------------------------------------
 
-Download the source codes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Clone the source code from `Github <https://github.com/xumi1993/seispy.git>`_ to any directory.
 
