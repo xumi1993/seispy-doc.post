@@ -67,3 +67,8 @@ jobs:
           destination-repository-name: 'seispy'
           user-email: gomijianxu@gmail.com
           target-branch: gh-pages
+          
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
