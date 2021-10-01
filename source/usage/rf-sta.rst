@@ -67,7 +67,7 @@ We have provided the command ``prf``. The usage is shown as:
 Initialize a project instance
 --------------------------------
 
-**To further understand the procedure of the command ** ``prf`` **, we recommend calculating PRFs with writing a Python script as following steps.**
+**To further understand the procedure of the command**  ``prf`` **, we recommend calculating PRFs with writing a Python script as following steps.**
 
 First, let’s initialize a ``RF``instance. In this instance, we can set parameters and calculate PRFs using method of the class.
 
@@ -235,6 +235,51 @@ The waveforms will be cut in this step before ``para.time_before`` and after ``p
   pjt.trim() # from 'para.time_before' before P to 'para.time_after' after P
   pjt.rotate()
 
+
+Saving and loading this project
+--------------------------------
+
+Save this project
+^^^^^^^^^^^^^^^^^^^^
+
+The class ``RF`` provided method to save the parameters and associated seismic events. 
+
+.. code-block:: python
+
+  pjt.save('path/to/pjt.pkl')
+
+A ``pkl`` file will be saved into local path, which include the subclass ``pjt.para`` and ``pjt.eqs``. The ``pjt.eqs`` is a ``DataFrame`` instance with following columns
+
+.. table:: Saved columns of the ``pjt.eqs``
+  :align: center
+
+  ============ ===============================
+  Column       Implication
+  ============ ===============================
+  ``date``     Origin time of the event
+  ``evla``     Latitude of the event
+  ``evlo``     Longitude of the event
+  ``evdp``     Focal depth of the event
+  ``mag``      Magnitude of the event 
+  ``bazi``     Back-azimuth between the station and the event
+  ``dis``      Great arc distance between the station and the event
+  ``datestr``  Datetime field in the associated SAC filename
+  ============ ===============================
+
+Load this project
+^^^^^^^^^^^^^^^^^^
+
+Create a new project and load the save project file for RF recalculation. 
+
+.. code-block:: python
+
+  newpjt = RF()
+  newpjt.load('path/to/pjt.pkl')
+
+.. note::
+
+  - The waveform data will not be saved into file. So please ensure that the data files are exists in the ``newpjt.para.datapath``.
+  - The data files will be reload via ``newpjt.load('path/to/pjt.pkl')``. Thus the pretreatment is necessary in recalculation.
 
 PRFs calculation
 -----------------
