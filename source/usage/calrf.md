@@ -118,6 +118,4 @@ rf.plot(show=False, type='relative',
 
 ![png](/_static/files/output_15_1.png)
 
-The figure shows PRFs in R and T components.
-
 [**Download this Jupyter Notebook**](/_static/files/PRF_Process.ipynb)
