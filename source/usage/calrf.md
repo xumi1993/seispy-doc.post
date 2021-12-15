@@ -12,8 +12,6 @@ Download and unzip this `.tar.gz` file, which include SAC files of three compone
 ```python
 import obspy
 import seispy
-import numpy as np
-import matplotlib.pyplot as plt
 ```
 
 ### Read SAC files with 3 components (ENZ)
@@ -21,7 +19,7 @@ import matplotlib.pyplot as plt
 You should prepare teleseismic data if SAC format (ENZ) and read them via obspy. To facilitate the follow-up, you'd better write positions of the station and the event into SAC header (i.e., `stla`, `stlo`, `evla`, `evlo` and `evdp`).
 
 ```python
-st = obspy.read('tele/*.101.*.SAC')
+st = obspy.read('rf_example/*.101.*.SAC')
 ```
 
 ### Pre-process for raw data
@@ -88,26 +86,11 @@ dt = st[0].stats.delta
 shift = 10
 time_after = 120
 
-cut_pos_begin = int((P_arr.time - st[0].stats.sac.o - shift) / dt)
-cut_pos_end = int((P_arr.time - st[0].stats.sac.o + time_after) / dt)
+st_TRZ.trim(st_TRZ[0].stats.starttime+P_arr.time-shift,
+            st_TRZ[0].stats.starttime+P_arr.time+time_after)
 
-T = st_TRZ[0].data[cut_pos_begin:cut_pos_end+1]
-R = st_TRZ[1].data[cut_pos_begin:cut_pos_end+1]
-Z = st_TRZ[2].data[cut_pos_begin:cut_pos_end+1]
-
-time_axis = np.linspace(-shift, time_after, T.shape[0])
-
-ax1 = plt.subplot(3,1,1)
-ax1.plot(time_axis, Z)
-ax1.set_ylabel('Z')
-
-ax2 = plt.subplot(3,1,2)
-ax2.plot(time_axis, T)
-ax2.set_ylabel('T')
-
-ax3 = plt.subplot(3,1,3)
-ax3.plot(time_axis, R)
-ax3.set_ylabel('R')
+time_axis = st_TRZ[0].times() - shift
+st_TRZ.plot()
 
 ```
 
@@ -123,16 +106,14 @@ ax3.set_ylabel('R')
 
 ```python
 f0 = 2.0
-tmax = 400
+itmax = 400
 minderr = 0.001
 
-PRF_R, RMS, it = seispy.decon.deconit(R, Z, dt, R.shape[0], shift, f0, tmax, minderr)
-PRF_T, RMS, it = seispy.decon.deconit(T, Z, dt, T.shape[0], shift, f0, tmax, minderr)
-
-plt.plot(time_axis, PRF_R)
-plt.plot(time_axis, PRF_T)
-plt.xlim([-5, 30])
-plt.legend(['R', 'T'])
+rf = RFTrace.deconvolute(st_TRZ[1], st_TRZ[2], method='iter',
+                         tshift=shift, f0=f0, itmax=itmax, minderr=minderr)
+rf.plot(show=False, type='relative',
+        starttime=rf.stats.starttime+shift,
+        endtime=rf.stats.starttime+shift+30)
 ```
 
 ![png](/_static/files/output_15_1.png)
