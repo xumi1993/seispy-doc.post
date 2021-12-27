@@ -163,7 +163,7 @@ The ``ccp_profile`` command provide functions to stack PRFs along a profile:
 Parameters for stacking
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``cfg_file`` involves parameters for stacking. We provide 4 methods to set up location of profile and bins in the stacking. In addition, 2 shapes of bins and uniform or various radius of bins can be set.
+``cfg_file`` involves parameters for stacking. We provide 3 methods to set up location of profile and bins in the stacking. In addition, 2 shapes of bins and uniform or various radius of bins can be set.
 
 Shape of bins
 ******************
@@ -199,4 +199,4 @@ Set up profile and stations
     :width: 50.0%
     :align: center
 
-    Self-adaptive binning for curved linear array. Red inverted triangles denote stations. Black circles denote location of bins
+    Self-adaptive binning for curved linear array. Red inverted triangles denote stations. Black circles denote location of bins.
