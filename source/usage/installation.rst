@@ -38,11 +38,11 @@ Once the ``conda-forge`` channel has been enabled, ``seispy`` can be installed w
     conda install seispy
 
 
-It is possible to list all of the versions of ``seispy`` available on your platform with:
+``Seispy`` can be updated with:
 
 .. code-block:: shell
 
-    conda search seispy --channel conda-forge
+    conda update seispy
 
 
 Install and update via `PyPi <https://pypi.org/>`_

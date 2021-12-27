@@ -154,18 +154,21 @@ CCP stacking
     peakfile = 
 
     [bin]
+    # For linear array, wether create bins with a self-adaptive method
+    adaptive = false
+
     # The shape of bins, circle or rect available 
     shape = rect
+
+    # Radius of bins in km
+    # Set to empty for determination of radius with fresnel zone
+    bin_radius =
 
     # period of S wave (for assuming the radius of fresnel zone)
     domperiod = 5
 
     # Width of the profile in km, only works for rectangle bin
     width = 100
-
-    # Radius of bins in km
-    # If it's empty, radius would be assumed following fresnel zone
-    bin_radius =
 
     # sliding or spacing interval of bins in km 
     slide_val = 5

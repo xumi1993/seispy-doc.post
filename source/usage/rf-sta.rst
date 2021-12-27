@@ -42,7 +42,7 @@ We have provided the command ``prf``. The usage is shown as:
 
 .. code-block::
 
-  usage: prf [-h] [-l] [-r N|E|NE] [-s] [-b [BAZ]] cfg_file
+  usage: prf [-h] [-l] [-r N|E|NE] [-s] [-b [BAZ]] [-w] cfg_file
 
   Calculating RFs for single station
 
@@ -51,25 +51,26 @@ We have provided the command ``prf``. The usage is shown as:
 
   optional arguments:
     -h, --help  show this help message and exit
-    -l          use local catalog. Default is false
-    -r N|E|NE   Reverse components: EN, E or N
+    -l          use local catalog, defaults to false
+    -r N|E|NE   Reverse components: N, E or NE
     -s          Switch the East and North components
-    -b [BAZ]    Correct back-azimuth. If "baz" is specified, the corr_baz = raw_baz + baz. If no arguments following -b Back-azimuth will be corrected with minimal energy of T
+    -b [BAZ]    Correct back-azimuth. If "baz" is specified, the corr_baz = raw_baz + baz. If there is no argument, the back-azimuth will be corrected with minimal energy of T
                 component. The searching range is raw_baz +/- 90
+    -w          Write project to localfile
 
 
 - ``cfg_file``: configure file.
 - ``-l`` if the argument was specified, a local file of catalog would be used in searching earthquakes.
 - ``-r`` Reverse the horizontal components. The arguments should be in ``EN``, ``E`` or ``N``.
 - ``-s`` If this option is specified, the East and North components would be changed.
-- ``-b`` Correct back-azimuth. If :math:`baz` is specified, the :math:`baz_{corr} = baz_{raw} + baz`. If no arguments following ``-b``,  back-azimuth will be corrected with minimal energy of T component. The searching range is :math:`baz_{raw} \pm 90^{\circ}`
+- ``-b`` Correct back-azimuth. If :math:`baz` is specified, the :math:`baz_{corr} = baz_{raw} + baz`. If no arguments following ``-b``,  back-azimuth will be corrected for grid searching minimal energy of T component. The searching range is :math:`baz_{raw} \pm 90^{\circ}`
 
 Initialize a project instance
 --------------------------------
 
 **To further understand the procedure of the command**  ``prf`` **, we recommend calculating PRFs with writing a Python script as following steps.**
 
-First, let’s initialize a ``RF``instance. In this instance, we can set parameters and calculate PRFs using method of the class.
+First, let’s initialize a ``RF``instance. In this instance, we can set parameters and calculate PRFs using functions of the class.
 
 
 .. code-block:: python
