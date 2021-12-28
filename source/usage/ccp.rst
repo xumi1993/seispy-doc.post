@@ -189,11 +189,12 @@ Set up profile and stations
 
 - **Using specified stations**: If the ``stack_sta_list`` is set to a existing file, stations in this file are used for CCP stacking. The start and end point of the profile are set in ``[line]`` section.
 
-- **Using stations as a linear array with adaptive bins**: If the CCP stacking is preformed on a curved linear array, a self-adaptive setting of bins maybe suitable. In this case, once ``adaptive`` is set to ``true`` and ``slide_val`` is specified, bins are create along the station curve. 
+- **Using stations as a linear array with self-adaptive bins**: If the CCP stacking is preformed on a curved linear array, a self-adaptive setting of bins maybe suitable. In this case, once ``adaptive`` is set to ``true``, ``slide_val`` and ``stack_sta_list``  is specified, bins are created along the station curve. 
 
   .. note:: 
 
-    The ``[line]`` section and ``rect`` bins are invalid in such situation.
+    - The ``[line]`` section and ``rect`` bins are invalid in such situation.
+    - Stations in the ``stack_sta_list`` should be in order along the linear array
 
   .. figure:: ../_static/t2.png
     :width: 50.0%

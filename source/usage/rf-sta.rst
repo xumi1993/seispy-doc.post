@@ -1,6 +1,8 @@
 
-Calculate PRFs for a station
+Calculate PRFs for single station
 ===============================
+
+.. _events:
 
 Prepare seismic records order by stations
 -----------------------------------------
@@ -28,6 +30,8 @@ Seismic data including direct P arrival should be trimmed according earthquakes.
 
 Calculate PRFs using a simple command
 ----------------------------------------
+
+.. _cfg:
 
 Prepare a configure file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

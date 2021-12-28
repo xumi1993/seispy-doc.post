@@ -72,6 +72,7 @@ Libraries
    usage/rf-sta
    usage/pickrf
    usage/ccp
+   usage/srf
 
 .. toctree::
    :maxdepth: 2

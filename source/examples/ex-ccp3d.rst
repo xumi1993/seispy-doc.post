@@ -45,7 +45,7 @@ Some new parameters in the configure file (``ccp.cfg``) are exclusive for 3-D CC
 -  ``[spacedbins]``: Options for spaced grid of bins.
 
 
-Initial grid
+Initialize grid
 ~~~~~~~~~~~~
 
 Seispy provide a command as the ``ccp3d`` for the 3-D CCP stacking.
