@@ -50,7 +50,6 @@ Libraries
 
 - ``seispy.distaz``: Calculate distance and azimuth (by the `lithospheric seismology program at USC <http://www.seis.sc.edu/software/distaz/>`_).
 - ``seispy.geo``: Tiny codes of geophysics.
-- ``seispy.bootstrap``: Bootstrap confidence interval estimation (by `scikits-bootstrap <https://github.com/cgevans/scikits-bootstrap>`_)
 - ``seispy.decon``: Functions of deconvolution transferred from `iwbailey/processRFmatlab <https://github.com/iwbailey/processRFmatlab>`_ including
 
   - Iterative time domain deconvolution method (Ligorría and Ammon 1999 BSSA). 
@@ -58,6 +57,9 @@ Libraries
   - Water level frequency domain deconvolution method (CJ. Ammon 1991 BSSA)
 - ``seispy.rf``: Procedure for RF calculation. The functions of ``match_eq``, ``search_eq`` invoked ``obspy.core.UTCDateTime`` and ``obspy.clients`` from the `Obspy <https://docs.obspy.org/>`_.
 - ``seispy.eq``: RF processing for each event, which invoked ``obspy.io.sac``, ``obspy.signal``, ``obspy.taup`` and ``obspy.core.Stream`` from the `Obspy <https://docs.obspy.org/>`_.
+- ``seispy.hk``: H-k stacking for single station (Zhu and Kanamori 2000 JGR).
+- ``seispy.rfani``: A joint method for crustal anisotropic calculation (Liu and Niu 2011 GJI).
+- ``seispy.slantstack``: Slant stacking for single station (Tauzin et al., 2008)
 - ``seispy.rfcorrect``: Subsequent process of RFs including moveout correction and time to depth conversion (1D and 3D) (see `Xu et al., 2018 EPSL <https://www.sciencedirect.com/science/article/pii/S0012821X17306921?via%3Dihub>`_)
 - ``seispy.ccpprofile``: CCP stacking along a profile.
 - ``seispy.ccp3d``: 3-D CCP stacking with extracting depth D410 and D660.
