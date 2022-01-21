@@ -1,5 +1,5 @@
 
-# Virtual check PRFs with an user interface
+# Visual check PRFs with an user interface
 
 ### Open the user interface
 Following previous steps, PRFs have been calculated and save to SAC files in a folder named as the station name.
