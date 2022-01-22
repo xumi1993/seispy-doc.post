@@ -8,13 +8,13 @@ Materials
 
 Users should prepare following marterals.
 
-- SAC files of teleseismic events including P and S wave. Refer to :ref:`Prepare a configure file <cfg>`.
+- SAC files of teleseismic events including S wave. Refer to :ref:`Prepare a configure file <cfg>`.
 - A configure file with the same content with that of PRF. Refer to :ref:`Prepare seismic records order by stations <events>`.
 
 Run in command line
 ===================
 
-Similiar to the workflow for PRFs, we have provided a command for quickly calculating SRFs.
+Similiar to the workflow for PRFs, we have provided a command ``srf`` for quickly calculating SRFs.
 
 ::
 
