@@ -16,6 +16,9 @@ RF calculation
     # Catalog path
     catalogpath = events_all.dat
 
+    path to project file
+    pjtpath = rfpjt.pkl
+
     [search_eq]
     # Date range
     date_begin = 20140101

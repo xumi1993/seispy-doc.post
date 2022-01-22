@@ -104,7 +104,7 @@ We also provide a command to grid velocity structure from a text file.
     -o O                  output filename with 'npz' format, defaults to ./mod3d.npz
 
 Time-to-depth conversion
-----------------------------
+==============================
 
 ``rf2depth`` command would convert PRFs from time axis to depth axis using above preparations:
 
@@ -142,7 +142,7 @@ The output structure would be saved as a ``.npy`` file, which can be read with `
   The layer_num was determined by field ``[depth]`` in parameter file.
 
 CCP Stack PRFs along a profile
--------------------------------
+================================
 
 The ``ccp_profile`` command provide functions to stack PRFs along a profile:
 

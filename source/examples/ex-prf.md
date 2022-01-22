@@ -25,7 +25,7 @@ Change directory to Data.CB.NJ2 then execute following command:
 prf rf.cfg
 ```
 
-As the `rfpath` set in the `rf.cfg`, run following command to virtual check PRFs use a GUI. See [Virtual check PRFs with an user interface](../usage/pickrf.md) in detail.
+As the `rfpath` set in the `rf.cfg`, run following command to visual check PRFs use a GUI. See [visual check PRFs with an user interface](../usage/pickrf.md) in detail.
 
 ```shell
 pickrf ./RFresult/CB.NJ2
@@ -33,9 +33,9 @@ pickrf ./RFresult/CB.NJ2
 
 # Estimate the Moho depth and the crustal Vp/Vs using the H-k stacking method
 
-The PRFs had been saved to `./RFresult/CB.NJ2`, and the `CB.NJ2finallist.dat` had been created via the virtual check. The Moho depth can be estimated using the the H-k stacking method.
+The PRFs had been saved to `./RFresult/CB.NJ2`, and the `CB.NJ2finallist.dat` had been created via the visual checking. The Moho depth can be estimated using the the H-k stacking method.
 
-The Seispy has provided a command `hk` to do this process.
+Seispy has provided a command `hk` to do this process.
 
 ```shell
 usage: hk [-h] [-v] cfg_file
@@ -52,7 +52,7 @@ optional arguments:
 
 ## Prepare a configure file for `hk`
 
-Here we provide an `hk.cfg` in this example. See [Templates of configurations](../notes/config.rst) in detail.
+Here we provide an `hk.cfg` in this example. See [Templates of configurations](../notes/config) in detail.
 
 ## Run this example
 

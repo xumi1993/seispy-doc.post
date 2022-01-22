@@ -1,10 +1,10 @@
 Calculate S wave Receiver Functions (SRF) for sigle station
-==============================================================
+---------------------------------------------------------------
 
 Version after 1.2.13 has involved functions for SRF calculation. The workflow is similiar to PRF calculation. 
 
 Materials
---------------
+==========
 
 Users should prepare following marterals.
 
@@ -12,7 +12,7 @@ Users should prepare following marterals.
 - A configure file with the same content with that of PRF. Refer to :ref:`Prepare seismic records order by stations <events>`.
 
 Run in command line
---------------------
+===================
 
 Similiar to the workflow for PRFs, we have provided a command for quickly calculating SRFs.
 
@@ -47,7 +47,7 @@ Compared with ``prf``, ``srf`` has a new option of ``-p`` for visual checking se
 .. figure:: ../_static/srfui.png
     :align: center
 
-    GUI for checking SRFs.
+    GUI for checking SRFs. Black lines denote manually picked arrival time. Red lines denote theoretical arrival time.
 
 - This GUI is open after arrival time calculation and rotation. The seismic waveforms in 3 components are cut arround theoretical S wave arrival time (the red line). A pre-picking is preformed with a STA/LTA method in T component (the black line).
 
@@ -72,3 +72,12 @@ Specified ``-w`` allow users to save events, parameters and picked S arrival tim
     rf.deconv()
     rf.saverf()
 
+Visual checking SRFs
+========================
+
+After calculation, the same step of visual checking as ``prf`` can be preformed via ``pickrf`` command. See :doc:`../usage/pickrf` in detail.
+
+
+.. note::
+
+    In this scheme, files of ``*_L.sac`` in ``rfpath`` will be searched in prior, when ``comp = LQT`` is set in configure file. If ``comp = TRZ``, files of ``*_Z.sac`` will be searched.

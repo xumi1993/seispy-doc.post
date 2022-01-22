@@ -1,7 +1,7 @@
 
 # Visual check PRFs with an user interface
 
-### Open the user interface
+## Open the user interface
 Following previous steps, PRFs have been calculated and save to SAC files in a folder named as the station name.
 
 ```
@@ -24,7 +24,7 @@ The window will open as following image. Each page will display 20 PRFs. You can
 ![](/_static/pickrf.png)
 
 
-### Operations
+## Operations
 Directly click PRFs on the interface to set up them to 'poor' PRFs. The PRFs will turn gray when you click a PRF. If you click again, it will restored to a 'good' PRF.
 
 ![](/_static/click.png)
@@ -44,16 +44,16 @@ When you have selected all PRFs, please click `finish` button to delete all 'poo
 
 This list file is **very important** for derived method such as H-k stacking and CCP stacking.
 
-### Other functions
+## Other functions
 
-#### enlarge and reduce visual amplitudes of the waveforms
+### enlarge and reduce visual amplitudes of the waveforms
 
 Buttons of `Amp enlarge` and `Amp reduce` are available to control the visual amplitudes.
 
-#### Preview all PRFs
+### Preview all PRFs
 the `space` hotkey and `preview` button provide a function to plot all 'good' PRFs. Use `ctrl+s` on Linux/Windows and `cmd+s` on MacOS to save this figure as a PDF file.
 
-### Keymap
+## Keymap
 
 | Key | Function |
 | ------ | ------ |
@@ -61,3 +61,7 @@ the `space` hotkey and `preview` button provide a function to plot all 'good' PR
 | `c` | Page down |
 | `space` | Preview all good PRFs |
 | `ctrl+s` or `cmd+s` | Save preview |
+
+## Re-calculation of RFs
+
+As a final-list saved into RF output path, events information of RFs can be invoked for re-calculation if we need to change some parameters, such as gauss factor, bandwidth of filter or deconvolution method. After version 1.2.14, the `prf` command introduce a new option of `-f` for  re-calculation using events in the final-list.
