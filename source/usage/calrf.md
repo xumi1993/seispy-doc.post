@@ -98,13 +98,15 @@ st_TRZ.plot()
 
 ### Calculate PRF
 
-`seispy.decon.deconit` provide a function with an iterative time-domain deconvolution method. Now let's calculate a PRF. In this example we assume:
+`seispy.decon.RFTrace` provide functions of frequency and time domain deconvolution method. Now let's calculate a PRF with iterative time domain deconvolution method. In this example we assume:
 
 - Gauss factor = 2.0
 - The maximum number of iterations = 400
 - Minimum error = 0.001
 
 ```python
+from seispy.decon import RFTrace
+
 f0 = 2.0
 itmax = 400
 minderr = 0.001
