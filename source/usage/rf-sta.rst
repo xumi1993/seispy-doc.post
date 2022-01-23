@@ -46,21 +46,23 @@ We have provided the command ``prf``. The usage is shown as:
 
 .. code-block::
 
-  usage: prf [-h] [-l] [-r N|E|NE] [-s] [-b [BAZ]] [-w] cfg_file
+usage: prf [-h] [-l] [-r N|E|NE] [-s] [-b [BAZ]] [-w] [-f finallist] cfg_file
 
   Calculating RFs for single station
 
   positional arguments:
-    cfg_file    Path to RF configure file
+    cfg_file      Path to RF configure file
 
   optional arguments:
-    -h, --help  show this help message and exit
-    -l          use local catalog, defaults to false
-    -r N|E|NE   Reverse components: N, E or NE
-    -s          Switch the East and North components
-    -b [BAZ]    Correct back-azimuth. If "baz" is specified, the corr_baz = raw_baz + baz. If there is no argument, the back-azimuth will be corrected with minimal energy of T
-                component. The searching range is raw_baz +/- 90
-    -w          Write project to localfile
+    -h, --help    show this help message and exit
+    -l            use local catalog, defaults to false
+    -r N|E|NE     Reverse components: N, E or NE
+    -s            Switch the East and North components
+    -b [BAZ]      Correct back-azimuth. If "baz" is specified, the corr_baz = raw_baz + baz. If there is no argument, the back-azimuth will be corrected with minimal energy
+                  of T component. The searching range is raw_baz +/- 90
+    -w            Write project to localfile
+    -f finallist  Specify finallist for re-calculating RFs and -l is invalid in this pattern
+
 
 
 - ``cfg_file``: configure file.
@@ -68,6 +70,7 @@ We have provided the command ``prf``. The usage is shown as:
 - ``-r`` Reverse the horizontal components. The arguments should be in ``EN``, ``E`` or ``N``.
 - ``-s`` If this option is specified, the East and North components would be changed.
 - ``-b`` Correct back-azimuth. If :math:`baz` is specified, the :math:`baz_{corr} = baz_{raw} + baz`. If no arguments following ``-b``,  back-azimuth will be corrected for grid searching minimal energy of T component. The searching range is :math:`baz_{raw} \pm 90^{\circ}`
+- ``-f`` Add a path to final-list following this option. Event information in the final-list is used instead of searching earthquakes from catalog.
 
 Initialize a project instance
 --------------------------------

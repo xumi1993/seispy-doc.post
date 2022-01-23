@@ -35,7 +35,7 @@ Once the ``conda-forge`` channel has been enabled, ``seispy`` can be installed w
 
 .. code-block:: shell
 
-    conda install seispy
+    conda install seispy -c conda-forge
 
 
 ``Seispy`` can be updated with:
